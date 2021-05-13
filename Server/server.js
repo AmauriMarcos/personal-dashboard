@@ -13,6 +13,9 @@ const port = 8080;
   }),
 }); */
 
+
+console.log(process.env.REACT_APP_FIREBASE_PRIVATE_KEY)
+
 app.use(express());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -24,7 +27,7 @@ app.get("/auth", async (req, res, next) => {
   const authId = userInfo.uid; */
 
 /*   console.log(authId); */
-  console.log(process.env.FIREBASE_PRIVATE_KEY)
+  console.log(process.env.REACT_APP_FIREBASE_PRIVATE_KEY)
   res.send("Hello from node.js");
 });
 
