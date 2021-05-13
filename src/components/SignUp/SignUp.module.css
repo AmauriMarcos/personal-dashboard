@@ -1,0 +1,83 @@
+.container{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    height: 100vh;
+    width: 100%;
+}
+
+.orSpan{
+    margin: 1.5rem auto;
+    width: 40%;
+    text-align: center;
+    color: rgb(116, 116, 116);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.orSpan:before,
+.orSpan:after{
+    content: "";
+    width: 100%;
+    height: .8px;
+    background-color:rgb(116, 116, 116);
+    display: block;
+    margin: 0 3px;
+}
+
+.signUp{
+    grid-column: 1/3;
+    grid-row: 1/2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.form{
+    width: 70%;
+}
+
+.createAccountTitlte{
+    color: rgb(182, 182, 182);
+    text-align: center;
+    transform: translateY(-1rem);
+}
+.imageArea{
+    padding: 7rem;
+    grid-column: 3/7;
+    grid-row: 1/2;
+    background: linear-gradient(to right, rgba(24, 100, 86, 0.5), rgba(96, 182, 221, 0.7)) ,url(https://images.unsplash.com/photo-1491295314828-fb03946d9b52?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.imageArea h2{
+    color: #fff;
+    font-weight: 700;
+    font-size: 2.3rem;
+}
+
+.imageArea p{
+    color: #fff;
+    font-size: 1.1rem;
+    line-height: 1.7rem;
+    width: 70%;
+    margin-top: 1.5rem;
+}
+
+.accountGroup a{
+    text-decoration: none;
+    color: #2BC4A9;
+    font-weight: 700;
+}
+
+.accountGroup a:hover{
+    color: #02e9bf;
+}
