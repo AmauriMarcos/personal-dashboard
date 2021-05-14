@@ -1,0 +1,32 @@
+.Search{
+    grid-area: search;
+    background-color: #F6F7FF;
+    border: none;
+    border-radius: 30px;
+    padding: 1.3rem 2rem;
+    margin: 2rem 0 0 2rem;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+}
+
+.input{
+    border: none;
+    background-color: transparent;
+    outline: none;
+    width: 100%;
+    margin-left: 1rem;
+}
+
+.searchIcon{
+    width: 20px;
+    height: 20px;
+}
+
+::placeholder{
+    color: #261D56;
+    text-align: center;
+    
+}

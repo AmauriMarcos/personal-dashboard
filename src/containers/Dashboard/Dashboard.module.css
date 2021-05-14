@@ -1,0 +1,8 @@
+.Dashboard{
+    display: grid;
+    grid-template-areas: "navbar main main main main main main main main main main overview overview"
+                         "navbar main main main main main main main main main main overview overview"
+                         "navbar main main main main main main main main main main overview overview"
+                         "navbar main main main main main main main main main main overview overview";
+    height: 100vh;
+}

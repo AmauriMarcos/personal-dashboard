@@ -1,0 +1,43 @@
+.transaction{
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    margin: 1rem auto;
+    padding-bottom: .5rem;
+}
+
+.transaction h3{
+    color: #353535;
+    font-size: 1.2rem;
+    font-weight: 600;
+    width: 100px;
+}
+
+.transactionDate{
+    font-size: .8rem;
+    color: #ACACAC;
+    font-weight: 600;
+    width: auto;
+}
+
+.expensePrice{
+    font-weight: 600;
+    color: #E96574;
+}
+
+.incomePrice{
+    font-weight: 600;
+    color: #2BC4A9;
+}
+
+.icons{
+    width: 30px;
+    height: 30px;
+}
+
+.iconsMore{
+    width: 20px;
+    height: 20px;
+}

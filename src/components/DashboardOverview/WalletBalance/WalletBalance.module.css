@@ -1,0 +1,47 @@
+.WalletBalance{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 140px;
+    
+}
+
+.WalletBalance .title{
+    color: #261D56;
+
+}
+
+.WalletBalance .amount{
+    color: #261D56;
+    font-size: 2.3rem;
+}
+
+.WalletBalance .incomesAndExpenses{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 200px;
+}
+
+
+.income{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.incomeText,
+.expenseText{
+    font-size: .8rem;
+    color: #ACACAC;
+    font-weight: 600;
+    margin-top: .3rem;
+}
+
+.incomesAndExpensesValues{
+    color: #261D56;
+    font-weight: bold;
+    font-size: .9rem;
+    margin-left: .5rem;
+}

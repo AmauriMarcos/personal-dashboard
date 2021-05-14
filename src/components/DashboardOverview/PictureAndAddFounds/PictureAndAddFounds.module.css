@@ -1,0 +1,26 @@
+.pictureAndAddFounds{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.boxImage{
+    border: 2px solid rgba(183, 172, 117,.68);
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.image{
+    object-fit: cover;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+}

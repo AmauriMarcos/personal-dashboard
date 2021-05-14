@@ -1,0 +1,12 @@
+.Transactions{
+    height: 100%;
+    width: 100%;
+
+}
+
+.transactionsTitle{
+    color: #261D56;
+    font-weight: 700;
+    font-size: .9rem;
+    margin-left: 2rem;
+}

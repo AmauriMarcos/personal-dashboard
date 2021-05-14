@@ -1,0 +1,14 @@
+.DashboardMain{
+    grid-area: main;
+    height: 100%;
+    display: grid;
+    grid-template-areas: "search ... ... filter"
+                         "main main main main"
+                         "main main main main";
+ 
+                   
+}
+
+.DashboardMain h1{
+    text-align: center;
+}

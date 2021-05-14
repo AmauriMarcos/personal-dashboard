@@ -9,7 +9,8 @@ import { useAuth } from "../Context/AuthContext";
 import brand from "../../assets/Brand.svg";
 import GoogleButton from "react-google-button";
 import { SignupSchema } from "../../Services/YupSchema/YupSchema";
-
+import axios from "axios";
+import firebase from "firebase/app";
 
 const SignUp = () => {
   const classes = useStyles();
@@ -18,16 +19,34 @@ const SignUp = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function handleSignInWithGoogle(){
-    try{
+  async function handleSignInWithGoogle() {
+    try {
       setError("");
       setLoading(true);
-      await signInwithGoogle()
+      await signInwithGoogle();
+      sendJwtTokentoServer();
       history.push("/dashboard");
     } catch {
-     setError("Failed sign in with Google");
-   }
- }
+      setError("Failed sign in with Google");
+    }
+  }
+
+  const sendJwtTokentoServer = async () => {
+    if (currentUser) {
+      const token = await firebase.auth().currentUser.getIdToken();
+      axios
+        .get("http://localhost:8080/auth", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -37,7 +56,10 @@ const SignUp = () => {
         </div>
         <div className={styles.form}>
           <p className={styles.createAccountTitlte}>Create an account with</p>
-          <GoogleButton onClick={handleSignInWithGoogle} style={{ margin: "1rem auto" }} />
+          <GoogleButton
+            onClick={handleSignInWithGoogle}
+            style={{ margin: "1rem auto" }}
+          />
           <p className={styles.orSpan}>or</p>
 
           {error && (
@@ -45,7 +67,7 @@ const SignUp = () => {
               {error}
             </Alert>
           )}
-      
+
           <Formik
             initialValues={{
               email: "",
@@ -64,6 +86,7 @@ const SignUp = () => {
                 setError("");
                 setLoading(true);
                 await signUp(email, password);
+                await sendJwtTokentoServer();
                 history.push("/dashboard");
               } catch {
                 setError("Failed to create an account");

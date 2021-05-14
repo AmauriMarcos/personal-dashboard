@@ -1,0 +1,17 @@
+.MainContent{
+    grid-area: main;
+    background-color: #F6F7FF;
+    border-radius: 30px;
+    margin: 2rem 2rem 0 2rem;
+    height: 80vh;
+    transform: translateY(-1rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.charts{
+    height: 60%;
+ 
+}
