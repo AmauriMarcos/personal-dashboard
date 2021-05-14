@@ -12,7 +12,7 @@
     color: #353535;
     font-size: 1.2rem;
     font-weight: 600;
-    width: 100px;
+    width: 200px;
 }
 
 .transactionDate{
@@ -25,11 +25,15 @@
 .expensePrice{
     font-weight: 600;
     color: #E96574;
+    width: 150px;
+    text-align: center;
 }
 
 .incomePrice{
     font-weight: 600;
     color: #2BC4A9;
+    width: 150px;
+    text-align: center;
 }
 
 .icons{

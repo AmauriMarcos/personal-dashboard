@@ -41,12 +41,13 @@ app.get("/transactions", async(req, res, next) =>{
   const token = req.headers.authorization;
   const userInfo = await admin.auth().verifyIdToken(token);
   const {uid} = userInfo;
-  const q = `SELECT transactions.id, email, title, category, created_at, price FROM users
+  const q = `SELECT transactions.id, email, title, category, DATE_FORMAT(created_at, "%d %b %Y %H:%i") AS created_at, price FROM users
              JOIN transactions
                 ON users.id = transactions.userID
              WHERE users.id = "${uid}" `
   connection.query(q, (err, rows) =>{
      if(err) throw err;
+     console.log(rows);
      res.send(rows);
   })
 })
