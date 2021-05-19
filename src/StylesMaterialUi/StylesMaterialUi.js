@@ -10,6 +10,41 @@ export const useStyles = makeStyles({
             backgroundColor: "#261D91 !important"
         }
     },
+    form:{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        height: "100%",
+        padding: "0 2rem"
+    },
+    modalInput:{
+        width: "100%",
+        marginBottom: "1rem !important"
+    },
+    inputLabel: {
+        margin: "right auto"
+    },
+    modalButton:{
+        backgroundColor: "#F6F7FF !important",
+        color: "#261D56 !important",
+        padding: ".5rem 1.6rem !important",
+        fontSize: ".87rem !important",
+        fontWeight: "400 !important",
+        textTransform: "none !important",
+        borderRadius: "30px !important",
+    },
+    modalButtonForm:{
+        backgroundColor: "#261D56!important",
+        color: "#F6F7FF !important",
+        padding: ".5rem 1.6rem !important",
+        fontSize: ".87rem !important",
+        fontWeight: "400 !important",
+        textTransform: "none !important",
+        borderRadius: "30px",
+        marginTop: "1.2rem !important"
+    },
     overviewButton:{
         backgroundColor: "#2BC4A9 !important",
         color: "#F6F7FF !important",

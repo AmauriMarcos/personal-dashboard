@@ -6,6 +6,7 @@
     border-bottom: 1px solid #ccc;
     margin: 1rem auto;
     padding-bottom: .5rem;
+    position: relative;
 }
 
 .transaction h3{
@@ -44,4 +45,45 @@
 .iconsMore{
     width: 20px;
     height: 20px;
+    cursor: pointer;
+ 
+}
+
+.editAndDeleteBox{
+    width: 140px;
+    padding: .3rem 0;
+    background-color: #fff;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;    
+    z-index: 10;
+    border-radius: 10px;
+}
+
+.editAndDeleteBox button{
+    border: none;
+    background-color: transparent;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding: .5rem 1rem;
+    font-weight: 600;
+   
+
+}
+
+.editAndDeleteBox button img{
+    width: 20px;
+    height: 20px;
+    margin-right: .5rem;
+}
+
+.editButton:hover{
+    color: #2BC4A9;
+}
+
+.deleteButton:hover{
+    color: #E96574;
 }

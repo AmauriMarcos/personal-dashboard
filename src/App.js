@@ -9,6 +9,7 @@ import Home from "./pages/Home/Home";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { AuthProvider } from "./components/Context/AuthContext";
 import { DashProvider } from "./components/Context/DashContext";
+import EditTransaction from "./components/EditTransaction/EditTransaction";
 
 const App = () => {
   return (
@@ -19,15 +20,16 @@ const App = () => {
             <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/signUp" component={SignUp} />
-            <Route path="/dashboard">
-              <DashProvider>
+            <DashProvider>
+              <Route path="/dashboard">
                 <Dashboard>
                   <Nav />
                   <Main />
                   <Overview />
                 </Dashboard>
-              </DashProvider>
-            </Route>
+              </Route>
+              <Route path="/dashboard/edit" component={EditTransaction} />
+            </DashProvider>
           </Switch>
         </div>
       </Router>

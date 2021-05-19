@@ -2,13 +2,20 @@
     grid-area: main;
     height: 100%;
     display: grid;
-    grid-template-areas: "search ... ... filter"
+    grid-template-areas: "search button ... filter"
                          "main main main main"
                          "main main main main";
- 
                    
 }
 
 .DashboardMain h1{
     text-align: center;
+}
+
+.wrapperButton{
+    grid-area: button;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 1.2rem;
 }

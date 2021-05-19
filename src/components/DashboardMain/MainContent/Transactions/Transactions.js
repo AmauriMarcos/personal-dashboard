@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Transactions.module.css";
 import Transaction from "./Transaction/Transaction";
 import { useDash } from "../../../Context/DashContext";
+import axios from "axios";
 
 const Transactions = () => {
-  const { transactions } = useDash();
+  const { transactions, setTransactions, openEditModal } = useDash();
+
+  const deleteTransaction = (id) => {
+    const theTransactions = [...transactions];
+    const newTransactions = theTransactions.filter((transaction) => {
+      return transaction.id !== id;
+    });
+    axios
+      .delete(`http://localhost:8080/transactions/${id}`)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+
+    setTransactions(newTransactions);
+  };
 
   return (
     <div className={styles.Container}>
@@ -19,6 +35,8 @@ const Transactions = () => {
                 created_at={transaction.created_at}
                 price={transaction.price}
                 category={transaction.category}
+                deleteTransaction={() => deleteTransaction(transaction.id)}
+                id={transaction.id}
               />
             );
           })}
