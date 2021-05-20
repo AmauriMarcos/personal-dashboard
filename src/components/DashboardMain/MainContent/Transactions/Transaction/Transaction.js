@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styles from "./Transaction.module.css";
 import food from "../../../../../assets/food.svg";
 import health from "../../../../../assets/health.svg";
@@ -7,7 +7,8 @@ import transport from "../../../../../assets/transport.svg";
 import more from "../../../../../assets/more.svg";
 import deleteIcon from "../../../../../assets/deleteIcon.svg";
 import editIcon from "../../../../../assets/pen.svg";
-import {useDash} from '../../../../Context/DashContext';
+import { useDash } from "../../../../Context/DashContext";
+import OutsideClickHandler from "react-outside-click-handler";
 
 const Transaction = ({
   title,
@@ -15,16 +16,16 @@ const Transaction = ({
   created_at,
   category,
   deleteTransaction,
-  id
+  id,
 }) => {
   let transaction = null;
   const [showBox, setShowBox] = useState(false);
 
-  function toggleBox(){
-      setShowBox(!showBox);
+  function toggleBox() {
+    setShowBox(!showBox);
   }
 
-  const {openEditModal} = useDash();
+  const { openEditModal } = useDash();
 
   function transactionByCategory(theCategory) {
     return (transaction = (
@@ -40,21 +41,42 @@ const Transaction = ({
           alt="More Icon"
         />
         {showBox && (
-        <div className={styles.editAndDeleteBox}>
-          <button onClick={() => openEditModal(id)} className={styles.editButton}>
-            <img src={editIcon} alt="edit icon" />
-            <p>Edit</p>
-          </button>
-          <button onClick={deleteTransaction} className={styles.deleteButton}>
-            <img src={deleteIcon} alt="delete icon" />
-            <p>Delete</p>
-          </button>
-        </div>
-      )}
+          <OutsideClickHandler
+            display="contents"
+            onOutsideClick={() => {
+              toggleBox();
+            }}
+          >
+            <div className={styles.editAndDeleteBox}>
+              <button
+                onClick={() => openEditModal(id)}
+                className={styles.editButton}
+              >
+                <img
+                  className={styles.svgIcon}
+                  src={editIcon}
+                  alt="edit icon"
+                />
+                <p>Edit</p>
+              </button>
+              <button
+                onClick={deleteTransaction}
+                className={styles.deleteButton}
+              >
+                <img
+                  className={styles.svgIcon}
+                  src={deleteIcon}
+                  alt="delete icon"
+                />
+                <p>Delete</p>
+              </button>
+            </div>
+          </OutsideClickHandler>
+        )}
       </div>
     ));
   }
-/* 
+  /* 
   console.log(showBox); */
 
   if (category === "Food") {
@@ -67,12 +89,7 @@ const Transaction = ({
     transactionByCategory(others);
   }
 
-  return (
-    <div>
-      {transaction}
-      
-    </div>
-  );
+  return <div>{transaction}</div>;
 };
 
 export default Transaction;

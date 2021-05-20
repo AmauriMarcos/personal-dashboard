@@ -49,14 +49,10 @@ const EditTransaction = () => {
   const {
     closeModal,
     createTransaction,
-    priceRef,
-    categoryRef,
-    textRef,
     showEditModal,
     editID,
   } = useDash();
 
-  const [singleTransaction, setSingleTransaction] = useState([]);
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
@@ -69,7 +65,7 @@ const EditTransaction = () => {
 
   const getUniqueTransaction = async () => {
     try {
-      const res = await axios.put(
+      const res = await axios.get(
         `http://localhost:8080/transactions/${editID}`
       );
       const transaction = res.data.rows;
@@ -95,6 +91,20 @@ const EditTransaction = () => {
       setCategory(e.target.value);
   }
 
+  const editTransaction = async () => {
+    try{
+      await axios.put(`http://localhost:8080/transactions/${editID}`, {
+        title,
+        price,
+        category
+      });
+    }
+    catch{
+      console.log("Something went wrong !");
+    }
+      
+  }
+
   return (
     <div>
       <Modal
@@ -105,7 +115,7 @@ const EditTransaction = () => {
         contentLabel="Example Modal"
       >
         <img
-          style={{ width: "70px", height: "70px", margin: "1rem auto 0 auto" }}
+          style={{ width: "60px", height: "60px", margin: "1rem auto 0 auto" }}
           src={editIcon}
           alt="Brand Icon"
         />
@@ -115,7 +125,7 @@ const EditTransaction = () => {
           </Alert>
         )}
         
-        <form className={classes.form} onSubmit={createTransaction}>
+        <form className={classes.form} onSubmit={editTransaction}>
           <div>
             <TextField
               className={classes.modalInput}
@@ -151,11 +161,12 @@ const EditTransaction = () => {
             </Select>
           </div>
           <Button
+            fullWidth
             type="submit"
             variant="contained"
-            className={classes.modalButtonForm}
+            className={classes.modalButtonEdit}
           >
-            Create Transaction
+            Edit
           </Button>
         </form>
         

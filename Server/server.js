@@ -19,20 +19,47 @@ admin.initializeApp({
 app.use(express());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 app.use(cors());
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.get("/auth", async (req, res, next) => {
   //Get token from the client-side generated with getIdToken()
   const token = req.headers.authorization;
+  console.log(token);
   //Verify token from user
   const userInfo = await admin.auth().verifyIdToken(token);
   const {uid, email} = userInfo;
+  console.log(uid, email);
 
   const q = `INSERT INTO users(id, email) VALUES("${uid}","${email}")`
   connection.query(q, (err, rows) =>{
      if(err) throw err;
-  /*    console.log(rows); */
+     console.log(rows);
   })
+
+  res.send("Hello from node.js");
+});
+
+app.post("/settings", async (req, res, next) => {
+  console.log(req.body);
+/*   const token = req.headers.authorization;
+
+  const userInfo = await admin.auth().verifyIdToken(token);
+  const {uid, email} = userInfo;
+  console.log(uid, email); */
+
+/*   const q = `UPDATE users SET profile_pic="${file}" WHERE id="${uid}";`
+
+  connection.query(q, (err, rows) =>{
+     if(err) throw err;
+     console.log(rows);
+  }) */
 
   res.send("Hello from node.js");
 });
@@ -70,12 +97,23 @@ app.post("/transactions", async(req, res, next) =>{
 });
 
 
-app.put("/transactions/:id", (req, res) =>{
+app.get("/transactions/:id", (req, res) =>{
   const id = req.params.id;
+  console.log(id);
+  console.log(req.body);
   const q = `SELECT title, category, price FROM transactions WHERE id=${id}`
   connection.query(q, (err, rows) =>{
      if(err) throw err;
      res.send({rows: rows});
+  })
+});
+
+app.put("/transactions/:id", (req, res) =>{
+  const id = req.params.id;
+  const {title, price, category} = req.body;
+  q = `UPDATE transactions SET title="${title}",  category="${category}", price=${price} WHERE id=${id}; `
+  connection.query(q, (err, rows) =>{
+     if(err) throw err;
   })
 })
 
@@ -84,7 +122,6 @@ app.delete("/transactions/:id", (req, res) =>{
    const q = `DELETE FROM transactions WHERE id=${id}`
    connection.query(q, (err, rows) =>{
      if(err) throw err;
-     console.log(rows);
    })
    res.send("DELETE Request Called")
 })

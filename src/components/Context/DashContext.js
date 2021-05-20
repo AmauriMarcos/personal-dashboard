@@ -99,16 +99,6 @@ export const DashProvider = ({ children }) => {
 
   };  
 
-  const editTransaction = async (id) => {
-    try{
-      await axios.put(`http://localhost:8080/transactions/${id}`)
-    }
-    catch{
-      console.log("Something went wrong !");
-    }
-      
-  }
-
   const values = {
     transactions,
     getUserTransactions,
@@ -127,7 +117,6 @@ export const DashProvider = ({ children }) => {
     openModal,
     openEditModal,
     showEditModal,
-    editTransaction,
     editID,
     setEditID
   };

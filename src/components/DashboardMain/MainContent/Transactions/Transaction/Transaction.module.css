@@ -45,22 +45,24 @@
 .iconsMore{
     width: 20px;
     height: 20px;
-    cursor: pointer;
+    cursor: pointer !important;
+    display: inline;
  
 }
 
 .editAndDeleteBox{
-    width: 140px;
-    padding: .3rem 0;
-    background-color: #fff;
+    width: 120px;
+    padding: .15rem 0;
+    background-color: rgba(38, 29, 86, .8);
     position: absolute;
-    top: 1rem;
-    right: 1rem;    
-    z-index: 10;
+    top: -1rem;
+    right:1rem;    
+    z-index: 55;
     border-radius: 10px;
 }
 
-.editAndDeleteBox button{
+.editButton,
+.deleteButton{
     border: none;
     background-color: transparent;
     outline: none;
@@ -70,15 +72,18 @@
     align-content: center;
     padding: .5rem 1rem;
     font-weight: 600;
-   
+    color: #fff;
 
 }
 
-.editAndDeleteBox button img{
+.svgIcon {
     width: 20px;
     height: 20px;
     margin-right: .5rem;
+    cursor: pointer;
 }
+
+
 
 .editButton:hover{
     color: #2BC4A9;

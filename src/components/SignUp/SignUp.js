@@ -32,20 +32,19 @@ const SignUp = () => {
   }
 
   const sendJwtTokentoServer = async () => {
-    if (currentUser) {
       const token = await firebase.auth().currentUser.getIdToken();
-      axios
-        .get("http://localhost:8080/auth", {
+      try{
+        await axios.get("http://localhost:8080/auth", {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
           },
         })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => console.log(err));
-    }
+      }
+      catch{
+        console.log("Something went wrong!");
+      }
+      
   };
 
   return (
@@ -87,11 +86,12 @@ const SignUp = () => {
                 setLoading(true);
                 await signUp(email, password);
                 await sendJwtTokentoServer();
-                history.push("/dashboard");
+                
               } catch {
                 setError("Failed to create an account");
               }
 
+              history.push("/dashboard");
               setLoading(false);
             }}
           >

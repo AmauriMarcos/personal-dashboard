@@ -10,7 +10,7 @@ const PictureAndAddFounds = () => {
     <div className={styles.pictureAndAddFounds}>
       <div className={styles.boxImage}>
         <img
-          src="https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80"
+          src="https://d3n8a8pro7vhmx.cloudfront.net/imaginebetter/pages/313/meta_images/original/blank-profile-picture-973460_1280.png?1614051091"
           className={styles.image}
         />
       </div>

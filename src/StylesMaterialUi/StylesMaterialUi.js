@@ -10,6 +10,20 @@ export const useStyles = makeStyles({
             backgroundColor: "#261D91 !important"
         }
     },
+    editInput:{
+        width: "100% !important",
+    },
+    editButton:{
+        backgroundColor: "#261D56 !important",
+        color: "#fff !important",
+        fontSize: ".75rem !important",
+        padding: ".6rem .7rem  !important",
+        marginTop: '1.5rem  !important',
+        fontWeight: "600 !important",
+        '&:hover': {
+            backgroundColor: "#261D91 !important"
+        }
+    },
     form:{
         display: "flex",
         flexDirection: "column",
@@ -44,6 +58,16 @@ export const useStyles = makeStyles({
         textTransform: "none !important",
         borderRadius: "30px",
         marginTop: "1.2rem !important"
+    },
+    modalButtonEdit:{
+        backgroundColor: "#2BC4A9!important",
+        color: "#F6F7FF !important",
+        padding: ".6rem 1.2rem !important",
+        fontSize: ".9rem !important",
+        fontWeight: "600 !important",
+        textTransform: "uppercase !important",
+        borderRadius: "10px",
+        marginTop: "1.5rem !important"
     },
     overviewButton:{
         backgroundColor: "#2BC4A9 !important",

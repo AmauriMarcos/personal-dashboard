@@ -1,0 +1,104 @@
+.Settings{
+    grid-area: main;
+    width: 510px;
+    border-radius: 30px;
+    margin: 2rem 2rem 0 2rem;
+    height: 80vh;
+    transform: translateY(3rem);
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    flex-direction: column;
+    justify-self: center;
+    align-items: flex-start;
+}
+
+.SettingsContent{
+    display: flex;
+    flex-direction: column;
+    height: 410px;
+    justify-content: space-between;
+    align-self: center;
+}
+
+.SettingsTitle{
+    font-weight: 700;
+    font-size: 2rem;
+    position: relative;
+}
+
+.SettingsTitle::after{
+    content: "";
+    display: block;
+    width: 30%;
+    height: 2px;
+    background-color: rgb(70, 70, 70);
+    position: absolute;
+    top: 1.4rem;
+    right: -3.3rem;
+}
+
+.boxProfileAndButtons{
+    display: flex;
+ /*    justify-content: space-between; */
+    align-items: center;
+   /*  width: 280px; */
+}
+
+.boxProfile{
+    width: 130px;
+    height: 130px;
+}
+
+.avatarTitle{
+    margin: 1.5rem 0 .5rem 0;
+}
+
+.profile{
+    border-radius: 50%;
+    object-fit: cover;
+    width: 130px;
+    height: 130px;
+}
+
+.formImageUpload{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.boxLabelAndSelectedImage{
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.selectedFile{
+   margin-left: 1rem;
+}
+
+.label{
+
+    padding: .6rem .9rem;
+    border: 1px solid #2BC4A9;
+    border-radius: 5px;
+    font-size: .75rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    background: transparent;
+    cursor: pointer;
+    color: #2BC4A9;
+    transform: translate(1rem, 1.8rem);
+}
+
+.label:hover{
+    background-color: #2BC4A9;
+    color: #fff;
+}

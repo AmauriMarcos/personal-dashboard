@@ -10,6 +10,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { AuthProvider } from "./components/Context/AuthContext";
 import { DashProvider } from "./components/Context/DashContext";
 import EditTransaction from "./components/EditTransaction/EditTransaction";
+import PrivateRoute from "./components/PrivateRoute";
+import Settings from './components/Settings/Settings';
 
 const App = () => {
   return (
@@ -21,14 +23,8 @@ const App = () => {
             <Route path="/login" component={Login} />
             <Route path="/signUp" component={SignUp} />
             <DashProvider>
-              <Route path="/dashboard">
-                <Dashboard>
-                  <Nav />
-                  <Main />
-                  <Overview />
-                </Dashboard>
-              </Route>
-              <Route path="/dashboard/edit" component={EditTransaction} />
+              <PrivateRoute exact path="/dashboard" component={Dashboard}/>
+              <PrivateRoute exact={true} path="/dashboard/settings" component={Dashboard}/>
             </DashProvider>
           </Switch>
         </div>
