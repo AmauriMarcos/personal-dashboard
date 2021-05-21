@@ -24,7 +24,7 @@ const SignUp = () => {
       setError("");
       setLoading(true);
       await signInwithGoogle();
-      sendJwtTokentoServer();
+      await sendJwtTokentoServer();
       history.push("/dashboard");
     } catch {
       setError("Failed sign in with Google");

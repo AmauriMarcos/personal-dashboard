@@ -61,27 +61,31 @@
     height: 130px;
 }
 
-.formImageUpload{
+
+.formUploadImage{
+    height: 186px;
     display: flex;
-    height: 100%;
-    width: 100%;
-    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin: 2rem 1rem 0 1rem;
 }
 
-input[type="file"] {
+/* input[type="file"] {
     display: none;
-}
+} */
 
 .boxLabelAndSelectedImage{
     display: flex;
     flex-direction: column;
     height: 100px;
-    justify-content: space-between;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
 }
 
 .selectedFile{
    margin-left: 1rem;
+   width: 100%;
 }
 
 .label{
@@ -95,7 +99,7 @@ input[type="file"] {
     background: transparent;
     cursor: pointer;
     color: #2BC4A9;
-    transform: translate(1rem, 1.8rem);
+  /*   transform: translate(1rem, 1.8rem); */
 }
 
 .label:hover{

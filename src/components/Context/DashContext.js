@@ -30,15 +30,51 @@ export const DashProvider = ({ children }) => {
   const textRef = useRef("");
   const priceRef = useRef("");
   const categoryRef = useRef("");
-
   /* Modal state */
   const [modalIsOpen, setIsOpen] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editID, setEditID] = useState(null);
 
+  /* User Info State */
+  const [userURL, setUserURL] = useState(null);
+  const [imageNotFoundPicture, setImageNotFoundPicture] = useState("https://d3n8a8pro7vhmx.cloudfront.net/imaginebetter/pages/313/meta_images/original/blank-profile-picture-973460_1280.png?1614051091")
+  const [userInfo, setUserInfo] = useState({});
+  const [file, setFile] = useState(null);
+  const [fileFromServer, setFileFromServer] = useState(null);
+  const [totalTransactions, setTotalTransactions] = useState([]);
+
   useEffect(() => {
     getUserTransactions();
   }, []);
+
+  useEffect(() =>{
+    getUserInfo();
+  }, [])
+
+  useEffect(() =>{
+    getTotalTransactions();
+  }, [])
+
+  const getUserInfo =  async () => {
+    if(currentUser){
+    const token = await firebase.auth().currentUser.getIdToken();
+    try{
+     const res =  await axios.get('http://localhost:8080/user/info', {
+        headers: {
+          "Content-Type": "application/json",      
+          Authorization: token,
+        },
+      })
+      const fileName = res.data[0].profile_pic;
+      setUserURL(`http://localhost:8080/public/uploads/${fileName}`);
+      setUserInfo(res.data);
+      setFileFromServer(fileName);
+     
+    }catch{
+      console.log("Error")
+    }
+  }
+};   
 
   const getUserTransactions = async () => {
     if (currentUser) {
@@ -51,10 +87,101 @@ export const DashProvider = ({ children }) => {
           },
         })
         .then((res) => {
+          console.log(res.data);
           setTransactions(res.data);
+          
         })
         .catch((err) => console.log(err));
     }
+  };
+
+  const getTotalTransactions = async () => {
+    if (currentUser) {
+      const token = await firebase.auth().currentUser.getIdToken();
+      axios
+        .get("http://localhost:8080/totalTransactions", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        })
+        .then((res) => {
+          setTotalTransactions(res.data);
+          
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
+
+  const createTransaction = async (e) => {
+    e.preventDefault();
+
+    if (currentUser) {
+      const token = await firebase.auth().currentUser.getIdToken();
+
+      let uniqueColor;
+      if(categoryRef.current.value === "Food"){
+         uniqueColor = "#063951"
+      }else if(categoryRef.current.value === "Others"){
+        uniqueColor = "#C13018"
+      }else if(categoryRef.current.value === "Health"){
+        uniqueColor = "#2BC4A9"
+      }else{
+        uniqueColor = "#0D95BC"
+      }
+
+      console.log(uniqueColor);
+
+      const data = {
+        title: textRef.current.value,
+        price: priceRef.current.value,
+        category: categoryRef.current.value,
+        color: uniqueColor
+      };
+      axios
+        .post("http://localhost:8080/transactions", data, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        })
+        .then((res) => {
+          console.log(res.data.rows)
+          getUserTransactions(); 
+          getTotalTransactions(); 
+        })
+        .catch((err) => console.log(err));
+
+      setIsOpen(false);
+    }     
+
+  };  
+
+
+  const uploadImage = async (e) => {
+    if (currentUser) {
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append("avatar", file);
+      const token = await firebase.auth().currentUser.getIdToken();
+      await axios
+        .post("http://localhost:8080/upload", formData, {
+          headers: {
+            "content-type": "multipart/form-data",
+            Authorization: token,
+          },
+        })
+        .then((res) => {
+          history.push("/dashboard");
+          getUserInfo();
+        });
+    }
+  };
+
+  const handleChange = (e) => {
+    let selectedFile = e.target.files[0];
+    setFile(selectedFile);
   };
 
   function closeModal() {
@@ -71,33 +198,7 @@ export const DashProvider = ({ children }) => {
     setEditID(id);
   }
 
-  const createTransaction = async (e) => {
-    e.preventDefault();
 
-    if (currentUser) {
-      const token = await firebase.auth().currentUser.getIdToken();
-      const data = {
-        title: textRef.current.value,
-        price: priceRef.current.value,
-        category: categoryRef.current.value,
-      };
-      axios
-        .post("http://localhost:8080/transactions", data, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-        })
-        .then((res) => {
-          console.log(res.data.rows)
-          getUserTransactions();  
-        })
-        .catch((err) => console.log(err));
-
-      setIsOpen(false);
-    }     
-
-  };  
 
   const values = {
     transactions,
@@ -118,7 +219,16 @@ export const DashProvider = ({ children }) => {
     openEditModal,
     showEditModal,
     editID,
-    setEditID
+    setEditID,
+    userURL,
+    imageNotFoundPicture,
+    userInfo,
+    getUserInfo,
+    handleChange,
+    uploadImage,
+    fileFromServer,
+    totalTransactions,
+    getTotalTransactions
   };
   return <DashContext.Provider value={values}>{children}</DashContext.Provider>;
 };

@@ -1,19 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./PictureAndAddFounds.module.css";
 import { Button } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { useStyles } from "../../../StylesMaterialUi/StylesMaterialUi";
+import { useDash } from "../../Context/DashContext";
+import axios from "axios";
+import firebase from "firebase";
 
 const PictureAndAddFounds = () => {
   const classes = useStyles();
+  const { currentUser, userURL, imageNotFoundPicture, fileFromServer, userInfo, getUserInfo } =
+    useDash();
+
   return (
     <div className={styles.pictureAndAddFounds}>
-      <div className={styles.boxImage}>
-        <img
-          src="https://d3n8a8pro7vhmx.cloudfront.net/imaginebetter/pages/313/meta_images/original/blank-profile-picture-973460_1280.png?1614051091"
-          className={styles.image}
-        />
-      </div>
+      {fileFromServer === null ? (
+        <div className={styles.boxImage}>
+          <img src={imageNotFoundPicture} className={styles.image} />
+        </div>
+      ) : (
+        <div className={styles.boxImage}>
+          <img src={userURL} className={styles.image} />
+        </div>
+      )}
+
       <Button
         variant="contained"
         className={classes.overviewButton}

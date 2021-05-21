@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Transactions.module.css";
 import Transaction from "./Transaction/Transaction";
 import { useDash } from "../../../Context/DashContext";
 import axios from "axios";
 
 const Transactions = () => {
-  const { transactions, setTransactions, openEditModal } = useDash();
+  const { transactions, setTransactions, openEditModal, getTotalTransactions} = useDash();
+
 
   const deleteTransaction = (id) => {
     const theTransactions = [...transactions];
@@ -16,10 +17,10 @@ const Transactions = () => {
       .delete(`http://localhost:8080/transactions/${id}`)
       .then((res) => {
         console.log(res.data);
+        getTotalTransactions()
       })
       .catch((err) => console.log(err));
-
-    setTransactions(newTransactions);
+      setTransactions(newTransactions);
   };
 
   return (
