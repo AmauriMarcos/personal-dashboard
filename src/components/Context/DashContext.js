@@ -11,6 +11,7 @@ import firebase from "firebase/app";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import transitions from "@material-ui/core/styles/transitions";
+import moment from 'moment';
 
 const DashContext = createContext();
 
@@ -37,44 +38,115 @@ export const DashProvider = ({ children }) => {
 
   /* User Info State */
   const [userURL, setUserURL] = useState(null);
-  const [imageNotFoundPicture, setImageNotFoundPicture] = useState("https://d3n8a8pro7vhmx.cloudfront.net/imaginebetter/pages/313/meta_images/original/blank-profile-picture-973460_1280.png?1614051091")
+  const [imageNotFoundPicture, setImageNotFoundPicture] = useState(
+    "https://d3n8a8pro7vhmx.cloudfront.net/imaginebetter/pages/313/meta_images/original/blank-profile-picture-973460_1280.png?1614051091"
+  );
   const [userInfo, setUserInfo] = useState({});
   const [file, setFile] = useState(null);
   const [fileFromServer, setFileFromServer] = useState(null);
   const [totalTransactions, setTotalTransactions] = useState([]);
+  const [totalTransactionsPerMonth, setTotalTransactionsPerMonth] = useState([]);
+  const [filteredTransactions, setFilteredTransactions] = useState([]);
+  const [allFilteredTransactions, setAllFilteredTransactions] = useState([]);
+  const [error, setError] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
 
   useEffect(() => {
     getUserTransactions();
   }, []);
 
-  useEffect(() =>{
+  useEffect(() => {
     getUserInfo();
+  }, []);
+
+  useEffect(() => {
+    getTotalTransactions();
+  }, []);
+
+  useEffect(() =>{
+     getTotalTransactionsPerMonth();
   }, [])
 
   useEffect(() =>{
-    getTotalTransactions();
-  }, [])
+    getAllFilteredTransactions(); 
+  }, [startDate, endDate]);
 
-  const getUserInfo =  async () => {
-    if(currentUser){
-    const token = await firebase.auth().currentUser.getIdToken();
-    try{
-     const res =  await axios.get('http://localhost:8080/user/info', {
-        headers: {
-          "Content-Type": "application/json",      
-          Authorization: token,
-        },
-      })
-      const fileName = res.data[0].profile_pic;
-      setUserURL(`http://localhost:8080/public/uploads/${fileName}`);
-      setUserInfo(res.data);
-      setFileFromServer(fileName);
-     
-    }catch{
-      console.log("Error")
+  useEffect(() =>{
+    filter();
+  }, [startDate, endDate]);
+
+  const getUserInfo = async () => {
+    if (currentUser) {
+      const token = await firebase.auth().currentUser.getIdToken();
+      try {
+        const res = await axios.get("http://localhost:8080/user/info", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        });
+        const fileName = res.data[0].profile_pic;
+        setUserURL(`http://localhost:8080/public/uploads/${fileName}`);
+        setUserInfo(res.data);
+        setFileFromServer(fileName);
+      } catch {
+        console.log("Error");
+      }
     }
-  }
-};   
+  };
+
+  const filter = async () => {
+    if (currentUser) {
+      const token = await firebase.auth().currentUser.getIdToken();
+
+      let filterDate = {
+         from:  moment(startDate).format('YYYY-MM-DD'),
+         to:  moment(endDate).format('YYYY-MM-DD')
+      }
+
+      try {
+        const res = await axios.get(`http://localhost:8080/filter/`, {
+          params: {
+            date : filterDate
+          },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        });
+        setFilteredTransactions(res.data.rows);
+      } catch {
+        console.log("Error");
+      }
+    }
+  };
+
+  const getAllFilteredTransactions = async () => {
+    if (currentUser) {
+      const token = await firebase.auth().currentUser.getIdToken();
+
+      let filterDate = {
+         from:  moment(startDate).format('YYYY-MM-DD'),
+         to:  moment(endDate).format('YYYY-MM-DD')
+      }
+
+      try {
+        const res = await axios.get(`http://localhost:8080/allFilteredTransactions/`, {
+          params: {
+            date : filterDate
+          },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        });
+        setAllFilteredTransactions(res.data.rows)
+      } catch {
+        console.log("Error");
+      }
+    }
+  };
 
   const getUserTransactions = async () => {
     if (currentUser) {
@@ -87,13 +159,12 @@ export const DashProvider = ({ children }) => {
           },
         })
         .then((res) => {
-          console.log(res.data);
           setTransactions(res.data);
-          
         })
         .catch((err) => console.log(err));
     }
   };
+
 
   const getTotalTransactions = async () => {
     if (currentUser) {
@@ -107,7 +178,23 @@ export const DashProvider = ({ children }) => {
         })
         .then((res) => {
           setTotalTransactions(res.data);
-          
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
+  const getTotalTransactionsPerMonth = async () => {
+    if (currentUser) {
+      const token = await firebase.auth().currentUser.getIdToken();
+      axios
+        .get("http://localhost:8080/totalTransactionsPerMonth", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        })
+        .then((res) => {
+          setTotalTransactionsPerMonth(res.data);
         })
         .catch((err) => console.log(err));
     }
@@ -121,14 +208,14 @@ export const DashProvider = ({ children }) => {
       const token = await firebase.auth().currentUser.getIdToken();
 
       let uniqueColor;
-      if(categoryRef.current.value === "Food"){
-         uniqueColor = "#063951"
-      }else if(categoryRef.current.value === "Others"){
-        uniqueColor = "#C13018"
-      }else if(categoryRef.current.value === "Health"){
-        uniqueColor = "#2BC4A9"
-      }else{
-        uniqueColor = "#0D95BC"
+      if (categoryRef.current.value === "Food") {
+        uniqueColor = "#063951";
+      } else if (categoryRef.current.value === "Others") {
+        uniqueColor = "#C13018";
+      } else if (categoryRef.current.value === "Health") {
+        uniqueColor = "#2BC4A9";
+      } else {
+        uniqueColor = "#0D95BC";
       }
 
       console.log(uniqueColor);
@@ -137,7 +224,7 @@ export const DashProvider = ({ children }) => {
         title: textRef.current.value,
         price: priceRef.current.value,
         category: categoryRef.current.value,
-        color: uniqueColor
+        color: uniqueColor,
       };
       axios
         .post("http://localhost:8080/transactions", data, {
@@ -147,17 +234,15 @@ export const DashProvider = ({ children }) => {
           },
         })
         .then((res) => {
-          console.log(res.data.rows)
-          getUserTransactions(); 
-          getTotalTransactions(); 
+          console.log(res.data.rows);
+          getUserTransactions();
+          getTotalTransactions();
         })
         .catch((err) => console.log(err));
 
       setIsOpen(false);
-    }     
-
-  };  
-
+    }
+  };
 
   const uploadImage = async (e) => {
     if (currentUser) {
@@ -184,6 +269,10 @@ export const DashProvider = ({ children }) => {
     setFile(selectedFile);
   };
 
+/*   const handleFilterMonth = (e) => {
+    setPickedMonth(e.target.value);
+  }; */
+
   function closeModal() {
     setIsOpen(false);
     setShowEditModal(false);
@@ -197,8 +286,6 @@ export const DashProvider = ({ children }) => {
     setShowEditModal(true);
     setEditID(id);
   }
-
-
 
   const values = {
     transactions,
@@ -228,7 +315,16 @@ export const DashProvider = ({ children }) => {
     uploadImage,
     fileFromServer,
     totalTransactions,
-    getTotalTransactions
+    getTotalTransactions,
+    startDate, 
+    setStartDate,
+    endDate,
+    setEndDate,
+    filteredTransactions,
+    allFilteredTransactions,
+    getAllFilteredTransactions,
+    setAllFilteredTransactions,
+    totalTransactionsPerMonth
   };
   return <DashContext.Provider value={values}>{children}</DashContext.Provider>;
 };

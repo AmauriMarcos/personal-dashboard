@@ -63,6 +63,7 @@ const Transaction = ({
                 onClick={deleteTransaction}
                 className={styles.deleteButton}
               >
+             
                 <img
                   className={styles.svgIcon}
                   src={deleteIcon}

@@ -2,7 +2,7 @@
     grid-area: main;
     height: 100%;
     display: grid;
-    grid-template-areas: "search button ... filter"
+    grid-template-areas: "search search button filter "
                          "main main main main"
                          "main main main main";
                    
@@ -14,6 +14,14 @@
 
 .wrapperButton{
     grid-area: button;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 1.2rem;
+}
+
+.wrapperFilter{
+    grid-area: filter;
     display: flex;
     justify-content: flex-start;
     align-items: center;

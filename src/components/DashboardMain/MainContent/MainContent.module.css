@@ -11,11 +11,22 @@
     align-items: center;
 
 }
+.boxChart{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .charts{
     height: 320px;
-    width: 500px;
-    transform: translateX(15rem);
+    width: 750px;
+    transform: translateX(4rem);
+}
+
+.boxChart{
+    height: 320px;
+    width: 950px;
+    transform: translateX(-2rem);
 }
 
 .Chart{

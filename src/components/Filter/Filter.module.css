@@ -1,0 +1,49 @@
+.expensesFilter {
+    color: white;
+    padding: 0 1rem;
+    outline: none;
+  }
+  
+  .expensesFilterControl {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1rem 0;
+    outline: none;
+  }
+  
+  .expensesFilter label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    outline: none;
+  }
+  
+  .expensesFilter select {
+    font: inherit;
+    padding: 0.5rem 3rem;
+    font-weight: bold;
+    border-radius: 30px;
+    outline: none;
+  }
+
+  .filterBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .filter{
+    padding: .3rem .7rem;
+  }
+
+  .calendar{
+    width: 35px;
+    height: 35px;
+    margin-right: 1rem;
+   
+  }
+
+  .to{
+    margin: 0 .5rem;
+  }
