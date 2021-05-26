@@ -79,7 +79,7 @@ export const useStyles = makeStyles({
         borderRadius: "10px"
     },
     overviewButtonIcon:{
-      fontSize: "15px !important"
+      fontSize: "25px !important"
     },
     arrowUp: {
         fontSize: "20px !important",

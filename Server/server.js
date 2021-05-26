@@ -108,11 +108,11 @@ app.post("/upload", upload.single("avatar"), async (req, res, next) => {
 
 app.get("/filter", async (req, res) => {
   const date = JSON.parse(req.query.date);
-  const {from , to} = date;
+  const { from, to } = date;
   const token = req.headers.authorization;
   const userInfo = await admin.auth().verifyIdToken(token);
   const { uid } = userInfo;
-  const q =`SELECT  transactions.id, title, DATE_FORMAT(created_at, "%d %b %Y %H:%i") AS created_at, category, SUM(price) AS price, color
+  const q = `SELECT  transactions.id, title, DATE_FORMAT(created_at, "%d %b %Y %H:%i") AS created_at, category, SUM(price) AS price, color
             FROM users
             INNER JOIN transactions
             ON users.id = transactions.userID
@@ -122,17 +122,16 @@ app.get("/filter", async (req, res) => {
   connection.query(q, (err, rows) => {
     if (err) throw err;
     res.send({ rows });
-    
   });
 });
 
 app.get("/allFilteredTransactions", async (req, res) => {
   const date = JSON.parse(req.query.date);
-  const {from , to} = date;
+  const { from, to } = date;
   const token = req.headers.authorization;
   const userInfo = await admin.auth().verifyIdToken(token);
   const { uid } = userInfo;
-  const q =`SELECT  transactions.id, title, DATE_FORMAT(created_at, "%d %b %Y %H:%i") AS created_at, category, price, color
+  const q = `SELECT  transactions.id, title, DATE_FORMAT(created_at, "%d %b %Y %H:%i") AS created_at, category, price, color
             FROM users
             INNER JOIN transactions
             ON users.id = transactions.userID
@@ -142,7 +141,6 @@ app.get("/allFilteredTransactions", async (req, res) => {
   connection.query(q, (err, rows) => {
     if (err) throw err;
     res.send({ rows });
-    
   });
 });
 
@@ -155,6 +153,25 @@ app.get("/transactions", async (req, res, next) => {
                 ON users.id = transactions.userID
              WHERE users.id = "${uid}" 
              ORDER BY created_at DESC`;
+  connection.query(q, (err, rows) => {
+    if (err) throw err;
+    /* console.log(rows); */
+    res.send(rows);
+  });
+});
+
+app.get("/transactions/currentDay", async (req, res, next) => {
+  const token = req.headers.authorization;
+  const userInfo = await admin.auth().verifyIdToken(token);
+  const { uid } = userInfo;
+  const q = `SELECT users.id, title, category, created_at, price 
+              FROM transactions
+                INNER JOIN users
+                  ON users.id = transactions.userID
+              WHERE users.id="${uid}" AND
+              created_at >= CURDATE()
+                AND created_at < CURDATE() + INTERVAL 1 DAY
+              ORDER BY created_at;`;
   connection.query(q, (err, rows) => {
     if (err) throw err;
     /* console.log(rows); */
@@ -220,8 +237,6 @@ app.get("/transactions/:id", (req, res) => {
     res.send({ rows: rows });
   });
 });
-
-
 
 app.put("/transactions/:id", (req, res) => {
   const id = req.params.id;

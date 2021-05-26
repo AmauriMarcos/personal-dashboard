@@ -158,6 +158,7 @@ const EditTransaction = () => {
               <MenuItem value="Transport">Transport</MenuItem>
               <MenuItem value="Health">Health</MenuItem>
               <MenuItem value="Others">Others</MenuItem>
+              <MenuItem value="Payment">Payment</MenuItem>
             </Select>
           </div>
           <Button

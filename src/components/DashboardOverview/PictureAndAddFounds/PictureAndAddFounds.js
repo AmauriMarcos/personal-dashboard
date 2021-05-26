@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./PictureAndAddFounds.module.css";
 import { Button } from "@material-ui/core";
-import { Add } from "@material-ui/icons";
+import { EmojiEvents} from "@material-ui/icons";
 import { useStyles } from "../../../StylesMaterialUi/StylesMaterialUi";
 import { useDash } from "../../Context/DashContext";
 import axios from "axios";
@@ -27,9 +27,9 @@ const PictureAndAddFounds = () => {
       <Button
         variant="contained"
         className={classes.overviewButton}
-        startIcon={<Add className={classes.overviewButtonIcon} />}
+        startIcon={<EmojiEvents className={classes.overviewButtonIcon} />}
       >
-        Add founds
+        Goal
       </Button>
     </div>
   );

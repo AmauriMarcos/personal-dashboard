@@ -5,31 +5,7 @@ import { useDash } from "../../../Context/DashContext";
 import axios from "axios";
 
 const Transactions = () => {
-  const { transactions, setTransactions, openEditModal, getTotalTransactions, allFilteredTransactions, setAllFilteredTransactions} = useDash();
-
-
-  const deleteTransaction = (id) => {
-    const theTransactions = [...transactions];
-    const theFilteredTransactions = [...allFilteredTransactions];
-
-    const newTransactions = theTransactions.filter((transaction) => {
-      return transaction.id !== id;
-    });
-    const newFilteredTransactions = theFilteredTransactions.filter((transaction) => {
-      return transaction.id !== id;
-    });
-
-    axios
-      .delete(`http://localhost:8080/transactions/${id}`)
-      .then((res) => {
-        console.log(res.data);
-        getTotalTransactions()
-      })
-      .catch((err) => console.log(err));
-
-      setTransactions(newTransactions);
-      setAllFilteredTransactions(newFilteredTransactions);
-  };
+  const { transactions, setTransactions, openEditModal, getTotalTransactions, allFilteredTransactions, setAllFilteredTransactions, deleteTransaction} = useDash();
 
   return (
     <div className={styles.Container}>

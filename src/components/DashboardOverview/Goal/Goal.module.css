@@ -1,10 +1,11 @@
 .Goal{
     border-radius: 15px;
     background-color: #261D56;
-    width: 95%;
+    width: 250px;
     height: 8rem;
     display: flex;
     justify-content: space-around;
+    padding: 0 .5rem;
     align-items: center;
     margin-bottom: 2rem;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
@@ -23,15 +24,14 @@
 }
 
 .goalStatus{
+    font-size: 1.2rem;
     font-weight: 700;
     color: #fff;
 }
 
 .circle{
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    border: 1.1rem solid #fff;
+    width: 40%;
+    height: 40%;
     background-color: transparent;
     padding: .5rem;
     display: flex;

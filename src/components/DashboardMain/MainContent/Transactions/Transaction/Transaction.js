@@ -4,6 +4,7 @@ import food from "../../../../../assets/food.svg";
 import health from "../../../../../assets/health.svg";
 import others from "../../../../../assets/others.svg";
 import transport from "../../../../../assets/transport.svg";
+import payment from "../../../../../assets/payment.svg";
 import more from "../../../../../assets/more.svg";
 import deleteIcon from "../../../../../assets/deleteIcon.svg";
 import editIcon from "../../../../../assets/pen.svg";
@@ -30,10 +31,20 @@ const Transaction = ({
   function transactionByCategory(theCategory) {
     return (transaction = (
       <div className={styles.transaction}>
-        <img className={styles.icons} src={theCategory} alt="Food Icon" />
+        <img
+          className={styles.icons}
+          src={theCategory}
+          alt="transaction icon"
+        />
         <h3>{title}</h3>
         <p className={styles.transactionDate}>{created_at}</p>
-        <p className={styles.expensePrice}>$ {price}</p>
+
+        {theCategory === payment ? (
+          <p className={styles.incomePrice}>$ {price}</p>
+        ) : (
+          <p className={styles.expensePrice}>$ {price}</p>
+        )}
+
         <img
           onClick={toggleBox}
           className={styles.iconsMore}
@@ -63,7 +74,6 @@ const Transaction = ({
                 onClick={deleteTransaction}
                 className={styles.deleteButton}
               >
-             
                 <img
                   className={styles.svgIcon}
                   src={deleteIcon}
@@ -88,6 +98,8 @@ const Transaction = ({
     transactionByCategory(transport);
   } else if (category === "Others") {
     transactionByCategory(others);
+  }else if (category === "Payment"){
+    transactionByCategory(payment);
   }
 
   return <div>{transaction}</div>;

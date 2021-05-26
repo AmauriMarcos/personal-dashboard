@@ -113,6 +113,7 @@ const ModalDashboard = () => {
             <MenuItem value="Transport">Transport</MenuItem>
             <MenuItem value="Health">Health</MenuItem>
             <MenuItem value="Others">Others</MenuItem>
+            <MenuItem value="Payment">Payment</MenuItem>
           </Select>
           <Button  type="submit" variant="contained" className={classes.modalButtonForm}>
             Create Transaction

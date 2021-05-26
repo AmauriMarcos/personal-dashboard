@@ -19,7 +19,7 @@ const MainContent = () => {
   })
 
   let mydata;
-  mydata = totalTransactions.map((transaction) => {
+  mydata = totalTransactions.filter(c => c.category !== "Payment").map((transaction) => {
     mydata = {
       id: transaction.category,
       label: transaction.category,
@@ -41,8 +41,8 @@ const MainContent = () => {
             result[`${category}Color`] = row.color;
             return result;
         }, {});
+    
 }
-
 
   let janData = getMonth("Jan");
   let fevData = getMonth("Feb");
@@ -56,15 +56,13 @@ const MainContent = () => {
   let octData = getMonth("Oct");
   let novData = getMonth("Nov");
   let decData = getMonth("Dec");
+ 
+  barDataChart.push(janData, fevData,marData, aprData, mayData, junData, julData, augData, sepData, octData, novData, decData );
 
-  barDataChart.push(janData, fevData, marData, aprData, mayData, junData, julData, augData, sepData, octData, novData, decData);
-
-  console.log(barDataChart);
-
-
+  let mainBarData = barDataChart.filter(value => Object.keys(value).length !== 0);
 
   let myFilteredData;
-  myFilteredData = filteredTransactions.map((transaction) => {
+  myFilteredData = filteredTransactions.filter(c => c.category !== "Payment").map((transaction) => {
     myFilteredData = {
       id: transaction.category,
       label: transaction.category,
@@ -76,14 +74,12 @@ const MainContent = () => {
     return filteredDataChart;
   });
 
-  const getColor = bar => barDataChart[bar.id];
-  console.log(getColor);
 
   return (
     <div className={styles.MainContent}>
       <div className={styles.boxChart}>
         <div className={styles.boxChart}>
-          <MyResponsiveBar  data={barDataChart} className={styles.boxChart}/>
+          <MyResponsiveBar  data={mainBarData } className={styles.boxChart}/>
         </div>
         <div className={styles.charts}>
           {filteredTransactions.length === 0 ? (

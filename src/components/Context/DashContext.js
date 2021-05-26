@@ -31,12 +31,13 @@ export const DashProvider = ({ children }) => {
   const textRef = useRef("");
   const priceRef = useRef("");
   const categoryRef = useRef("");
+
   /* Modal state */
   const [modalIsOpen, setIsOpen] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editID, setEditID] = useState(null);
 
-  /* User Info State */
+  /* Main Component State, Filter, Upload Images */
   const [userURL, setUserURL] = useState(null);
   const [imageNotFoundPicture, setImageNotFoundPicture] = useState(
     "https://d3n8a8pro7vhmx.cloudfront.net/imaginebetter/pages/313/meta_images/original/blank-profile-picture-973460_1280.png?1614051091"
@@ -52,9 +53,18 @@ export const DashProvider = ({ children }) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
+  /* Overview Component State */
+  const [amount, setAmount] = useState(0);
+  const [dayIncome, setDayIncome] = useState(0);
+  const [dayExpense, setDayExpense] = useState(0);
+
   useEffect(() => {
     getUserTransactions();
   }, []);
+
+  useEffect(() =>{
+    getDayTransactions();
+  }, [])
 
   useEffect(() => {
     getUserInfo();
@@ -75,6 +85,25 @@ export const DashProvider = ({ children }) => {
   useEffect(() =>{
     filter();
   }, [startDate, endDate]);
+
+  /* Wallet Balance Variables */
+
+  let incomePrices;
+  let incomeAmount;
+
+  let expensePrices;
+  let expenseAmount;
+
+  let total;
+
+  /* Day income/expense variables */
+
+  let dayIncomePrices;
+  let dayIncomeAmount;
+
+  let dayExpensePrices;
+  let dayExpenseAmount;
+
 
   const getUserInfo = async () => {
     if (currentUser) {
@@ -116,11 +145,14 @@ export const DashProvider = ({ children }) => {
           },
         });
         setFilteredTransactions(res.data.rows);
+        getUserTransactions();
       } catch {
         console.log("Error");
       }
     }
   };
+
+
 
   const getAllFilteredTransactions = async () => {
     if (currentUser) {
@@ -160,11 +192,86 @@ export const DashProvider = ({ children }) => {
         })
         .then((res) => {
           setTransactions(res.data);
+
+        let incomes = res.data
+        .filter((t) => t.category === "Payment")
+        .map((income) => {
+          return income;
+        });
+
+        let expenses = res.data
+        .filter((t) => t.category !== "Payment")
+        .map((expense) => {
+          return expense;
+        });
+    
+        function sum(nums) {
+          return nums.reduce((a, b) => a + b);
+        }
+      
+        incomePrices = incomes.map((item) => item.price);
+        expensePrices = expenses.map((item) => item.price);
+
+        expenseAmount = sum(expensePrices);
+        incomeAmount = sum(incomePrices);
+        
+        total = incomeAmount - expenseAmount;
+
+        setAmount(total.toFixed(2));
+         
         })
         .catch((err) => console.log(err));
     }
   };
 
+  const getDayTransactions = async() =>{
+    if (currentUser) {
+      const token = await firebase.auth().currentUser.getIdToken();
+      axios
+        .get("http://localhost:8080/transactions/currentDay", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        })
+        .then((res) => {
+         /*  let dayIncomePrices;
+          let dayIncomeAmount;
+        
+          let dayExpensePrices;
+          let dayExpenseAmount; */
+
+          
+        let incomes = res.data
+        .filter((t) => t.category === "Payment")
+        .map((income) => {
+          return income;
+        });
+
+        let expenses = res.data
+        .filter((t) => t.category !== "Payment")
+        .map((expense) => {
+          return expense;
+        });
+    
+        function sum(nums) {
+          return nums.reduce((a, b) => a + b);
+        }
+      
+        dayIncomePrices = incomes.map((item) => item.price);
+        dayExpensePrices = expenses.map((item) => item.price);
+
+        dayExpenseAmount = sum(dayExpensePrices);
+        dayIncomeAmount = sum(dayIncomePrices);
+
+        setDayExpense(dayExpenseAmount);
+        setDayIncome(dayIncomeAmount);
+          
+          
+        })
+        .catch((err) => console.log(err));
+    }
+  }
 
   const getTotalTransactions = async () => {
     if (currentUser) {
@@ -178,6 +285,7 @@ export const DashProvider = ({ children }) => {
         })
         .then((res) => {
           setTotalTransactions(res.data);
+          
         })
         .catch((err) => console.log(err));
     }
@@ -195,6 +303,7 @@ export const DashProvider = ({ children }) => {
         })
         .then((res) => {
           setTotalTransactionsPerMonth(res.data);
+          getUserTransactions();
         })
         .catch((err) => console.log(err));
     }
@@ -214,7 +323,7 @@ export const DashProvider = ({ children }) => {
         uniqueColor = "#C13018";
       } else if (categoryRef.current.value === "Health") {
         uniqueColor = "#2BC4A9";
-      } else {
+      } else if (categoryRef.current.value === "Transport"){
         uniqueColor = "#0D95BC";
       }
 
@@ -237,6 +346,7 @@ export const DashProvider = ({ children }) => {
           console.log(res.data.rows);
           getUserTransactions();
           getTotalTransactions();
+          getDayTransactions();
         })
         .catch((err) => console.log(err));
 
@@ -262,6 +372,31 @@ export const DashProvider = ({ children }) => {
           getUserInfo();
         });
     }
+  };
+
+  const deleteTransaction = (id) => {
+    const theTransactions = [...transactions];
+    const theFilteredTransactions = [...allFilteredTransactions];
+
+    const newTransactions = theTransactions.filter((transaction) => {
+      return transaction.id !== id;
+    });
+    const newFilteredTransactions = theFilteredTransactions.filter((transaction) => {
+      return transaction.id !== id;
+    });
+
+    axios
+      .delete(`http://localhost:8080/transactions/${id}`)
+      .then((res) => {
+        console.log(res.data);
+        getTotalTransactions()
+      })
+      .catch((err) => console.log(err));
+
+      setTransactions(newTransactions);
+      setAllFilteredTransactions(newFilteredTransactions);
+      getUserTransactions();
+      getDayTransactions();
   };
 
   const handleChange = (e) => {
@@ -324,7 +459,11 @@ export const DashProvider = ({ children }) => {
     allFilteredTransactions,
     getAllFilteredTransactions,
     setAllFilteredTransactions,
-    totalTransactionsPerMonth
+    totalTransactionsPerMonth,
+    deleteTransaction,
+    amount,
+    dayIncome,
+    dayExpense
   };
   return <DashContext.Provider value={values}>{children}</DashContext.Provider>;
 };
