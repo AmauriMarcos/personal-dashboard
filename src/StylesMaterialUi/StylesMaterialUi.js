@@ -69,6 +69,36 @@ export const useStyles = makeStyles({
         borderRadius: "10px",
         marginTop: "1.5rem !important"
     },
+    SavingModalButton:{
+        backgroundColor: "#261D56 !important",
+        color: "#F6F7FF !important",
+        padding: ".6rem 1.2rem !important",
+        width: "110px !important",
+        fontSize: ".9rem !important",
+        fontWeight: "600 !important",
+        textTransform: "uppercase !important",
+        borderRadius: "10px",
+        marginTop: "1.5rem !important"
+    },
+    modalButtonGoal:{
+        backgroundColor: "#6C63FF!important",
+        color: "#F6F7FF !important",
+        padding: ".6rem 1.2rem !important",
+        fontSize: ".9rem !important",
+        fontWeight: "600 !important",
+        textTransform: "uppercase !important",
+        borderRadius: "10px",
+        marginTop: "1.5rem !important"
+    },
+    savingButton:{
+        backgroundColor: "#F6F7FF !important",
+        color: "#261D56 !important",
+        padding: ".5rem 1.2rem !important",
+        fontSize: ".9rem !important",
+        fontWeight: "bold !important",
+        textTransform: "none !important",
+        borderRadius: "10px !important"
+    },
     overviewButton:{
         backgroundColor: "#2BC4A9 !important",
         color: "#F6F7FF !important",

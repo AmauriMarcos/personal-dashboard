@@ -4,6 +4,7 @@ import { useStyles } from "../../StylesMaterialUi/StylesMaterialUi";
 import { Formik, Form } from "formik";
 import { Button, TextField, Grid } from "@material-ui/core";
 import { Link, useHistory } from "react-router-dom";
+import GoogleButton from "react-google-button";
 import { Alert } from "@material-ui/lab";
 import { useAuth } from "../Context/AuthContext";
 import brand from "../../assets/Brand.svg";
@@ -21,10 +22,21 @@ let SignupSchema = yup.object().shape({
 const Login = () => {
   const classes = useStyles();
   const history = useHistory();
-  const { login } = useAuth();
+  const { login, signInwithGoogle} = useAuth();
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  async function handleSignInWithGoogle() {
+    try {
+      setError("");
+      setLoading(true);
+      await signInwithGoogle();
+      history.push("/dashboard");
+    } catch {
+      setError("Failed sign in with Google");
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -33,7 +45,13 @@ const Login = () => {
           <img src={brand} />
         </div>
         <div className={styles.form}>
-          <p className={styles.createAccountTitlte}>Login</p>
+          <p className={styles.createAccountTitlte}>Login with</p>
+
+          <GoogleButton
+            onClick={handleSignInWithGoogle}
+            style={{ margin: "1rem auto" }}
+          />
+          <p className={styles.orSpan}>or</p>
 
           {error && (
             <Alert className={classes.alert} severity="error">

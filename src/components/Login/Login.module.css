@@ -81,3 +81,24 @@
 .accountGroup a:hover{
     color: #02e9bf;
 }
+
+.orSpan{
+    margin: 1.5rem auto;
+    width: 40%;
+    text-align: center;
+    color: rgb(116, 116, 116);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.orSpan:before,
+.orSpan:after{
+    content: "";
+    width: 100%;
+    height: .8px;
+    background-color:rgb(116, 116, 116);
+    display: block;
+    margin: 0 3px;
+}

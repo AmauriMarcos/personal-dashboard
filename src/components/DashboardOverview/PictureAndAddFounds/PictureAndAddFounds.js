@@ -9,7 +9,7 @@ import firebase from "firebase";
 
 const PictureAndAddFounds = () => {
   const classes = useStyles();
-  const { currentUser, userURL, imageNotFoundPicture, fileFromServer, userInfo, getUserInfo } =
+  const { currentUser, userURL, imageNotFoundPicture, fileFromServer, userInfo, getUserInfo, openGoalModal} =
     useDash();
 
   return (
@@ -25,6 +25,7 @@ const PictureAndAddFounds = () => {
       )}
 
       <Button
+        onClick={openGoalModal}
         variant="contained"
         className={classes.overviewButton}
         startIcon={<EmojiEvents className={classes.overviewButtonIcon} />}

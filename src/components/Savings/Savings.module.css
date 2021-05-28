@@ -1,0 +1,118 @@
+.Savings{
+    grid-area: main;
+    width: 100%;
+    border-radius: 30px;
+    margin: 2rem 2rem 0 2rem;
+    height: 90vh;
+}
+
+.SavingsAmount{
+    background-color: #261D56;
+    border-radius: 30px;
+    height: 230px;
+    padding: 1rem 3rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.TrackGoal{
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: .5rem;
+    height: 20rem
+}
+
+.currentlyGoal{
+    background-color: #261D56;
+    border-radius: 30px;
+    height: 350px;
+    padding: 1rem 3rem;
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.boxAmount{
+    display: flex;
+    height: 170px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.boxImg{
+
+}
+
+.title{
+    color: #F6F7FF;
+    font-size: 1rem;
+    font-weight: 100;
+}
+
+.amount{
+    color: #F6F7FF;
+    font-size: 4rem;
+    font-weight: 400;
+}
+
+.cifrao{
+    color: #F6F7FF;
+    font-size: 4rem;
+    font-weight: 100;
+    margin-right: 1.5rem;
+
+}
+
+.icon{
+    width: 270px;
+    height: 270px;
+}
+
+
+.paginationBlock{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+}
+
+.paginationBlock li{
+    display: inline-block;
+}
+
+.paginationBlock li a{
+    border: 1px solid #2BC4A9 ;
+    border-radius: 3px;
+    padding: .3rem .7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    outline: none;
+    color: #2BC4A9 ;
+}
+
+.paginationBlock li a:first-child{
+    margin-right: 1rem;
+  }
+
+.paginationBlock li a:hover{
+    background-color: #2BC4A9 ;
+    color: white;
+}
+
+.pagination__linkActive{
+  color: #2BC4A9 ;
+  
+}
+
+li{
+ list-style: none;
+}

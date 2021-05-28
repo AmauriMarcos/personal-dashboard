@@ -2,15 +2,16 @@
     grid-area: main;
     width: 510px;
     border-radius: 30px;
-    margin: 2rem 2rem 0 2rem;
-    height: 80vh;
-    transform: translateY(3rem);
+    margin: 1rem 2rem 0 2rem;
     display: flex;
     justify-self: center;
-    align-self: center;
     flex-direction: column;
     justify-self: center;
     align-items: flex-start;
+    position: absolute;
+    top: 50%;
+    left: 43%;
+    transform: translate(-50%, -50%);
 }
 
 .SettingsContent{
@@ -91,7 +92,7 @@
 .label{
 
     padding: .6rem .9rem;
-    border: 1px solid #2BC4A9;
+    border: 1px solid rgb(43, 196, 169);
     border-radius: 5px;
     font-size: .75rem;
     font-weight: 400;

@@ -5,6 +5,7 @@ import health from "../../../../../assets/health.svg";
 import others from "../../../../../assets/others.svg";
 import transport from "../../../../../assets/transport.svg";
 import payment from "../../../../../assets/payment.svg";
+import savings from "../../../../../assets/savingsIcon.svg";
 import more from "../../../../../assets/more.svg";
 import deleteIcon from "../../../../../assets/deleteIcon.svg";
 import editIcon from "../../../../../assets/pen.svg";
@@ -41,6 +42,8 @@ const Transaction = ({
 
         {theCategory === payment ? (
           <p className={styles.incomePrice}>$ {price}</p>
+        ) : theCategory === savings ? (
+          <p className={styles.savingsPrice}>$ {price}</p>
         ) : (
           <p className={styles.expensePrice}>$ {price}</p>
         )}
@@ -98,8 +101,10 @@ const Transaction = ({
     transactionByCategory(transport);
   } else if (category === "Others") {
     transactionByCategory(others);
-  }else if (category === "Payment"){
+  } else if (category === "Payment") {
     transactionByCategory(payment);
+  } else if (category === "Savings") {
+    transactionByCategory(savings);
   }
 
   return <div>{transaction}</div>;

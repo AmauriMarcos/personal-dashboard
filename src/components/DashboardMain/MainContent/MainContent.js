@@ -14,12 +14,8 @@ const MainContent = () => {
   const filteredDataChart = [];
   const barDataChart = [];
 
-  useEffect(() =>{
-
-  })
-
   let mydata;
-  mydata = totalTransactions.filter(c => c.category !== "Payment").map((transaction) => {
+  mydata = totalTransactions.filter(c => c.category !== "Payment" && c.category !== "Savings").map((transaction) => {
     mydata = {
       id: transaction.category,
       label: transaction.category,
@@ -62,7 +58,7 @@ const MainContent = () => {
   let mainBarData = barDataChart.filter(value => Object.keys(value).length !== 0);
 
   let myFilteredData;
-  myFilteredData = filteredTransactions.filter(c => c.category !== "Payment").map((transaction) => {
+  myFilteredData = filteredTransactions.filter(c => c.category !== "Payment" && c.category !== "Savings").map((transaction) => {
     myFilteredData = {
       id: transaction.category,
       label: transaction.category,

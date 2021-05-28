@@ -69,6 +69,9 @@ app.get("/auth", async (req, res, next) => {
   const userInfo = await admin.auth().verifyIdToken(token);
   const { uid, email } = userInfo;
 
+  console.log(uid);
+  console.log(email);
+
   const q = `INSERT INTO users(id, email) VALUES("${uid}","${email}")`;
   connection.query(q, (err, rows) => {
     if (err) throw err;
@@ -229,6 +232,53 @@ app.post("/transactions", async (req, res, next) => {
   });
 });
 
+app.get("/goals", async(req, res, next) =>{
+  const token = req.headers.authorization;
+  const userInfo = await admin.auth().verifyIdToken(token);
+  const { uid } = userInfo;
+  const q = ` SELECT goals.id, goal_title, goal, user_id 
+              FROM goals
+                INNER JOIN users
+                  ON users.id = goals.user_id
+              WHERE users.id="${uid}"; `;
+
+  connection.query(q, (err, rows) => {
+    if (err) throw err;
+    res.send(rows);
+  });
+});
+
+app.post("/goals", async(req, res, next) =>{
+  const{goalTitle, goal} = req.body;
+  const token = req.headers.authorization;
+
+  const userInfo = await admin.auth().verifyIdToken(token);
+  const { uid } = userInfo;
+
+  const q = `INSERT INTO goals(goal_title, goal, user_id)
+             VALUES("${goalTitle}", ${goal}, "${uid}")`
+
+  connection.query(q, (err, rows) =>{
+     if(err) throw err;
+     res.send({msg: "Your goal has been created !!!"});
+  })
+});
+
+app.get("/savings", async(req, res, next) =>{
+  const token = req.headers.authorization;
+  const userInfo = await admin.auth().verifyIdToken(token);
+  const { uid } = userInfo;
+  const q = ` SELECT title, price AS amount, email FROM transactions
+              INNER JOIN users
+                ON users.id = transactions.userID
+              WHERE users.id="${uid}" AND category="Savings";`
+
+  connection.query(q, (err, rows) => {
+    if (err) throw err;
+    res.send(rows);
+  });
+});
+
 app.get("/transactions/:id", (req, res) => {
   const id = req.params.id;
   const q = `SELECT title, category, price FROM transactions WHERE id=${id}`;
@@ -259,3 +309,5 @@ app.delete("/transactions/:id", (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
+

@@ -37,6 +37,13 @@
     text-align: center;
 }
 
+.savingsPrice{
+    font-weight: 600;
+    color: #0F96BD;
+    width: 150px;
+    text-align: center;
+}
+
 .icons{
     width: 30px;
     height: 30px;

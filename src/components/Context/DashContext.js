@@ -11,7 +11,9 @@ import firebase from "firebase/app";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import transitions from "@material-ui/core/styles/transitions";
-import moment from 'moment';
+import moment from "moment";
+import { getConfig } from "@testing-library/dom";
+import { ContactlessOutlined } from "@material-ui/icons";
 
 const DashContext = createContext();
 
@@ -46,7 +48,9 @@ export const DashProvider = ({ children }) => {
   const [file, setFile] = useState(null);
   const [fileFromServer, setFileFromServer] = useState(null);
   const [totalTransactions, setTotalTransactions] = useState([]);
-  const [totalTransactionsPerMonth, setTotalTransactionsPerMonth] = useState([]);
+  const [totalTransactionsPerMonth, setTotalTransactionsPerMonth] = useState(
+    []
+  );
   const [filteredTransactions, setFilteredTransactions] = useState([]);
   const [allFilteredTransactions, setAllFilteredTransactions] = useState([]);
   const [error, setError] = useState("");
@@ -57,14 +61,36 @@ export const DashProvider = ({ children }) => {
   const [amount, setAmount] = useState(0);
   const [dayIncome, setDayIncome] = useState(0);
   const [dayExpense, setDayExpense] = useState(0);
+  const [goalModal, setGoalModal] = useState(false);
+
+  const [allGoals, setAllGoals] = useState([]);
+  const [goalTitle, setGoalTitle] = useState("Goal");
+  const [goal, setGoal] = useState(0);
+
+  const goalTitleRef = useRef("Goal");
+  const goalAmountRef = useRef(0);
+
+  /* Saving Component State */
+  const savingRef = useRef(0);
+  const [savingModal, setSavingModal] = useState(false);
+  const [allSavings, setAllSavings] = useState([]);
+  const [saving, setSaving] = useState(0);
 
   useEffect(() => {
     getUserTransactions();
   }, []);
 
-  useEffect(() =>{
+  useEffect(() => {
+    getGoals();
+  }, []);
+
+  useEffect(() => {
+    getSavings();
+  }, [saving]);
+
+  useEffect(() => {
     getDayTransactions();
-  }, [])
+  }, []);
 
   useEffect(() => {
     getUserInfo();
@@ -74,15 +100,15 @@ export const DashProvider = ({ children }) => {
     getTotalTransactions();
   }, []);
 
-  useEffect(() =>{
-     getTotalTransactionsPerMonth();
-  }, [])
+  useEffect(() => {
+    getTotalTransactionsPerMonth();
+  }, []);
 
-  useEffect(() =>{
-    getAllFilteredTransactions(); 
+  useEffect(() => {
+    getAllFilteredTransactions();
   }, [startDate, endDate]);
 
-  useEffect(() =>{
+  useEffect(() => {
     filter();
   }, [startDate, endDate]);
 
@@ -103,7 +129,6 @@ export const DashProvider = ({ children }) => {
 
   let dayExpensePrices;
   let dayExpenseAmount;
-
 
   const getUserInfo = async () => {
     if (currentUser) {
@@ -130,14 +155,14 @@ export const DashProvider = ({ children }) => {
       const token = await firebase.auth().currentUser.getIdToken();
 
       let filterDate = {
-         from:  moment(startDate).format('YYYY-MM-DD'),
-         to:  moment(endDate).format('YYYY-MM-DD')
-      }
+        from: moment(startDate).format("YYYY-MM-DD"),
+        to: moment(endDate).format("YYYY-MM-DD"),
+      };
 
       try {
         const res = await axios.get(`http://localhost:8080/filter/`, {
           params: {
-            date : filterDate
+            date: filterDate,
           },
           headers: {
             "Content-Type": "application/json",
@@ -152,28 +177,29 @@ export const DashProvider = ({ children }) => {
     }
   };
 
-
-
   const getAllFilteredTransactions = async () => {
     if (currentUser) {
       const token = await firebase.auth().currentUser.getIdToken();
 
       let filterDate = {
-         from:  moment(startDate).format('YYYY-MM-DD'),
-         to:  moment(endDate).format('YYYY-MM-DD')
-      }
+        from: moment(startDate).format("YYYY-MM-DD"),
+        to: moment(endDate).format("YYYY-MM-DD"),
+      };
 
       try {
-        const res = await axios.get(`http://localhost:8080/allFilteredTransactions/`, {
-          params: {
-            date : filterDate
-          },
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-        });
-        setAllFilteredTransactions(res.data.rows)
+        const res = await axios.get(
+          `http://localhost:8080/allFilteredTransactions/`,
+          {
+            params: {
+              date: filterDate,
+            },
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: token,
+            },
+          }
+        );
+        setAllFilteredTransactions(res.data.rows);
       } catch {
         console.log("Error");
       }
@@ -193,38 +219,37 @@ export const DashProvider = ({ children }) => {
         .then((res) => {
           setTransactions(res.data);
 
-        let incomes = res.data
-        .filter((t) => t.category === "Payment")
-        .map((income) => {
-          return income;
-        });
+          let incomes = res.data
+            .filter((t) => t.category === "Payment")
+            .map((income) => {
+              return income;
+            });
 
-        let expenses = res.data
-        .filter((t) => t.category !== "Payment")
-        .map((expense) => {
-          return expense;
-        });
-    
-        function sum(nums) {
-          return nums.reduce((a, b) => a + b);
-        }
-      
-        incomePrices = incomes.map((item) => item.price);
-        expensePrices = expenses.map((item) => item.price);
+          let expenses = res.data
+            .filter((t) => t.category !== "Payment")
+            .map((expense) => {
+              return expense;
+            });
 
-        expenseAmount = sum(expensePrices);
-        incomeAmount = sum(incomePrices);
-        
-        total = incomeAmount - expenseAmount;
+          function sum(nums) {
+            return nums.reduce((a, b) => a + b);
+          }
 
-        setAmount(total.toFixed(2));
-         
+          incomePrices = incomes.map((item) => item.price);
+          expensePrices = expenses.map((item) => item.price);
+
+          expenseAmount = sum(expensePrices);
+          incomeAmount = sum(incomePrices);
+
+          total = incomeAmount - expenseAmount;
+
+          setAmount(total.toFixed(2));
         })
         .catch((err) => console.log(err));
     }
   };
 
-  const getDayTransactions = async() =>{
+  const getDayTransactions = async () => {
     if (currentUser) {
       const token = await firebase.auth().currentUser.getIdToken();
       axios
@@ -235,43 +260,92 @@ export const DashProvider = ({ children }) => {
           },
         })
         .then((res) => {
-         /*  let dayIncomePrices;
-          let dayIncomeAmount;
-        
-          let dayExpensePrices;
-          let dayExpenseAmount; */
+          let incomes = res.data
+            .filter((t) => t.category === "Payment")
+            .map((income) => {
+              return income;
+            });
 
-          
-        let incomes = res.data
-        .filter((t) => t.category === "Payment")
-        .map((income) => {
-          return income;
-        });
+          let expenses = res.data
+            .filter((t) => t.category !== "Payment")
+            .map((expense) => {
+              return expense;
+            });
 
-        let expenses = res.data
-        .filter((t) => t.category !== "Payment")
-        .map((expense) => {
-          return expense;
-        });
-    
-        function sum(nums) {
-          return nums.reduce((a, b) => a + b);
-        }
-      
-        dayIncomePrices = incomes.map((item) => item.price);
-        dayExpensePrices = expenses.map((item) => item.price);
+          dayIncomePrices = incomes.map((item) => item.price);
+          dayExpensePrices = expenses.map((item) => item.price);
 
-        dayExpenseAmount = sum(dayExpensePrices);
-        dayIncomeAmount = sum(dayIncomePrices);
+          function sum(nums) {
+            return nums.reduce((a, b) => a + b, 0);
+          }
 
-        setDayExpense(dayExpenseAmount);
-        setDayIncome(dayIncomeAmount);
-          
-          
+          dayExpenseAmount = sum(dayExpensePrices);
+          dayIncomeAmount = sum(dayIncomePrices);
+
+          setDayExpense(dayExpenseAmount);
+          setDayIncome(dayIncomeAmount);
         })
         .catch((err) => console.log(err));
     }
-  }
+  };
+
+  const getGoals = async () => {
+    if (currentUser) {
+      const token = await firebase.auth().currentUser.getIdToken();
+      axios
+        .get("http://localhost:8080/goals", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        })
+        .then((res) => {
+          const goals = res.data;
+          setAllGoals(goals.reverse());
+          const lastGoal = goals[0];
+
+          const { goal_title, goal } = lastGoal;
+
+          setGoalTitle(goal_title);
+          setGoal(goal);
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
+  const getSavings = async () => {
+    if (currentUser) {
+      const token = await firebase.auth().currentUser.getIdToken();
+      axios
+        .get("http://localhost:8080/savings", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        })
+        .then((res) => {
+          const savingsData = res.data;
+
+          setAllSavings(savingsData);
+
+          function sum(nums) {
+            return nums.reduce((a, b) => a + b);
+          }
+
+          const totalSavingAmount = savingsData
+            .map((savings) => savings.amount)
+            .reduce((a, b) => {
+              return a + b;
+            }, 0);
+      
+          console.log(totalSavingAmount)
+          setSaving(totalSavingAmount);
+
+          getUserTransactions();
+        })
+        .catch((err) => console.log(err));
+    }
+  };
 
   const getTotalTransactions = async () => {
     if (currentUser) {
@@ -285,7 +359,6 @@ export const DashProvider = ({ children }) => {
         })
         .then((res) => {
           setTotalTransactions(res.data);
-          
         })
         .catch((err) => console.log(err));
     }
@@ -309,6 +382,67 @@ export const DashProvider = ({ children }) => {
     }
   };
 
+  const createSavings = async (e) => {
+    e.preventDefault();
+
+    if (currentUser) {
+      const token = await firebase.auth().currentUser.getIdToken();
+
+      const data = {
+        title: "Savings",
+        price: savingRef.current.value,
+        category: "Savings",
+        color: "#0F96BD"
+      };
+
+        axios
+        .post("http://localhost:8080/transactions", data, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        })
+        .then((res) => {
+          console.log(res.data.rows);
+          getUserTransactions();
+          getSavings();
+          getTotalTransactions();
+          getDayTransactions();
+        })
+        .catch((err) => console.log(err));
+
+      setSavingModal(false);
+    }
+  };
+
+  const createGoal = async (e) => {
+    e.preventDefault();
+
+    if (currentUser) {
+      const token = await firebase.auth().currentUser.getIdToken();
+
+      const data = {
+        goalTitle: goalTitleRef.current.value,
+        goal: goalAmountRef.current.value,
+      };
+
+      axios
+        .post("http://localhost:8080/goals", data, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        })
+        .then((res) => {
+          console.log(res.data.msg);
+          getGoals();
+          getSavings();
+        })
+        .catch((err) => console.log(err));
+
+      setGoalModal(false);
+    }
+  };
 
   const createTransaction = async (e) => {
     e.preventDefault();
@@ -323,7 +457,7 @@ export const DashProvider = ({ children }) => {
         uniqueColor = "#C13018";
       } else if (categoryRef.current.value === "Health") {
         uniqueColor = "#2BC4A9";
-      } else if (categoryRef.current.value === "Transport"){
+      } else if (categoryRef.current.value === "Transport") {
         uniqueColor = "#0D95BC";
       }
 
@@ -335,6 +469,7 @@ export const DashProvider = ({ children }) => {
         category: categoryRef.current.value,
         color: uniqueColor,
       };
+
       axios
         .post("http://localhost:8080/transactions", data, {
           headers: {
@@ -345,6 +480,7 @@ export const DashProvider = ({ children }) => {
         .then((res) => {
           console.log(res.data.rows);
           getUserTransactions();
+          getTotalTransactionsPerMonth();
           getTotalTransactions();
           getDayTransactions();
         })
@@ -381,22 +517,26 @@ export const DashProvider = ({ children }) => {
     const newTransactions = theTransactions.filter((transaction) => {
       return transaction.id !== id;
     });
-    const newFilteredTransactions = theFilteredTransactions.filter((transaction) => {
-      return transaction.id !== id;
-    });
+    const newFilteredTransactions = theFilteredTransactions.filter(
+      (transaction) => {
+        return transaction.id !== id;
+      }
+    );
 
     axios
       .delete(`http://localhost:8080/transactions/${id}`)
       .then((res) => {
         console.log(res.data);
-        getTotalTransactions()
+        getTotalTransactions();
       })
       .catch((err) => console.log(err));
 
-      setTransactions(newTransactions);
-      setAllFilteredTransactions(newFilteredTransactions);
-      getUserTransactions();
-      getDayTransactions();
+    setTransactions(newTransactions);
+    setAllFilteredTransactions(newFilteredTransactions);
+    getSavings();
+    getUserTransactions();
+    getDayTransactions();
+
   };
 
   const handleChange = (e) => {
@@ -404,13 +544,15 @@ export const DashProvider = ({ children }) => {
     setFile(selectedFile);
   };
 
-/*   const handleFilterMonth = (e) => {
+  /*   const handleFilterMonth = (e) => {
     setPickedMonth(e.target.value);
   }; */
 
   function closeModal() {
     setIsOpen(false);
     setShowEditModal(false);
+    setGoalModal(false);
+    setSavingModal(false);
   }
 
   function openModal() {
@@ -421,6 +563,22 @@ export const DashProvider = ({ children }) => {
     setShowEditModal(true);
     setEditID(id);
   }
+
+  function openGoalModal() {
+    setGoalModal(true);
+  }
+
+  function openSavingModal() {
+    setSavingModal(true);
+  }
+
+  const handleGoalTitle = (e) => {
+    setGoalTitle(e.target.value);
+  };
+
+  const handleGoal = (e) => {
+    setGoal(e.target.value);
+  };
 
   const values = {
     transactions,
@@ -451,7 +609,7 @@ export const DashProvider = ({ children }) => {
     fileFromServer,
     totalTransactions,
     getTotalTransactions,
-    startDate, 
+    startDate,
     setStartDate,
     endDate,
     setEndDate,
@@ -463,7 +621,22 @@ export const DashProvider = ({ children }) => {
     deleteTransaction,
     amount,
     dayIncome,
-    dayExpense
+    dayExpense,
+    openGoalModal,
+    goalModal,
+    handleGoalTitle,
+    handleGoal,
+    goalTitle,
+    goal,
+    goalAmountRef,
+    goalTitleRef,
+    createGoal,
+    allGoals,
+    savingRef,
+    openSavingModal,
+    savingModal,
+    createSavings,
+    saving
   };
   return <DashContext.Provider value={values}>{children}</DashContext.Provider>;
 };

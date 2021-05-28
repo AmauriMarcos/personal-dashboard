@@ -1,7 +1,7 @@
-.Goal{
+.GoalOverview{
     border-radius: 15px;
-    background-color: #F6F7FF;
-    width: 320px;
+    background-color: #261D56;
+    width: 250px;
     height: 8rem;
     display: flex;
     justify-content: space-around;
@@ -20,14 +20,14 @@
 
 .goalTitle{
     font-weight: 300;
-    font-size: 1.5rem;
-    color: #261D56;
+    font-size: 1.2rem;
+    color: #fff;
 }
 
 .goalStatus{
     font-size: 1.2rem;
     font-weight: 700;
-    color: #261D56;
+    color: #fff;
 }
 
 .circle{
@@ -44,11 +44,4 @@
     font-weight: 600;
     color: #fff;
     font-size: .8rem;
-}
-
-.goalAmount{
-    margin-top: .5rem;
-    font-size: .9rem;
-    font-weight: 700;
-    color: #2BC4A9;
 }

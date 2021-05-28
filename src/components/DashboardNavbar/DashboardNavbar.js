@@ -5,6 +5,8 @@ import {
   PersonOutline,
   SettingsOutlined,
   ExitToAppOutlined,
+  ShowChart,
+  Dashboard
 } from "@material-ui/icons";
 import { IconButton } from "@material-ui/core";
 import { useStyles } from "../../StylesMaterialUi/StylesMaterialUi";
@@ -33,7 +35,7 @@ const DashboardNavbar = () => {
       <ul className={styles.BoxIcons}>
         <Link to="/dashboard">
           <IconButton aria-label="Home Icon">
-            <HomeOutlined className={classes.Icons} />
+            <Dashboard className={classes.Icons} />
           </IconButton>
         </Link>
         <IconButton aria-label="Profile Icon">
@@ -42,6 +44,11 @@ const DashboardNavbar = () => {
         <Link to="/dashboard/settings">
           <IconButton aria-label="Settings Icon">
             <SettingsOutlined className={classes.Icons} />
+          </IconButton>
+        </Link>
+        <Link to="/dashboard/savings">
+          <IconButton aria-label="Saving Icon">
+            <ShowChart className={classes.Icons} />
           </IconButton>
         </Link>
       </ul>

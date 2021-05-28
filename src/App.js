@@ -12,6 +12,7 @@ import { DashProvider } from "./components/Context/DashContext";
 import EditTransaction from "./components/EditTransaction/EditTransaction";
 import PrivateRoute from "./components/PrivateRoute";
 import Settings from './components/Settings/Settings';
+import Savings from './components/Savings/Savings';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
             <DashProvider>
               <PrivateRoute exact path="/dashboard" component={Dashboard}/>
               <PrivateRoute exact={true} path="/dashboard/settings" component={Dashboard}/>
+              <PrivateRoute exact={true} path="/dashboard/savings" component={Dashboard}/>
             </DashProvider>
           </Switch>
         </div>
