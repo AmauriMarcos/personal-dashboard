@@ -48,6 +48,7 @@ const Login = () => {
           <p className={styles.createAccountTitlte}>Login with</p>
 
           <GoogleButton
+            label='Google'
             onClick={handleSignInWithGoogle}
             style={{ margin: "1rem auto" }}
           />
@@ -140,7 +141,7 @@ const Login = () => {
       </div>
       <div className={styles.imageArea}>
         <h2>
-          It takes as much energy to wish <br></br> as it does to plan.
+            Never spend your money <br></br> before you have it. 
         </h2>
         <p>
           Lorem ipsum dolor sit amet, consectetur <br></br> adipiscing elit, sed

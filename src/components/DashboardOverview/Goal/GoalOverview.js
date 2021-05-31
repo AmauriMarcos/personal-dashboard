@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./GoalOverview.module.css";
-import { CircularProgressbar } from "react-circular-progressbar";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useDash } from "../../Context/DashContext";
 
@@ -23,7 +23,20 @@ const GoalOverview = () => {
         <h2 className={styles.goalStatus}>Completed</h2>
       </div>
       <div className={styles.circle}>
-        <CircularProgressbar value={progress} text={`${progress}%`} />
+        {progress >= 100 ? (
+          <CircularProgressbar
+            styles={buildStyles({
+              pathColor: `#2BC4A9`,
+              textColor: "#2BC4A9",
+              trailColor: "#2BC4A9",
+              backgroundColor: "#2BC4A9",
+            })}
+            value="100"
+            text={`100%`}
+          />
+        ) : (
+          <CircularProgressbar value={progress} text={`${progress}%`} />
+        )}
       </div>
     </div>
   );
