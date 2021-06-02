@@ -3,17 +3,37 @@
   justify-content: space-between;
   align-items: center;
   position: relative;
+  padding: 3% 7%;
+  z-index: 100;
 }
 
 .list {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   list-style: none;
-  margin: 2rem 3rem;
+
 }
 
 .list li a {
   text-decoration: none;
   margin: 20px;
+  color: #fff;
+  font-weight: 300;
+}
+
+.signInButton{ 
+  border: none;
+  padding: .6rem .8rem;
+  width: 100%;
+  background-color: #EF9D10;
+  color: #fcfcfc;
+  border-radius: 5px;
+
+}
+
+.signInButton a{
+  font-size: 1rem;
 }
 
 .blocBurger {
@@ -38,8 +58,11 @@
   height: 100vh;
 }
 
-.logo{
-    margin: 2rem 3rem;
+.logo a{
+   font-size: 1.2rem;
+   color: #ffffff;
+   font-weight: 600;
+   text-decoration: none;
 }
 
 .blocNav ul{
@@ -55,7 +78,7 @@
     color: #fff;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .list li a {
     color: red;
   }

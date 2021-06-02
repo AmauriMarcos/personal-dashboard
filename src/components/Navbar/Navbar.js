@@ -8,28 +8,29 @@ const Navbar = () => {
   return (
     <div className={styles.navbar}>
       <div className={styles.logo}>
-        <a href="#">Logo</a>
+        <a href="#">DashFamily</a>
       </div>
       <div className={styles.blocBurger}>
-          <Hamburger rounded toggled={isOpen} toggle={setOpen} />
+          <Hamburger color="#D46F5E" rounded toggled={isOpen} toggle={setOpen} />
       </div>
      
       {isOpen &&<div className={styles.blocNav}>
           <ul>
+            <li>
+              <a href="#">Services</a>
+            </li>
             <li>
               <a href="#">About</a>
             </li>
             <li>
               <a href="#">Contact</a>
             </li>
-            <li>
-              <a href="#">SignIn</a>
-            </li>
+
           </ul>
       </div>}
       <ul className={styles.list}>
         <li>
-          <a href="#">Home</a>
+          <a href="#">Services</a>
         </li>
         <li>
           <a href="#">About</a>
@@ -37,7 +38,7 @@ const Navbar = () => {
         <li>
           <a href="#">Contact</a>
         </li>
-        <li>
+        <li className={styles.signInButton}>
           <Link to="/signUp">SignIn</Link>
         </li>
       </ul>

@@ -1,0 +1,134 @@
+.Hero{
+    padding: 3% 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+
+.blocText {
+    display: flex;
+    flex: 50%;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 18rem;
+}
+
+.blocText h1{
+    font-size: 3rem;
+    font-weight: 700;
+    color: #fcfcfc;
+}
+
+
+.blocText p{
+    font-size: 1.3rem;
+    font-weight: 300;
+    color: #fcfcfc;
+    line-height: 1.7;
+}
+
+.blocText button{
+    border: none;
+    padding: .8rem .8rem;
+    width: 10rem;
+    background-color: #EF9D10;
+    color: #fcfcfc;
+    font-weight: 500;
+    border-radius: 5px;
+    text-transform: uppercase;
+}
+
+.blocImg{
+    width: 100% !important;
+    height: 100%;
+    flex: 50%;
+}
+
+.blocImg img{
+    width: 550px;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(3rem, 1rem);
+}
+
+
+/* Responsiveness */
+@media(max-width: 1400px){
+    
+}
+
+@media(max-width: 1200px){
+    
+}
+
+@media(max-width: 1000px){
+   
+}
+
+@media(max-width: 900px){
+    .blocImg{
+        display: none;
+        visibility: hidden;
+        opacity: 0;
+    }
+    
+    .blocImg img{
+        display: none;
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    .blocText {
+        display: flex;
+        flex: 50%;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: center;
+        height: 15rem;
+        width: 100%;
+        transform: translateY(2rem);
+    }
+
+    .blocText h1{
+        font-size: 2.4rem;
+        font-weight: 700;
+        text-align: center;
+        color: #D46F5E;
+    }
+
+    .blocText p{
+        font-size: 1rem;
+    }
+
+    .blocText button{
+        border: none;
+        padding: .8rem .8rem;
+        width: 8rem;
+        background-color: #D46F5E;
+        color: #fcfcfc;
+        font-weight: 500;
+        border-radius: 5px;
+        text-transform: uppercase;
+    }
+    
+}
+
+@media(max-width: 600px){
+    .blocText {
+        display: flex;
+        flex: 50%;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: center;
+        height: 13rem;
+        width: 100%;
+        transform: translateY(6rem);
+    }
+    .blocText h1{
+        font-size: 1.8rem;
+      
+    }
+}
