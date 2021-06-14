@@ -155,7 +155,7 @@ app.get("/transactions", async (req, res, next) => {
              JOIN transactions
                 ON users.id = transactions.userID
              WHERE users.id = "${uid}" 
-             ORDER BY created_at DESC`;
+             ORDER BY created_at ASC`;
   connection.query(q, (err, rows) => {
     if (err) throw err;
     /* console.log(rows); */

@@ -2,8 +2,6 @@ import React from "react";
 import styles from "./Features.module.css";
 import backgroundLeft from '../../assets/featuresBackgroundLeft.svg';
 import backgroundRight from '../../assets/featuresBackgroundRight.svg'
-/* import featuresImageLeft from "../../assets/featuresImageLeft.svg"; */
-/* import featuresImageRight from "../../assets/featuresImageRight.svg"; */
 import { StyleSharp } from "@material-ui/icons";
 
 const Features = () => {
@@ -11,8 +9,7 @@ const Features = () => {
     <div className={styles.Features}>
       <div className={styles.left}>
         <div className={styles.boxImage}>
-          <img  className={styles.backgrounLeft} src={ backgroundLeft}/>
-         {/*  <img src={featuresImageLeft} /> */}
+          <img  className={styles.backgroundLeft} src={ backgroundLeft}/>  
         </div>
 
         <div className={styles.content}>
@@ -30,8 +27,7 @@ const Features = () => {
           </p>
         </div>
         <div className={styles.boxImage}>
-          <img  className={styles.backgrounRight} src={ backgroundRight}/>
-     {/*      <img className={styles.rightImg} src={featuresImageRight} /> */}
+          <img  className={styles.backgroundRight} src={ backgroundRight}/>
         </div>
       </div>
     </div>

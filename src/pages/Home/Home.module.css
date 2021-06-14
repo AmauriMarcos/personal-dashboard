@@ -39,8 +39,10 @@
     
 }
 
-@media(max-width: 1000px){
-   
+@media(max-width: 950px){
+    .header{
+        height: 60vh;
+    }
 }
 
 @media(max-width: 900px){
@@ -49,7 +51,7 @@
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
-        height: 500px;
+        height: 60vh;
         width: 100%;
     }
 }
