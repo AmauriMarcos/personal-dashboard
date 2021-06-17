@@ -1,34 +1,128 @@
-.MainContent{
+.MainContent {
+  grid-area: main;
+  background-color: #f6f7ff;
+  border-radius: 30px;
+  margin: 2rem 2rem 0 2rem;
+  height: 90vh;
+/*   transform: translateY(-1rem); */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.boxChart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.charts {
+  height: 320px;
+  width: 750px;
+  transform: translateX(4rem);
+}
+
+.boxChart {
+  height: 320px;
+  width: 950px;
+/*   transform: translateX(-2rem); */
+}
+
+.Chart {
+}
+
+@media (max-width: 419px) {
+  .MainContent {
     grid-area: main;
-    background-color: #F6F7FF;
-    border-radius: 30px;
+    width: 370px;
+    background-color: #fff;
+    border-radius: 5px;
     margin: 2rem 2rem 0 2rem;
-    height: 80vh;
-    transform: translateY(-1rem);
+    height: 100%;
+    transform: translateY(0);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+  }
 
-}
-.boxChart{
+  .boxChart {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 340px;
+    width: 550px;
+    transform: translateX(1.1rem);
+  }
+
+  .charts {
+    height: 330px;
+    width: 400px;
+    margin: 0 auto;
+    transform: translateX(-6rem);
+  }
+
+  .wrapperCharts {
+    display: flex;
+    width: 60%;
+    justify-content: space-between;
+    height: 1000px;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+  }
+
+  /*  .boxTransactions{
+      width: 400px;
+      margin: 0 auto;
+  }
+ */
 }
 
-.charts{
+@media (max-width: 360px) {
+  .MainContent {
+    grid-area: main;
+    width: 370px;
+    background-color: #fff;
+    border-radius: 5px;
+    margin: 2rem 2rem 0 2rem;
+    height: 100%;
+    transform: translateY(0);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .boxChart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 320px;
-    width: 750px;
-    transform: translateX(4rem);
-}
+    width: 420px;
+    transform: translateX(1.3rem);
+  }
 
-.boxChart{
-    height: 320px;
-    width: 950px;
-    transform: translateX(-2rem);
-}
+  .charts {
+    height: 290px;
+    width: 360px;
+    transform: translateX(-.5rem);
+    margin: 2rem auto;
+  }
 
-.Chart{
-
+/*   .barChart{
+    height: 290px !important;
+    width: 480px !important;
+  }
+ */
+  .wrapperCharts {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    height: 1100px;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+  }
 }

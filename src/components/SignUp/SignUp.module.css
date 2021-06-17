@@ -81,3 +81,21 @@
 .accountGroup a:hover{
     color: #23fcd4;
 }
+
+
+@media(max-width: 419px){
+    .container{
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+        align-items: center;
+    }
+    .imageArea{
+        display: none;
+        visibility: hidden;
+    }
+
+    .signUp{
+        height: 100vh;
+    }
+}

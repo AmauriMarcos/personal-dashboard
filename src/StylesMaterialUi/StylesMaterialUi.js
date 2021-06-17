@@ -48,6 +48,42 @@ export const useStyles = makeStyles({
         fontWeight: "400 !important",
         textTransform: "none !important",
         borderRadius: "30px !important",
+/* 
+        border-radius: 15px;
+        background-color: #261D56;
+        width: 250px;
+        height: 8rem;
+        display: flex;
+        justify-content: space-around;
+        padding: 0 .5rem;
+        align-items: center;
+        margin-bottom: 2rem;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; */
+    },
+    modalButtonMobile:{
+        backgroundColor: "#2BC4A9 !important",
+        color: "#F6F7FF !important",
+        width:"320px !important",
+        height: "6rem !important",
+        padding: "0 .5rem !important",
+        fontWeight: "400 !important",
+        fontSize: "1.2rem !important",
+        textTransform: "none !important",
+        borderRadius: "15px !important",
+        boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px !important;"
+    },
+    modalButtonMobileSamsung:{
+        backgroundColor: "#2BC4A9 !important",
+        color: "#F6F7FF !important",
+        width:"300px !important",
+        height: "5.5rem !important",
+        margin: "0 auto",
+        padding: "0 .5rem !important",
+        fontWeight: "400 !important",
+        fontSize: "1.1rem !important",
+        textTransform: "none !important",
+        borderRadius: "15px !important",
+        boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px !important;"
     },
     modalButtonForm:{
         backgroundColor: "#261D56!important",

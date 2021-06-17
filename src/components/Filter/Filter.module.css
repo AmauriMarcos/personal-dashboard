@@ -3,7 +3,8 @@
     padding: 0 1rem;
     outline: none;
   }
-  
+
+
   .expensesFilterControl {
     display: flex;
     width: 100%;
@@ -47,3 +48,28 @@
   .to{
     margin: 0 .5rem;
   }
+
+  @media(max-width: 419px){
+    .filterBox{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+   .filter{
+     border-radius: 3px;
+     border: none;
+     border: 1px solid rgb(216, 216, 216);
+    
+   }
+
+   
+  .calendar{
+    width: 25px;
+    height: 25px;
+    margin-bottom: 1rem;
+   
+  }
+}

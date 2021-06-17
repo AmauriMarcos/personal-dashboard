@@ -35,3 +35,22 @@
     border-radius: 5px;
     text-transform: uppercase;
 }
+
+
+@media(max-width: 419px){
+    .content h1{
+        font-size: 1.7rem;
+    }
+
+    .content button{
+        border: none;
+        padding: 1rem .8rem;
+        width: 8rem;
+        background-color: #D46F5E;
+        color: #fcfcfc;
+        font-weight: 500;
+        border-radius: 5px;
+        text-transform: uppercase;
+    }
+    
+}

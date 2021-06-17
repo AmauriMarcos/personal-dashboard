@@ -12,10 +12,16 @@ import PrivateRoute from "../../components/PrivateRoute";
 import Savings from '../../components/Savings/Savings';
 import SavingModal from '../../components/SavingModal/SavingModal';
 import GoalModal from '../../components/GoalModal/GoalModal'
+import { useMediaQuery } from 'react-responsive';
+/* import { useLocation } from 'react-router-dom'; */
 
 const Dashboard = ({ children }) => {
+/*   const location = useLocation();
+  console.log(location.pathname === "/dashboard/savings");
+  const isMobile = useMediaQuery({ query: `(max-width: 419px)` }); */
+
   return (
-    <div className={styles.Dashboard}>
+    <div className={styles.Dashboard}>     
       <GoalModal/>
       <SavingModal/>
       <Router>
@@ -25,7 +31,7 @@ const Dashboard = ({ children }) => {
              <PrivateRoute  path="/dashboard/settings" component={Settings}/>
              <PrivateRoute  path="/dashboard/savings" component={Savings}/>
           </Switch>     
-        <Overview />
+       <Overview />
       </Router>
     </div>
   );

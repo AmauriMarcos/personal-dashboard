@@ -24,3 +24,25 @@
     height: 110px;
     border-radius: 50%;
 }
+
+
+@media(max-width: 419px){
+    .boxImage{
+        border: 2px solid rgba(197, 196, 192, 0.68);
+        width: 170px;
+        height: 170px;
+        border-radius: 50%;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+    
+    .image{
+        object-fit: cover;
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+    }
+}

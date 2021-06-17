@@ -1,12 +1,24 @@
-.DashboardOverview{
-    grid-area: overview;
-    height: 100%;
-    width: 290px;
-    background-color: #F6F7FF;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    justify-self: flex-end;
+.DashboardOverview {
+  grid-area: overview;
+  height: 100%;
+  width: 290px;
+  background-color: #f6f7ff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  justify-self: flex-end;
 }
 
+@media (max-width: 419px) {
+  .DashboardOverview {
+    justify-self: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 360px) {
+  .DashboardOverview {
+   /*  order: 2; */
+  }
+}

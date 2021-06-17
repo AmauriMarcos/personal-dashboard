@@ -109,3 +109,26 @@
 
  
 }
+
+@media(max-width: 419px){
+    .brandList{
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        justify-items: center;
+    }
+
+    .brandList li img{
+        width: 100px;
+        height: 100px;
+
+    }
+
+    .material{
+        width: 60px !important;
+        height: 60px !important;
+    }
+
+    .google{
+        width: 130px !important;
+        height: 130px !important;
+    }
+}

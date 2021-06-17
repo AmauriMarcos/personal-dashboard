@@ -52,3 +52,18 @@
     font-weight: 700;
     color: #2BC4A9;
 }
+
+@media(max-width: 419px){
+    .Goal{
+        border-radius: 15px;
+        background-color: #F6F7FF;
+        width: 350px;
+        height: 12rem;
+        display: flex;
+        justify-content: space-around;
+        padding: 0 .5rem;
+        align-items: center;
+        margin-bottom: 2rem;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    }
+}

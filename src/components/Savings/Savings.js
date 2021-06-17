@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styles from "./Savings.module.css";
 import { Button } from "@material-ui/core";
 import { useStyles } from "../../StylesMaterialUi/StylesMaterialUi";
@@ -7,11 +7,13 @@ import saveIcon from "../../assets/saveIcon.svg";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import ReactPaginate from "react-paginate";
 import Goal from "../../components/DashboardOverview/Goal/Goal";
+import { useMediaQuery } from "react-responsive";
 
 const Savings = () => {
   const classes = useStyles();
-  const { amount, goalTitle, goal, allGoals,  openSavingModal, saving } = useDash();
-
+  const { amount, goalTitle, goal, allGoals, openSavingModal, saving } =
+    useDash();
+  const isMobile = useMediaQuery({ query: `(max-width: 419px)` });
   let value;
   let progress;
 
@@ -28,9 +30,9 @@ const Savings = () => {
 
   const pageCount = Math.ceil(allGoals.length / PER_PAGE);
 
-    function handlePageClick({ selected: selectedPage }) {
-        setCurrentPage(selectedPage);
-    }
+  function handlePageClick({ selected: selectedPage }) {
+    setCurrentPage(selectedPage);
+  }
 
   return (
     <div className={styles.Savings}>
@@ -38,9 +40,14 @@ const Savings = () => {
         <div className={styles.boxAmount}>
           <h3 className={styles.title}>Saved for the future</h3>
           <h1 className={styles.amount}>
-            <span className={styles.cifrao}>$</span>{saving}
+            <span className={styles.cifrao}>$</span>
+            {saving}
           </h1>
-          <Button onClick={openSavingModal} variant="contained" className={classes.savingButton}>
+          <Button
+            onClick={openSavingModal}
+            variant="contained"
+            className={classes.savingButton}
+          >
             Add founds
           </Button>
         </div>
@@ -62,40 +69,23 @@ const Savings = () => {
           );
         })}
       </ul>
-      <div className={styles.paginationBlock}>
-        <ReactPaginate
-          previousLabel={"Previous"}
-          nextLabel={"Next"}
-          pageCount={pageCount}
-          onPageChange={handlePageClick}
-          containerClassName={styles.pagination}
-          previousLinkClassName={styles.pagination__link}
-          nextLinkClassName={styles.pagination__link}
-          disabledClassName={styles.pagination__linkDisabled}
-          activeClassName={styles.pagination__linkActive}
-        />
-      </div>
+      {!isMobile && (
+        <div className={styles.paginationBlock}>
+          <ReactPaginate
+            previousLabel={"Previous"}
+            nextLabel={"Next"}
+            pageCount={pageCount}
+            onPageChange={handlePageClick}
+            containerClassName={styles.pagination}
+            previousLinkClassName={styles.pagination__link}
+            nextLinkClassName={styles.pagination__link}
+            disabledClassName={styles.pagination__linkDisabled}
+            activeClassName={styles.pagination__linkActive}
+          />
+        </div>
+      )}
     </div>
   );
 };
 
 export default Savings;
-{
-  /*  <div className={styles.currentlyGoal}>
-
-        </div> */
-}
-{
-  /*  <div className={styles.circle}>
-          <CircularProgressbar
-            styles={buildStyles({
-              pathColor: `rgb(43, 196, 169, ${progress / 100})`,
-              textColor: "#261D56",
-              trailColor: "#d6d6d6",
-              backgroundColor: "#2BC4A9 !important",
-            })}
-            value={progress}
-            text={`${progress}%`}
-          />
-        </div> */
-}

@@ -34,7 +34,7 @@ const SignUp = () => {
   const sendJwtTokentoServer = async () => {
       const token = await firebase.auth().currentUser.getIdToken();
       try{
-        await axios.get("http://localhost:8080/auth", {
+        await axios.get("https://personal-financial-dashboard.herokuapp.com/auth", {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,

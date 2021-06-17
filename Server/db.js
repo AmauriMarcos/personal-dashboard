@@ -1,11 +1,12 @@
 const mysql = require('mysql');
 
 const connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: process.env.DATABASE_PASSWORD,
-    database: "dashhome"
+    host: "eu-cdbr-west-01.cleardb.com",
+    user: "b7766723860f57",
+    password: "d858170b",
+    database: "heroku_8663280c077e415"
 });
+
 
 connection.connect((err) =>{
     if(err){

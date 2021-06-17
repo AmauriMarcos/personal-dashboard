@@ -8,7 +8,6 @@ const Filter= () => {
   const {startDate, setStartDate, endDate, setEndDate} = useDash();
 
   return (
-    <div>
       <div className={styles.filterBox}>
         <img className={styles.calendar} src={calendar}  alt="Calendar Icon"/>
         <DatePicker
@@ -31,8 +30,7 @@ const Filter= () => {
           endDate={endDate}
           minDate={startDate}
         />
-      </div>
-    </div>
+      </div>  
   );
 };
 

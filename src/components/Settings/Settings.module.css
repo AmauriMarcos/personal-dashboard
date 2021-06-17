@@ -107,3 +107,70 @@
     background-color: #2BC4A9;
     color: #fff;
 }
+
+@media(max-width: 419px){
+    .Settings{
+        grid-area: unset;
+        width: 100%;
+    }
+
+    .SettingsContent{
+        display: flex;
+        flex-direction: column;
+        height: 35.5rem;
+        width: 270px;
+        justify-content: space-between;
+        align-self: center;
+    }
+    
+    .SettingsTitle{
+        font-weight: 700;
+        font-size: 1.7rem;
+        position: relative;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .SettingsTitle::after{
+        display: none;
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    .boxProfileAndButtons{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+     
+    }
+
+    .boxProfile{
+        width: 150px;
+        height: 150px;
+    }
+
+    
+    .profile{
+        border-radius: 50%;
+        object-fit: cover;
+        width: 150px;
+        height: 150px;
+    }
+
+    .formUploadImage{
+        height: 186px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 2rem 1rem;
+    }
+
+    .formUploadImage input{
+        width: 200px;
+        margin: .5rem auto;
+
+    }
+
+}

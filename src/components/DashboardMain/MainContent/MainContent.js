@@ -73,9 +73,9 @@ const MainContent = () => {
 
   return (
     <div className={styles.MainContent}>
-      <div className={styles.boxChart}>
+      <div className={`${styles.boxChart} ${styles.wrapperCharts}`}>
         <div className={styles.boxChart}>
-          <MyResponsiveBar  data={mainBarData } className={styles.boxChart}/>
+          <MyResponsiveBar  data={mainBarData } className={`${styles.boxChart} ${styles.barChart}`}/>
         </div>
         <div className={styles.charts}>
           {filteredTransactions.length === 0 ? (
@@ -88,7 +88,10 @@ const MainContent = () => {
           )}
         </div>
       </div>
-      <Transactions />
+      {/* <div className={styles.boxTransactions}> */}
+        <Transactions />
+      {/* </div> */}
+      
     </div>
   );
 };

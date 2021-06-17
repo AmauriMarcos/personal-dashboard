@@ -45,3 +45,11 @@
     color: #fff;
     font-size: .8rem;
 }
+
+@media(max-width: 419px){
+    .GoalOverview{
+        width: 320px;
+        margin: 1rem 0;
+        height: 9rem;
+    }
+}

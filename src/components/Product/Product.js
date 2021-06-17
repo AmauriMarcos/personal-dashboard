@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Product.module.css";
-import iPad from "../../assets/iPad.svg";
+import iPhonePic from "../../assets/iPhonePic.svg";
 
 const Product = () => {
   return (
@@ -14,7 +14,7 @@ const Product = () => {
         <button>Try for free</button>
       </div>
       <div className={styles.image}>
-        <img src={iPad} alt="iPad" />
+        <img src={iPhonePic} alt="iPad" />
       </div>
     </div>
   );

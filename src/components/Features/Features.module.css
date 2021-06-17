@@ -485,3 +485,50 @@
         text-align: center;
     }
 }
+
+
+@media(max-width: 419px){
+    .boxImage .backgroundLeft{
+        height: 450px;
+        width: auto;
+        z-index: 1;
+    }
+
+    .boxImage .backgroundRight{
+        height: 550px;
+        width: auto;
+        z-index: 1;
+    }
+}
+
+
+@media(max-width: 360px){
+    .boxImage .backgroundLeft{
+        height: 400px;
+        width: auto;
+        z-index: 1;
+    }
+
+    .boxImage .backgroundRight{
+        height: 500px;
+        width: auto;
+        z-index: 1;
+    }
+
+    .left .content h2,
+    .right .content h2{
+        font-size: 1.5rem;
+        font-weight: 900;
+        position: relative;
+        text-align: center;
+    }
+
+    .left .content p{
+        font-size: .9rem;
+    }
+
+    .right .content p{
+        font-size: .9rem;
+    }
+
+}

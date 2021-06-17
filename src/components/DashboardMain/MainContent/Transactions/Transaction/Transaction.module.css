@@ -99,3 +99,97 @@
 .deleteButton:hover{
     color: #E96574;
 }
+
+@media(max-width: 419px){
+    .transaction{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #ccc;
+        margin: 1rem auto;
+        padding-bottom: .5rem;
+        position: relative;
+    }
+
+    .transaction h3{
+        color: #353535;
+        font-size: 1.05rem;
+        font-weight: 600;
+        width: 160px;
+    }
+
+    .expensePrice,
+    .savingsPrice,
+    .incomePrice{  
+        width: 110px;  
+    }
+    
+    .icons{
+        width: 25px;
+        height: 25px;
+        margin-right: 1rem;
+    }
+    
+    .iconsMore{
+        width: 15px;
+        height: 15px;
+        cursor: pointer !important;
+        display: inline;
+     
+    }
+
+
+}
+
+@media(max-width: 360px){
+    .transaction{
+        width: 85%;
+        transform: translateX(0);
+        margin: 0 auto;
+    }
+
+    .transaction h3{
+        color: #353535;
+        font-size: .97rem;
+        font-weight: 600;
+        width: 140px;
+    }
+
+    .transactionDate{
+        font-size: .7rem;
+        color: #ACACAC;
+        font-weight: 600;
+        width: auto;
+    }
+
+/*     .expensePrice{
+        font-weight: 600;
+        color: #E96574;
+        width: 140px;
+        font-size: .8rem;
+        text-align: center;
+    } */
+
+    .expensePrice,
+    .incomePrice{
+        width: 140px;
+        font-size: .8rem;
+    }
+
+    
+.savingsPrice{
+    font-weight: 600;
+    color: #0F96BD;
+    width: 140px;
+    font-size: .8rem;
+    text-align: center;
+}
+
+.icons{
+    width: 22px;
+    height: 22px;
+    margin-right: 1rem;
+}
+
+}

@@ -1,8 +1,30 @@
-.Dashboard{
-    display: grid;
-    grid-template-areas: "navbar main main main main main main main main main main overview overview"
-                         "navbar main main main main main main main main main main overview overview"
-                         "navbar main main main main main main main main main main overview overview"
-                         "navbar main main main main main main main main main main overview overview";
-    height: 100vh;
+.Dashboard {
+  display: grid;
+  grid-template-areas:
+    "navbar main main main main main main main main main main overview overview"
+    "navbar main main main main main main main main main main overview overview"
+    "navbar main main main main main main main main main main overview overview"
+    "navbar main main main main main main main main main main overview overview";
+  height: 100vh;
 }
+
+@media (max-width: 419px) {
+  .Dashboard {
+    grid-template-areas:
+      "navbar navbar navbar"
+      "overview overview overview"
+      "main main main";
+  }
+}
+
+@media (max-width: 360px) {
+  .Dashboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+}
+
+

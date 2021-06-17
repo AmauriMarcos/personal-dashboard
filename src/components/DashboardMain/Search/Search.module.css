@@ -30,3 +30,9 @@
     text-align: center;
     
 }
+
+@media(max-width: 419px){
+    .Search{
+        display: none;
+    }
+}
