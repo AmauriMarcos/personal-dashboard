@@ -14,7 +14,7 @@ const Product = () => {
         <button>Try for free</button>
       </div>
       <div className={styles.image}>
-        <img src={iPhonePic} alt="iPad" />
+        <img src={iPhonePic} alt="iPhone" />
       </div>
     </div>
   );
