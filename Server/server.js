@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors());
-
+console.log(pool);
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "https://dashfamily.netlify.app/dashboard");
   res.header(
@@ -25,6 +25,14 @@ app.use((req, res, next) => {
 });
 
 app.use("/public/uploads", express.static(__dirname + "/public/uploads/"));
+
+pool.getConnection((err, connection) => {
+  if (err) {
+    reject(err);
+  } else {
+    console.log("Database connected!")
+  }
+});
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

@@ -34,7 +34,6 @@
     "web-vitals": "^1.1.2",
     "yup": "^0.32.9"
   },
-  "proxy": "https://personal-financial-dashboard.herokuapp.com",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
