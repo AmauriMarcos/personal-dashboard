@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 console.log(pool);
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "https://dashfamily.netlify.app/dashboard");
+  res.setHeader("Access-Control-Allow-Origin", ["https://dashfamily.netlify.app", "http://localhost:3000/"]);
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
