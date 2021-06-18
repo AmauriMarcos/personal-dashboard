@@ -7,31 +7,34 @@ import Nav from "../../components/DashboardNavbar/DashboardNavbar";
 import Main from "../../components/DashboardMain/DashboardMain";
 import Overview from "../../components/DashboardOverview/DashboardOverview";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Settings from '../../components/Settings/Settings';
+import Settings from "../../components/Settings/Settings";
 import PrivateRoute from "../../components/PrivateRoute";
-import Savings from '../../components/Savings/Savings';
-import SavingModal from '../../components/SavingModal/SavingModal';
-import GoalModal from '../../components/GoalModal/GoalModal'
-import { useMediaQuery } from 'react-responsive';
+import Savings from "../../components/Savings/Savings";
+import SavingModal from "../../components/SavingModal/SavingModal";
+import GoalModal from "../../components/GoalModal/GoalModal";
+import { useMediaQuery } from "react-responsive";
 /* import { useLocation } from 'react-router-dom'; */
 
 const Dashboard = ({ children }) => {
-/*   const location = useLocation();
+  /*   const location = useLocation();
   console.log(location.pathname === "/dashboard/savings");
   const isMobile = useMediaQuery({ query: `(max-width: 419px)` }); */
 
   return (
-    <div className={styles.Dashboard}>     
-      <GoalModal/>
-      <SavingModal/>
+    <div className={styles.Dashboard}>
+      <div style={{width: "100%"}}>
+        <GoalModal />
+        <SavingModal />
+      </div>
+
       <Router>
         <Nav />
-          <Switch>
-             <PrivateRoute exact path="/dashboard" component={Main}/>
-             <PrivateRoute  path="/dashboard/settings" component={Settings}/>
-             <PrivateRoute  path="/dashboard/savings" component={Savings}/>
-          </Switch>     
-       <Overview />
+        <Switch>
+          <PrivateRoute exact path="/dashboard" component={Main} />
+          <PrivateRoute path="/dashboard/settings" component={Settings} />
+          <PrivateRoute path="/dashboard/savings" component={Savings} />
+        </Switch>
+        <Overview />
       </Router>
     </div>
   );

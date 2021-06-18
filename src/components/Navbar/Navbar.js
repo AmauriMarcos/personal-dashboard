@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import styles from "./Navbar.module.css";
 import {Link} from "react-router-dom";
-import Hamburger from 'hamburger-react'
+import Hamburger from 'hamburger-react';
+import { bubble as Menu } from 'react-burger-menu';
 
 const Navbar = () => {
   const [isOpen, setOpen] = useState(false)
@@ -14,8 +15,9 @@ const Navbar = () => {
           <Hamburger color="#D46F5E" rounded toggled={isOpen} toggle={setOpen} />
       </div>
      
-      {isOpen &&<div className={styles.blocNav}>
-          <ul>
+     
+      {isOpen && <Menu  className={styles.blocNav} isOpen >
+          <ul className={styles.listMobile}>
             <li>
               <a href="#">Services</a>
             </li>
@@ -25,9 +27,9 @@ const Navbar = () => {
             <li>
               <a href="#">Contact</a>
             </li>
-
           </ul>
-      </div>}
+      </Menu>}
+
       <ul className={styles.list}>
         <li>
           <a href="#">Services</a>
