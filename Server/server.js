@@ -4,7 +4,6 @@ const admin = require("firebase-admin");
 const cors = require("cors");
 require("dotenv").config({ path: ".././.env" });
 const pool = require("./db");
-const port = 8080;
 const multer = require("multer");
 const uuid = require("uuid");
 const path = "./public/uploads";
@@ -314,8 +313,10 @@ app.delete("/transactions/:id", (req, res) => {
   res.send("DELETE Request Called");
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+const Port = process.env.PORT || 8080;
+
+app.listen(Port, () => {
+  console.log(`Example app listening on port ${Port}`);
 });
 
 
