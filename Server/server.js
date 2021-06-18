@@ -3,13 +3,11 @@ const app = express();
 const admin = require("firebase-admin");
 const cors = require("cors");
 require("dotenv").config({ path: ".././.env" });
-const  pool  = require("./db");
+const pool = require("./db");
+const port = 8080;
 const multer = require("multer");
 const uuid = require("uuid");
-const { Pool } = require("@material-ui/icons");
 const path = "./public/uploads";
-
-console.log(pool);
 
 app.use(express());
 app.use(express.json());
@@ -17,18 +15,13 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cors());
 
-app.all('/*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "https://dashfamily.netlify.app/dashboard");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
   next();
-});
-
-pool.getConnection((err) =>{
-  if(err){
-      console.log('Error connecting to Db');
-      return;
-    }
-    console.log('Connection established');
 });
 
 app.use("/public/uploads", express.static(__dirname + "/public/uploads/"));
@@ -63,7 +56,7 @@ admin.initializeApp({
     clientEmail: process.env.REACT_APP_FIREBASE_CLIENT_EMAIL, // I get no error here
     privateKey: process.env.REACT_APP_FIREBASE_PRIVATE_KEY.replace(
       /\\n/g,
-      '\n'
+      "\n"
     ), // NOW THIS WORKS!!!
   }),
 });
@@ -72,7 +65,6 @@ app.get("/auth", async (req, res, next) => {
   //Get token from the client-side generated with getIdToken()
   const token = req.headers.authorization;
   console.log(token);
-  console.log("TESTANDOOO")
   //Verify token from user
   const userInfo = await admin.auth().verifyIdToken(token);
   const { uid, email } = userInfo;
@@ -290,7 +282,7 @@ app.get("/savings", async(req, res, next) =>{
 app.get("/transactions/:id", (req, res) => {
   const id = req.params.id;
   const q = `SELECT title, category, price FROM transactions WHERE id=${id}`;
-  Pool.query(q, (err, rows) => {
+  pool.query(q, (err, rows) => {
     if (err) throw err;
     res.send({ rows: rows });
   });
@@ -314,10 +306,8 @@ app.delete("/transactions/:id", (req, res) => {
   res.send("DELETE Request Called");
 });
 
-const PORT = process.env.PORT || 8080;
-
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
 });
 
 
