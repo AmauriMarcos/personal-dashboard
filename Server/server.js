@@ -313,10 +313,10 @@ app.delete("/transactions/:id", (req, res) => {
   res.send("DELETE Request Called");
 });
 
-const Port = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8080;
 
-app.listen(Port, () => {
-  console.log(`Example app listening on port ${Port}`);
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`);
 });
 
 
