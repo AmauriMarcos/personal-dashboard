@@ -15,6 +15,7 @@
     "@material-ui/icons": "^4.11.2",
     "@nivo/pie": "^0.69.0",
     "body-parser": "^1.19.0",
+    "cloudinary": "^1.26.0",
     "cors": "^2.8.5",
     "dotenv": "^9.0.2",
     "express": "^4.17.1",

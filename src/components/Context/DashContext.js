@@ -15,6 +15,7 @@ import moment from "moment";
 import { getConfig } from "@testing-library/dom";
 import { ContactlessOutlined } from "@material-ui/icons";
 
+
 const DashContext = createContext();
 
 export function useDash() {
@@ -134,14 +135,31 @@ export const DashProvider = ({ children }) => {
     if (currentUser) {
       const token = await firebase.auth().currentUser.getIdToken();
       try {
-        const res = await axios.get("https://personal-financial-dashboard.herokuapp.com/user/info", {
+        const res = await axios.get("http://localhost:8080/user/info", {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
           },
         });
+
+        const response = await axios.get('http://localhost:8080/upload/images', {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        });
+   
         const fileName = res.data[0].profile_pic;
-        setUserURL(`https://personal-financial-dashboard.herokuapp.com/public/uploads/${fileName}`);
+
+        const file = response.data.filter((data) =>{
+           return data === fileName
+        });
+
+        console.log(`-- ${file} --`)
+        console.log(fileName);
+
+
+        setUserURL(file);
         setUserInfo(res.data);
         setFileFromServer(fileName);
       } catch {
@@ -160,7 +178,7 @@ export const DashProvider = ({ children }) => {
       };
 
       try {
-        const res = await axios.get(`https://personal-financial-dashboard.herokuapp.com/filter/`, {
+        const res = await axios.get(`http://localhost:8080/filter/`, {
           params: {
             date: filterDate,
           },
@@ -188,7 +206,7 @@ export const DashProvider = ({ children }) => {
 
       try {
         const res = await axios.get(
-          `https://personal-financial-dashboard.herokuapp.com/allFilteredTransactions/`,
+          `http://localhost:8080/allFilteredTransactions/`,
           {
             params: {
               date: filterDate,
@@ -210,7 +228,7 @@ export const DashProvider = ({ children }) => {
     if (currentUser) {
       const token = await firebase.auth().currentUser.getIdToken();
       axios
-        .get("https://personal-financial-dashboard.herokuapp.com/transactions", {
+        .get("http://localhost:8080/transactions", {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
@@ -253,7 +271,7 @@ export const DashProvider = ({ children }) => {
     if (currentUser) {
       const token = await firebase.auth().currentUser.getIdToken();
       axios
-        .get("https://personal-financial-dashboard.herokuapp.com/transactions/currentDay", {
+        .get("http://localhost:8080/transactions/currentDay", {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
@@ -293,7 +311,7 @@ export const DashProvider = ({ children }) => {
     if (currentUser) {
       const token = await firebase.auth().currentUser.getIdToken();
       axios
-        .get("https://personal-financial-dashboard.herokuapp.com/goals", {
+        .get("http://localhost:8080/goals", {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
@@ -317,7 +335,7 @@ export const DashProvider = ({ children }) => {
     if (currentUser) {
       const token = await firebase.auth().currentUser.getIdToken();
       axios
-        .get("https://personal-financial-dashboard.herokuapp.com/savings", {
+        .get("http://localhost:8080/savings", {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
@@ -351,7 +369,7 @@ export const DashProvider = ({ children }) => {
     if (currentUser) {
       const token = await firebase.auth().currentUser.getIdToken();
       axios
-        .get("https://personal-financial-dashboard.herokuapp.com/totalTransactions", {
+        .get("http://localhost:8080/totalTransactions", {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
@@ -368,7 +386,7 @@ export const DashProvider = ({ children }) => {
     if (currentUser) {
       const token = await firebase.auth().currentUser.getIdToken();
       axios
-        .get("https://personal-financial-dashboard.herokuapp.com/totalTransactionsPerMonth", {
+        .get("http://localhost:8080/totalTransactionsPerMonth", {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
@@ -396,7 +414,7 @@ export const DashProvider = ({ children }) => {
       };
 
         axios
-        .post("https://personal-financial-dashboard.herokuapp.com/transactions", data, {
+        .post("http://localhost:8080/transactions", data, {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
@@ -427,7 +445,7 @@ export const DashProvider = ({ children }) => {
       };
 
       axios
-        .post("https://personal-financial-dashboard.herokuapp.com/goals", data, {
+        .post("http://localhost:8080/goals", data, {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
@@ -471,7 +489,7 @@ export const DashProvider = ({ children }) => {
       };
 
       axios
-        .post("https://personal-financial-dashboard.herokuapp.com/transactions", data, {
+        .post("http://localhost:8080/transactions", data, {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
@@ -497,15 +515,17 @@ export const DashProvider = ({ children }) => {
       formData.append("avatar", file);
       const token = await firebase.auth().currentUser.getIdToken();
       await axios
-        .post("https://personal-financial-dashboard.herokuapp.com/upload", formData, {
+        .post("http://localhost:8080/upload", formData, {
           headers: {
+            'Access-Control-Allow-Origin': '*',
             "content-type": "multipart/form-data",
             Authorization: token,
           },
         })
         .then((res) => {
-          history.push("/dashboard");
           getUserInfo();
+          window.location.reload(true);
+      
         });
     }
   };
@@ -524,7 +544,7 @@ export const DashProvider = ({ children }) => {
     );
 
     axios
-      .delete(`https://personal-financial-dashboard.herokuapp.com/transactions/${id}`)
+      .delete(`http://localhost:8080/transactions/${id}`)
       .then((res) => {
         console.log(res.data);
         getTotalTransactions();

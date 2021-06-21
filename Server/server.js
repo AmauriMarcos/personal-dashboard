@@ -7,13 +7,13 @@ const pool = require("./db");
 const multer = require("multer");
 const uuid = require("uuid");
 const path = "./public/uploads";
+const cloudinary = require("cloudinary").v2;
 
 app.use(express());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors());
-console.log(pool);
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.header(
@@ -23,13 +23,25 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/public/uploads", express.static(__dirname + "/public/uploads/"));
+app.use("/public/uploads", express.static(__dirname + "/public/uploads"));
+
+/* START -  Cloudinary CONFIG */
+
+cloudinary.config({
+  cloud_name: process.env.REACT_APP_CLOUDINARY_NAME,
+  api_key: process.env.REACT_APP_CLOUDINARY_API_KEY,
+  api_secret: process.env.REACT_APP_CLOUDINARY_API_SECRET,
+});
+
+/* END */
+
+/* START -  MULTER CONFIG */
 
 pool.getConnection((err, connection) => {
   if (err) {
     reject(err);
   } else {
-    console.log("Database connected!")
+    console.log("Database connected!");
   }
 });
 
@@ -56,7 +68,10 @@ const upload = multer({
   limits: 1024 * 1024 * 5,
 });
 
-//Initalize admin
+/* END */
+
+/* START CONFIG ADMIN Firebase */
+
 admin.initializeApp({
   credential: admin.credential.cert({
     projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID, // I get no error here
@@ -66,6 +81,13 @@ admin.initializeApp({
       "\n"
     ), // NOW THIS WORKS!!!
   }),
+});
+
+/* END */
+
+/* START - ROUTES */
+app.get("/", (req, res) =>{
+  res.send("Hello from the Server!")
 });
 
 app.get("/auth", async (req, res, next) => {
@@ -102,18 +124,45 @@ app.get("/user/info", async (req, res, next) => {
   });
 });
 
+app.get("/upload", (req, res) =>{
+  res.send("Upload route!")
+});
+
+app.get("/upload/images", async(req, res) => {
+    const {resources} = await cloudinary.search.expression
+    ('folder:personal_financial_dashboard_avatar')
+    .sort_by('public_id', 'desc')
+    .max_results(30)
+    .execute();
+    const publicIds = resources.map(file => file.public_id);
+    res.send(publicIds);
+});
+
 app.post("/upload", upload.single("avatar"), async (req, res, next) => {
-  const token = req.headers.authorization;
-  const userInfo = await admin.auth().verifyIdToken(token);
-  const { uid } = userInfo;
+  try{
+    const token = req.headers.authorization;
+    const userInfo = await admin.auth().verifyIdToken(token);
+    const { uid } = userInfo;
 
-  const q = `UPDATE users SET profile_pic="${req.file.filename}" WHERE id="${uid}";`;
+    // Upload image to cloudinary
+     const result = await cloudinary.uploader.upload(req.file.path,{
+       upload_preset: 'personal-financial-dashboard-avatar'
+     });
 
-  pool.query(q, (err, rows) => {
-    if (err) throw err;
-  });
+    const q = `UPDATE users SET profile_pic="${result.public_id}" WHERE id="${uid}";`;
 
-  res.send("Image uploaded!");
+    pool.query(q, (err, rows) => {
+      if (err) throw err;
+    });
+
+    res.send("BOOOOO")
+
+  }catch{
+    console.log("Something went wrong")
+  }
+  /* https://res.cloudinary.com/hrfhxbqio/image/upload/v1624275768/s4bh9p9xk3rewob9xxr9.jpg 
+     https://res.cloudinary.com/hrfhxbqio/image/upload/v1624275963/alm12xliwzahlz6ufnyz.jpg*/
+
 });
 
 app.get("/filter", async (req, res) => {
@@ -239,7 +288,7 @@ app.post("/transactions", async (req, res, next) => {
   });
 });
 
-app.get("/goals", async(req, res, next) =>{
+app.get("/goals", async (req, res, next) => {
   const token = req.headers.authorization;
   const userInfo = await admin.auth().verifyIdToken(token);
   const { uid } = userInfo;
@@ -255,30 +304,30 @@ app.get("/goals", async(req, res, next) =>{
   });
 });
 
-app.post("/goals", async(req, res, next) =>{
-  const{goalTitle, goal} = req.body;
+app.post("/goals", async (req, res, next) => {
+  const { goalTitle, goal } = req.body;
   const token = req.headers.authorization;
 
   const userInfo = await admin.auth().verifyIdToken(token);
   const { uid } = userInfo;
 
   const q = `INSERT INTO goals(goal_title, goal, user_id)
-             VALUES("${goalTitle}", ${goal}, "${uid}")`
+             VALUES("${goalTitle}", ${goal}, "${uid}")`;
 
-  pool.query(q, (err, rows) =>{
-     if(err) throw err;
-     res.send({msg: "Your goal has been created !!!"});
-  })
+  pool.query(q, (err, rows) => {
+    if (err) throw err;
+    res.send({ msg: "Your goal has been created !!!" });
+  });
 });
 
-app.get("/savings", async(req, res, next) =>{
+app.get("/savings", async (req, res, next) => {
   const token = req.headers.authorization;
   const userInfo = await admin.auth().verifyIdToken(token);
   const { uid } = userInfo;
   const q = ` SELECT title, price AS amount, email FROM transactions
               INNER JOIN users
                 ON users.id = transactions.userID
-              WHERE users.id="${uid}" AND category="Savings";`
+              WHERE users.id="${uid}" AND category="Savings";`;
 
   pool.query(q, (err, rows) => {
     if (err) throw err;
@@ -318,5 +367,3 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
-
-

@@ -6,6 +6,7 @@ import { useDash } from "../Context/DashContext";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import firebase from "firebase";
+import { Image } from "cloudinary-react";
 
 const Settings = () => {
   const classes = useStyles();
@@ -36,7 +37,7 @@ const Settings = () => {
           >
             <h3 className={styles.avatarTitle}>Avatar</h3>
 
-            {fileFromServer === null ? (
+            {userURL === null ? (
               <div className={styles.boxProfile}>
                 <img
                   className={styles.profile}
@@ -46,10 +47,12 @@ const Settings = () => {
               </div>
             ) : (
               <div className={styles.boxProfile}>
-                <img
+                <Image
+                  cloudName="hrfhxbqio"
                   className={styles.profile}
-                  src={userURL}
-                  alt="profile picture"
+                  publicId={userURL.toString()}
+                  width="300"
+                  crop="scale"
                 />
               </div>
             )}
@@ -63,10 +66,10 @@ const Settings = () => {
             }}
           >
             <div className={styles.boxLabelAndSelectedImage}>
-            {/*  <label className={styles.label}>
+              {/*  <label className={styles.label}>
               <input type="file" onChange={handleChange} />
                Choose File
-            </label> */ }
+            </label> */}
               <form onSubmit={uploadImage} className={styles.formUploadImage}>
                 <input type="file" name="avatar" onChange={handleChange} />
                 <Button variant="contained" color="primary" type="submit">
