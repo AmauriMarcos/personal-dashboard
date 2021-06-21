@@ -135,14 +135,14 @@ export const DashProvider = ({ children }) => {
     if (currentUser) {
       const token = await firebase.auth().currentUser.getIdToken();
       try {
-        const res = await axios.get("http://localhost:8080/user/info", {
+        const res = await axios.get("https://personal-financial-dashboard.herokuapp.com/user/info", {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
           },
         });
 
-        const response = await axios.get('http://localhost:8080/upload/images', {
+        const response = await axios.get('https://personal-financial-dashboard.herokuapp.com/upload/images', {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
@@ -178,7 +178,7 @@ export const DashProvider = ({ children }) => {
       };
 
       try {
-        const res = await axios.get(`http://localhost:8080/filter/`, {
+        const res = await axios.get(`https://personal-financial-dashboard.herokuapp.com/filter/`, {
           params: {
             date: filterDate,
           },
@@ -206,7 +206,7 @@ export const DashProvider = ({ children }) => {
 
       try {
         const res = await axios.get(
-          `http://localhost:8080/allFilteredTransactions/`,
+          `https://personal-financial-dashboard.herokuapp.com/allFilteredTransactions/`,
           {
             params: {
               date: filterDate,
@@ -228,7 +228,7 @@ export const DashProvider = ({ children }) => {
     if (currentUser) {
       const token = await firebase.auth().currentUser.getIdToken();
       axios
-        .get("http://localhost:8080/transactions", {
+        .get("https://personal-financial-dashboard.herokuapp.com/transactions", {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
@@ -271,7 +271,7 @@ export const DashProvider = ({ children }) => {
     if (currentUser) {
       const token = await firebase.auth().currentUser.getIdToken();
       axios
-        .get("http://localhost:8080/transactions/currentDay", {
+        .get("https://personal-financial-dashboard.herokuapp.com/transactions/currentDay", {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
@@ -311,7 +311,7 @@ export const DashProvider = ({ children }) => {
     if (currentUser) {
       const token = await firebase.auth().currentUser.getIdToken();
       axios
-        .get("http://localhost:8080/goals", {
+        .get("https://personal-financial-dashboard.herokuapp.com/goals", {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
@@ -335,7 +335,7 @@ export const DashProvider = ({ children }) => {
     if (currentUser) {
       const token = await firebase.auth().currentUser.getIdToken();
       axios
-        .get("http://localhost:8080/savings", {
+        .get("https://personal-financial-dashboard.herokuapp.com/savings", {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
@@ -369,7 +369,7 @@ export const DashProvider = ({ children }) => {
     if (currentUser) {
       const token = await firebase.auth().currentUser.getIdToken();
       axios
-        .get("http://localhost:8080/totalTransactions", {
+        .get("https://personal-financial-dashboard.herokuapp.com/totalTransactions", {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
@@ -386,7 +386,7 @@ export const DashProvider = ({ children }) => {
     if (currentUser) {
       const token = await firebase.auth().currentUser.getIdToken();
       axios
-        .get("http://localhost:8080/totalTransactionsPerMonth", {
+        .get("https://personal-financial-dashboard.herokuapp.com/totalTransactionsPerMonth", {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
@@ -414,7 +414,7 @@ export const DashProvider = ({ children }) => {
       };
 
         axios
-        .post("http://localhost:8080/transactions", data, {
+        .post("https://personal-financial-dashboard.herokuapp.com/transactions", data, {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
@@ -445,7 +445,7 @@ export const DashProvider = ({ children }) => {
       };
 
       axios
-        .post("http://localhost:8080/goals", data, {
+        .post("https://personal-financial-dashboard.herokuapp.com/goals", data, {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
@@ -489,7 +489,7 @@ export const DashProvider = ({ children }) => {
       };
 
       axios
-        .post("http://localhost:8080/transactions", data, {
+        .post("https://personal-financial-dashboard.herokuapp.com/transactions", data, {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
@@ -515,7 +515,7 @@ export const DashProvider = ({ children }) => {
       formData.append("avatar", file);
       const token = await firebase.auth().currentUser.getIdToken();
       await axios
-        .post("http://localhost:8080/upload", formData, {
+        .post("https://personal-financial-dashboard.herokuapp.com/upload", formData, {
           headers: {
             'Access-Control-Allow-Origin': '*',
             "content-type": "multipart/form-data",
@@ -544,7 +544,7 @@ export const DashProvider = ({ children }) => {
     );
 
     axios
-      .delete(`http://localhost:8080/transactions/${id}`)
+      .delete(`https://personal-financial-dashboard.herokuapp.com/transactions/${id}`)
       .then((res) => {
         console.log(res.data);
         getTotalTransactions();
