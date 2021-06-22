@@ -10,17 +10,20 @@
 .content{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     color: #23222A;
-    height: 270px;
-    width: 550px;
+    height: 100%;
+    width: 900px;
+    padding: 0 5% 0 0;
 }
 
 .content h2{
-    font-size: 2.4rem;
+    font-size: 2.7rem;
     font-weight: 900;
     position: relative;
+    margin-bottom: 1.5rem;
+    
 }
 
 .content h2::before{
@@ -40,6 +43,7 @@
 .content p{
     font-size: 1.2rem;
     font-weight: 300;
+    margin-bottom: 1.5rem;
 }
 
 .content button{
@@ -68,7 +72,7 @@
 @media(max-width: 1350px){
     .image img{
         margin-top: 1.5rem;
-        width: 500px;
+        width: 400px;
         height: 100%;
     }
 
@@ -87,7 +91,7 @@
 
 @media(max-width: 900px){
     .Product{
-    /*     padding: 3% 7%; */
+        margin: 4% 0;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -133,7 +137,7 @@
 @media(max-width: 419px){
     .image img{
         margin-top: 1.5rem;
-        width: 330px !important;
+        width: 230px !important;
         height: 100% !important;
     }
 
@@ -154,13 +158,5 @@
         height: 100%;
     }
 
-    .content{
-        align-items: center;
-        width: 100%;
-    }
-    .content h2{
-        font-size: 1.8rem;
-        text-align: center;
-    }
 }
 
