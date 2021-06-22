@@ -97,6 +97,10 @@
   background-color: red;
 }
 
+.logo{
+  transform: translateY(2rem);
+}
+
 .logo a{
    font-size: 1.2rem;
    color: #ffffff;
