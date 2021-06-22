@@ -47,7 +47,7 @@
 
 @media(max-width: 900px){
     .header{
-        background: url("../../assets/mobileBackground.svg");
+        background: url("https://res.cloudinary.com/hrfhxbqio/image/upload/v1624352917/ImgMobile_dscwbl.jpg");
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
