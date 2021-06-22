@@ -443,7 +443,7 @@
     }
 
     .right{
-        height: 100vh;
+        /* height: 100vh; */
         display:  grid;
         grid-template-columns: repeat(2, 1fr);
         align-items: center;
@@ -513,14 +513,14 @@
 
 @media(max-width: 419px){
     .boxImage .backgroundLeft{
-        height: 450px;
+        height: 100%;
         width: 100%;
         z-index: 1;
     }
 
     .boxImage .backgroundRight{
-        height: 550px;
-        width: auto;
+        height: 100%;
+        width: 100%;
         z-index: 1;
     }
 }
