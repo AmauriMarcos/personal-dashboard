@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Hero.module.css";
-import manWork from '../../assets/manWork.png'
+import manWork from '../../assets/manWork.png';
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -14,7 +15,7 @@ const Hero = () => {
           to you
         </p>
         <button>
-            Get Started
+          <Link style={{color: "#fff", textDecoration: "none"}} to="/signUp">Get Started</Link>
         </button>
       </div>
       <div className={styles.blocImg}>

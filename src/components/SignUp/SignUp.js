@@ -49,9 +49,11 @@ const SignUp = () => {
   return (
     <div className={styles.container}>
       <div className={styles.signUp}>
-        <div className={styles.brand}>
-          <img src={brand} />
-        </div>
+        <Link to="/">
+          <div className={styles.brand}>
+            <img src={brand} />
+          </div>
+        </Link>
         <div className={styles.form}>
           <p className={styles.createAccountTitlte}>Create an account with</p>
           <GoogleButton

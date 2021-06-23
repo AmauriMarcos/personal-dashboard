@@ -84,6 +84,24 @@
 
 }
 
+.listMobile{
+  width: 100vw !important;
+  height: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.listMobile li{
+  margin-bottom: 1rem;
+}
+
+.bm-item{
+  display: inline-block !important;
+  height: 100% !important;
+
+}
+
 .blocNav ul{
   display: flex;
 }

@@ -28,6 +28,7 @@ export const DashProvider = ({ children }) => {
   const [transactions, setTransactions] = useState([]);
 
   /* New transactions state's */
+  const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState("");
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
@@ -155,9 +156,6 @@ export const DashProvider = ({ children }) => {
            return data === fileName
         });
 
-        console.log(`-- ${file} --`)
-        console.log(fileName);
-
 
         setUserURL(file);
         setUserInfo(res.data);
@@ -225,6 +223,7 @@ export const DashProvider = ({ children }) => {
   };
 
   const getUserTransactions = async () => {
+    
     if (currentUser) {
       const token = await firebase.auth().currentUser.getIdToken();
       axios
@@ -236,7 +235,7 @@ export const DashProvider = ({ children }) => {
         })
         .then((res) => {
           setTransactions(res.data);
-
+      
           let incomes = res.data
             .filter((t) => t.category === "Payment")
             .map((income) => {
@@ -262,12 +261,14 @@ export const DashProvider = ({ children }) => {
           total = incomeAmount - expenseAmount;
 
           setAmount(total.toFixed(2));
+          
         })
         .catch((err) => console.log(err));
     }
   };
 
   const getDayTransactions = async () => {
+    setLoading(true);
     if (currentUser) {
       const token = await firebase.auth().currentUser.getIdToken();
       axios
@@ -302,6 +303,7 @@ export const DashProvider = ({ children }) => {
 
           setDayExpense(dayExpenseAmount);
           setDayIncome(dayIncomeAmount);
+          setLoading(false);
         })
         .catch((err) => console.log(err));
     }
@@ -356,9 +358,7 @@ export const DashProvider = ({ children }) => {
               return a + b;
             }, 0);
       
-          console.log(totalSavingAmount)
           setSaving(totalSavingAmount);
-
           getUserTransactions();
         })
         .catch((err) => console.log(err));
@@ -656,7 +656,8 @@ export const DashProvider = ({ children }) => {
     openSavingModal,
     savingModal,
     createSavings,
-    saving
+    saving,
+    loading
   };
   return <DashContext.Provider value={values}>{children}</DashContext.Provider>;
 };
