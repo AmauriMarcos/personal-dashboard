@@ -22,25 +22,29 @@ const DashboardNavbar = () => {
     try {
       await logout();
       history.push("/");
-      /* toast.dark("👋 You are now logged out!", {
-        position: toast.POSITION.TOP_LEFT,
-      }); */
     } catch {
       alert("Failed to logout");
     }
   }
 
+  const goHome = () =>{
+     history.push("/");
+     window.location.reload(true);
+  }
+
   return (
     <div className={styles.DashboardNavbar}>
       <ul className={styles.BoxIcons}>
+        <div to="/login" onClick={goHome}>
+          <IconButton aria-label="Home Icon">
+            <HomeOutlined className={classes.Icons} />
+          </IconButton>
+        </div>
         <Link to="/dashboard">
           <IconButton aria-label="Home Icon">
             <Dashboard className={classes.Icons} />
           </IconButton>
         </Link>
-        <IconButton aria-label="Profile Icon">
-          <PersonOutline className={classes.Icons} />
-        </IconButton>
         <Link to="/dashboard/settings">
           <IconButton aria-label="Settings Icon">
             <SettingsOutlined className={classes.Icons} />

@@ -61,6 +61,23 @@
     flex-direction: column;
 }
 
+.forgotPassword{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 1rem auto;
+}
+
+.forgotPassword a{
+    text-decoration: none;
+    color: #4285F4; 
+}
+
+.forgotPassword a:hover{
+    text-decoration: none;
+    color: #7ba3e2; 
+}
+
 .imageArea h2{
     color: #fff;
     font-weight: 700;

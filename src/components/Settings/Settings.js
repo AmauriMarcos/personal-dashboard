@@ -37,7 +37,7 @@ const Settings = () => {
           >
             <h3 className={styles.avatarTitle}>Avatar</h3>
 
-            {userURL === null ? (
+            {userURL === null || userURL.length < 1 ? (
               <div className={styles.boxProfile}>
                 <img
                   className={styles.profile}

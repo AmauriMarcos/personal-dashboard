@@ -20,6 +20,10 @@ export const AuthProvider = ({children}) => {
     return auth.signInWithEmailAndPassword(email, password);
   }
 
+  function resetPassword(email){
+    return auth.sendPasswordResetEmail(email);
+  }
+
   function logout(){
     return auth.signOut();
   }
@@ -48,7 +52,8 @@ export const AuthProvider = ({children}) => {
     signUp,
     logout,
     resetPassword,
-    signInwithGoogle
+    signInwithGoogle,
+    resetPassword
   };
 
   return (

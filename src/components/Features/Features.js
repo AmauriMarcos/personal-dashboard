@@ -5,6 +5,7 @@ import backgroundRight from '../../assets/featuresBackgroundRight.svg'
 import { StyleSharp } from "@material-ui/icons";
 import { useMediaQuery } from "react-responsive";
 import { Image } from "cloudinary-react";
+import {Link} from 'react-router-dom';
 
 const Features = () => {
   const isMobile = useMediaQuery({ query: `(max-width: 420px)`}); 
@@ -46,7 +47,9 @@ const Features = () => {
           <p>
             Set goals and use charts to visualize the data tha t matters to you. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
           </p>
-          <button>Go to dashboard</button>
+          <Link to="/login">
+             <button>Go to dashboard</button>
+          </Link>
         </div>
       </div>
       <div className={styles.right}>
@@ -55,7 +58,9 @@ const Features = () => {
           <p>
             Set goals and use charts to visualize the data tha t matters to you. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
           </p>
-          <button>Get started</button>
+          <Link to="/login">
+             <button>Get started</button>
+          </Link>
         </div>
         <div className={styles.boxImage}>
            {featuresBackgroundRightImg}

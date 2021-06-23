@@ -1,6 +1,6 @@
 .Dashboard {
   display: grid;
-  grid-template-areas: "navbar main main overview";
+  grid-template-areas: "navbar main main main main overview";
   height: 100vh;
   position: relative;
 }

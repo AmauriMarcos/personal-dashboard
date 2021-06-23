@@ -76,6 +76,7 @@ const Login = () => {
                 setError("");
                 setLoading(true);
                 await login(email, password);
+                console.log(email);
                 history.push("/dashboard");
               } catch {
                 setError("Failed to login");
@@ -134,6 +135,11 @@ const Login = () => {
               </Form>
             )}
           </Formik>
+
+          <div className={styles.forgotPassword}>
+            <Link to="/forgot-password">Forgot password</Link>       
+          </div>
+          
         </div>
         <div className={styles.accountGroup}>
           <p>

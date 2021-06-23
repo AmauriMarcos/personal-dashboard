@@ -26,7 +26,7 @@ const Dashboard = ({ children }) => {
   return (
     <div className={styles.Dashboard}>
       {loading ? (
-        < CircleLoading  />
+        < CircleLoading/>
       ) : (
         <>
           <div style={{ width: "100%" }}>

@@ -36,6 +36,22 @@
   font-size: 1rem;
 }
 
+.logoutButton{ 
+  border: none;
+  padding: .6rem .8rem;
+  width: 100%;
+  background-color: #fcfcfc;
+  color: #D46F5E;
+  border-radius: 5px;
+
+}
+
+.logoutButton a{
+  font-size: 1rem !important;
+  color: #D46F5E !important;
+  font-weight: 700 !important;
+}
+
 .blocBurger {
   position: absolute;
   top: -1rem;
@@ -115,9 +131,7 @@
   background-color: red;
 }
 
-.logo{
-  transform: translateY(2rem);
-}
+
 
 .logo a{
    font-size: 1.2rem;
@@ -142,6 +156,10 @@
 @media (max-width: 900px) {
   .list li a {
     color: red;
+  }
+
+  .logo{
+    transform: translateY(2rem);
   }
 
   .list {

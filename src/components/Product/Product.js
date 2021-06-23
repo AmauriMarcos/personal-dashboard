@@ -3,7 +3,7 @@ import styles from "./Product.module.css";
 import iPhonePic from "../../assets/iPhonePic.svg";
 import { useMediaQuery } from "react-responsive";
 import { Image } from "cloudinary-react";
-/* publicId="iPhonePic_e1ee3l.jpg" */
+import {Link} from 'react-router-dom';
 const Product = () => {
  const isMobile = useMediaQuery({ query: `(max-width: 420px)`}); 
   let productImg = null;
@@ -26,7 +26,9 @@ const Product = () => {
           It is easy to keep track of your receipts and payments, income and
           outcome in one financial dashboard. Set goals and use charts to visualize the data tha t matters to you. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </p>
-        <button>Try for free</button>
+        <Link to="/login">
+          <button>Try for free</button>
+        </Link>
       </div>
       <div className={styles.image}>
         {productImg}

@@ -3,7 +3,7 @@
   background-color: #f6f7ff;
   border-radius: 30px;
   margin: 2rem 2rem 0 2rem;
-  height: 90vh;
+  height: 100vh;
 /*   transform: translateY(-1rem); */
   display: flex;
   flex-direction: column;
@@ -21,6 +21,7 @@
   height: 320px;
   width: 750px;
   transform: translateX(4rem);
+
 }
 
 .boxChart {
@@ -59,8 +60,8 @@
   .charts {
     height: 330px;
     width: 400px;
-    margin: 0 auto;
-    transform: translateX(-6rem);
+    margin: 2rem auto;
+    transform: translateX(-7rem);
   }
 
   .wrapperCharts {
