@@ -6,7 +6,7 @@ import { Button, TextField, Grid } from "@material-ui/core";
 import { Link, useHistory } from "react-router-dom";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import { useAuth } from "../Context/AuthContext";
-import brand from "../../assets/Brand.svg";
+import brand from "../../assets/Logo.svg";
 import GoogleButton from "react-google-button";
 import { SignupSchema } from "../../Services/YupSchema/YupSchema";
 import axios from "axios";

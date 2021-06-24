@@ -11,6 +11,18 @@
   align-items: center;
 }
 
+.boxEmpty{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(5rem);
+}
+
+.boxEmpty p{
+  margin-top: 1rem;
+}
+
 .boxChart {
   display: flex;
   justify-content: center;
@@ -34,6 +46,26 @@
 }
 
 @media (max-width: 419px) {
+
+  .boxEmpty{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translate(-1rem, 2rem);
+  }
+
+  .boxEmpty h2{
+     font-size: 1.3rem;
+     text-align: center;
+  }
+
+  .boxEmpty p{
+      text-align: center;
+  }
+
+
+  
   .MainContent {
     grid-area: main;
     width: 370px;

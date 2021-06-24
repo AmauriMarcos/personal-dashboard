@@ -7,7 +7,7 @@ import { Link, useHistory } from "react-router-dom";
 import GoogleButton from "react-google-button";
 import { Alert } from "@material-ui/lab";
 import { useAuth } from "../Context/AuthContext";
-import brand from "../../assets/Brand.svg";
+import brand from "../../assets/Logo.svg";
 import * as yup from "yup";
 
 let SignupSchema = yup.object().shape({

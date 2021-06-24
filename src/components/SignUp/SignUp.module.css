@@ -5,6 +5,11 @@
     width: 100%;
 }
 
+.brand img{
+    width: 100px;
+    height: 100px;
+}
+
 .orSpan{
     margin: 1.5rem auto;
     width: 40%;
