@@ -7,7 +7,7 @@ const Action = () =>{
         <div className={styles.Action}>
             <div className={styles.content}>
                 <h1>Save for future Goals</h1>
-                <Link to="/login">
+                <Link to="/login" className={styles.wrapperButton}>
                     <button>Get Started</button>
                 </Link>
             </div>

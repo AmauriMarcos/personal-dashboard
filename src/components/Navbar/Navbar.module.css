@@ -15,6 +15,18 @@
 
 }
 
+.list li a:hover{
+  color: #D46F5E;
+}
+
+.list li:last-child a{
+  color: white;
+}
+
+.list li:last-child:hover{
+  background-color: #da553e;
+}
+
 .list li a {
   text-decoration: none;
   margin: 20px;

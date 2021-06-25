@@ -26,6 +26,10 @@
     
 }
 
+.wrapperButton{
+    margin-right: auto;
+}
+
 .content h2::before{
     content: "";
     display: inline-block;
@@ -57,6 +61,11 @@
     outline: none;
     border-radius: 5px;
     align-self: flex-start;
+}
+
+.content button:hover{
+    background-color: #23222A;
+    color: #fff;
 }
 
 .image img{
@@ -147,6 +156,10 @@
         border-radius: 5px;
         align-self: flex-start;
         margin: 0 auto;
+    }
+
+    .wrapperButton{
+        margin: 0 auto !important;
     }
 }
 

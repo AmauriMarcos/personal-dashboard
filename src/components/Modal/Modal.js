@@ -52,7 +52,7 @@ const ModalDashboard = () => {
         contentLabel="Example Modal"
       >
         <img
-          style={{ width: "100px", height: "100px", margin: "0 auto" }}
+          style={{ width: "80px", height: "80px", margin: "0 auto" }}
           src={brand}
           alt="Brand Icon"
         />

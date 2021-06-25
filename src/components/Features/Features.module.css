@@ -16,6 +16,11 @@
     align-self: flex-start;
 }
 
+.content button:hover{
+    background-color: #23222A;
+    color: #fff;
+}
+
 /* Start LEFT PART */
 .left{
     height: 100%;
@@ -46,7 +51,7 @@
     display: flex;
     flex-direction: column;
 /*     justify-content: space-between; */
-    align-items:center;
+    align-items: flex-end;
     color: #23222A;
     height: 100%;
     width: 100%;
@@ -58,6 +63,7 @@
     font-weight: 900;
     position: relative;
     margin-bottom: 1.5rem;
+    text-align: right;
 }
 
 
@@ -66,6 +72,7 @@
     font-weight: 300;
     width: 100%;
     margin-bottom: 1.5rem;
+    text-align: right;
 }
 
 /* Ends LEFT PART */
@@ -100,7 +107,7 @@
 .right .content{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     color: #23222A;
     height: 100%;
     /* padding: 0 3rem; */
@@ -492,7 +499,7 @@
         height: 100%;
         width: 100%;
         padding: 0 2%;
-        margin: 0 auto;
+        margin: 2rem auto 0 auto;
     }
     
     .right .content h2{
@@ -544,6 +551,8 @@
         align-items: center;
         width: 100%;
     }
+
+    
 
     .left .content h2,
     .right .content h2{

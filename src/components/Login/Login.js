@@ -164,7 +164,7 @@ const Login = () => {
       </div>
       <div className={styles.imageArea}>
         <h2>
-            Never spend your money <br></br> before you have it. 
+            Never spend your money  before you have it. 
         </h2>
         <p>
           Lorem ipsum dolor sit amet, consectetur <br></br> adipiscing elit, sed

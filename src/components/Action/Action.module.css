@@ -34,6 +34,11 @@
     font-weight: 500;
     border-radius: 5px;
     text-transform: uppercase;
+    cursor: pointer;
+}
+
+.content button:hover{
+    background-color: #da553e;
 }
 
 
@@ -51,6 +56,11 @@
         font-weight: 500;
         border-radius: 5px;
         text-transform: uppercase;
+        cursor: pointer;
+    }
+
+    .wrapperButton:hover{
+        background-color: #da553e;
     }
     
 }

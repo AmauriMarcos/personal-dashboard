@@ -37,10 +37,10 @@ const Navbar = () => {
               </li>
             )}
             <li>
-              <a href="#">Services</a>
+              <a href="#">Product</a>
             </li>
             <li>
-              <a href="#">About</a>
+              <a href="#">Features</a>
             </li>
             <li>
               <a href="#">Contact</a>
@@ -67,10 +67,10 @@ const Navbar = () => {
             <Link to="/dashboard">Dasboard</Link>
           </li>}
         <li>
-          <a href="#">Services</a>
+          <a href="#">Product</a>
         </li>
         <li>
-          <a href="#">About</a>
+          <a href="#">Features</a>
         </li>
         <li>
           <a href="#">Contact</a>

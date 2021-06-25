@@ -26,7 +26,7 @@ const Product = () => {
           It is easy to keep track of your receipts and payments, income and
           outcome in one financial dashboard. Set goals and use charts to visualize the data tha t matters to you. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </p>
-        <Link to="/login">
+        <Link to="/login" className={styles.wrapperButton}>
           <button>Try for free</button>
         </Link>
       </div>
