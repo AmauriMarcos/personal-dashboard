@@ -42,7 +42,13 @@ const EditTransaction = () => {
   const getUniqueTransaction = async () => {
     try {
       const res = await axios.get(
-        `https://personal-financial-dashboard.herokuapp.com/transactions/${editID}`
+        `https://personal-financial-dashboard.herokuapp.com/transactions/${editID}`,
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+          },
+        }
       );
       const transaction = res.data.rows;
       transaction.map((data) => {
@@ -69,7 +75,13 @@ const EditTransaction = () => {
 
   const editTransaction = async () => {
     try{
-      await axios.put(`https://personal-financial-dashboard.herokuapp.com/transactions/${editID}`, {
+      await axios.put(`https://personal-financial-dashboard.herokuapp.com/transactions/${editID}`,
+      {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+      }, {
         title,
         price,
         category

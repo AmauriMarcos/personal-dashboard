@@ -90,9 +90,10 @@ const MainContent = () => {
       return filteredDataChart;
     });
 
+   
   return (
     <div className={styles.MainContent}>
-      {dataChart === null || dataChart.length < 1 || typeof dataChart[1] === 'undefined' ? (
+      {dataChart === null || dataChart.length < 1 || typeof dataChart[0] === 'undefined'? (
         <div className={styles.boxEmpty}>
           <img src={EmptyInbox} />
           <h2>You don't have any data to display yet.</h2>

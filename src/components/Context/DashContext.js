@@ -142,6 +142,7 @@ export const DashProvider = ({ children }) => {
           "https://personal-financial-dashboard.herokuapp.com/user/info",
           {
             headers: {
+              "Access-Control-Allow-Origin": "*",
               "Content-Type": "application/json",
               Authorization: token,
             },
@@ -152,6 +153,7 @@ export const DashProvider = ({ children }) => {
           "https://personal-financial-dashboard.herokuapp.com/upload/images",
           {
             headers: {
+              "Access-Control-Allow-Origin": "*",
               "Content-Type": "application/json",
               Authorization: token,
             },
@@ -190,6 +192,7 @@ export const DashProvider = ({ children }) => {
               date: filterDate,
             },
             headers: {
+              "Access-Control-Allow-Origin": "*",
               "Content-Type": "application/json",
               Authorization: token,
             },
@@ -220,6 +223,7 @@ export const DashProvider = ({ children }) => {
               date: filterDate,
             },
             headers: {
+              "Access-Control-Allow-Origin": "*",
               "Content-Type": "application/json",
               Authorization: token,
             },
@@ -240,6 +244,7 @@ export const DashProvider = ({ children }) => {
           "https://personal-financial-dashboard.herokuapp.com/transactions",
           {
             headers: {
+              "Access-Control-Allow-Origin": "*",
               "Content-Type": "application/json",
               Authorization: token,
             },
@@ -247,6 +252,7 @@ export const DashProvider = ({ children }) => {
         )
         .then((res) => {
           setTransactions(res.data);
+          console.log(res.data)
 
           let incomes = res.data
             .filter((t) => t.category === "Payment")
@@ -287,6 +293,7 @@ export const DashProvider = ({ children }) => {
           "https://personal-financial-dashboard.herokuapp.com/transactions/currentDay",
           {
             headers: {
+              "Access-Control-Allow-Origin": "*",
               "Content-Type": "application/json",
               Authorization: token,
             },
@@ -329,6 +336,7 @@ export const DashProvider = ({ children }) => {
       axios
         .get("https://personal-financial-dashboard.herokuapp.com/goals", {
           headers: {
+            "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/json",
             Authorization: token,
           },
@@ -353,6 +361,7 @@ export const DashProvider = ({ children }) => {
       axios
         .get("https://personal-financial-dashboard.herokuapp.com/savings", {
           headers: {
+            "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/json",
             Authorization: token,
           },
@@ -387,6 +396,7 @@ export const DashProvider = ({ children }) => {
           "https://personal-financial-dashboard.herokuapp.com/totalTransactions",
           {
             headers: {
+              "Access-Control-Allow-Origin": "*",
               "Content-Type": "application/json",
               Authorization: token,
             },
@@ -407,6 +417,7 @@ export const DashProvider = ({ children }) => {
           "https://personal-financial-dashboard.herokuapp.com/totalTransactionsPerMonth",
           {
             headers: {
+              "Access-Control-Allow-Origin": "*",
               "Content-Type": "application/json",
               Authorization: token,
             },
@@ -439,6 +450,7 @@ export const DashProvider = ({ children }) => {
           data,
           {
             headers: {
+              "Access-Control-Allow-Origin": "*",
               "Content-Type": "application/json",
               Authorization: token,
             },
@@ -474,6 +486,7 @@ export const DashProvider = ({ children }) => {
           data,
           {
             headers: {
+              "Access-Control-Allow-Origin": "*",
               "Content-Type": "application/json",
               Authorization: token,
             },
@@ -524,6 +537,7 @@ export const DashProvider = ({ children }) => {
           data,
           {
             headers: {
+              "Access-Control-Allow-Origin": "*",
               "Content-Type": "application/json",
               Authorization: token,
             },
@@ -554,6 +568,7 @@ export const DashProvider = ({ children }) => {
           formData,
           {
             headers: {
+              "Access-Control-Allow-Origin": "*",
               "Access-Control-Allow-Origin": "*",
               "content-type": "multipart/form-data",
               Authorization: token,

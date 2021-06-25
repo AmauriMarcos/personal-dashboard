@@ -19,6 +19,7 @@ const SignUp = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+
   async function handleSignInWithGoogle() {
     try {
       setError("");
@@ -36,6 +37,7 @@ const SignUp = () => {
       try{
         await axios.get("https://personal-financial-dashboard.herokuapp.com/auth", {
           headers: {
+            "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/json",
             Authorization: token,
           },

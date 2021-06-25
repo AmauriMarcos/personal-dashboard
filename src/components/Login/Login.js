@@ -38,6 +38,21 @@ const Login = () => {
     }
   }
 
+/*   const sendJwtTokentoServer = async () => {
+    const token = await firebase.auth().currentUser.getIdToken();
+    try{
+      await axios.get("https://personal-financial-dashboard.herokuapp.com/auth", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      })
+    }
+    catch{
+      console.log("Something went wrong!");
+    }
+}; */
+
   return (
     <div className={styles.container}>
       <div className={styles.signUp}>
