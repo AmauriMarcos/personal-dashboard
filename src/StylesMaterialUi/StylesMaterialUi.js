@@ -25,23 +25,24 @@ export const useStyles = makeStyles({
         }
     },
     form:{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-        height: "100%",
-        padding: "0 2rem"
+        display: "flex !important",
+        flexDirection: "column !important",
+        justifyContent: "center !important",
+        alignItems: "center !important",
+        width: "100% !important",
+        height: "100% !important",
+        padding: "0 2rem !important"
     },
     modalInput:{
-        width: "100%",
+        width: "100% !important",
         marginBottom: "1rem !important"
     },
     modalLabelInput:{
-        margin: "1rem 0"
+        margin: "1rem 0 !important",
+        textAlign: "center !important"
     },
     inputLabel: {
-        margin: "right auto"
+        margin: "right auto !important"
     },
     modalButton:{
         backgroundColor: "#F6F7FF !important",
@@ -51,17 +52,7 @@ export const useStyles = makeStyles({
         fontWeight: "400 !important",
         textTransform: "none !important",
         borderRadius: "30px !important",
-/* 
-        border-radius: 15px;
-        background-color: #261D56;
-        width: 250px;
-        height: 8rem;
-        display: flex;
-        justify-content: space-around;
-        padding: 0 .5rem;
-        align-items: center;
-        margin-bottom: 2rem;
-        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; */
+
     },
     modalButtonMobile:{
         backgroundColor: "#2BC4A9 !important",
@@ -91,13 +82,14 @@ export const useStyles = makeStyles({
     modalButtonForm:{
         backgroundColor: "#261D56!important",
         color: "#F6F7FF !important",
-        padding: ".5rem 1.6rem !important",
+        padding: ".8rem 1.6rem !important",
         fontSize: ".87rem !important",
         fontWeight: "400 !important",
         textTransform: "none !important",
-        borderRadius: "30px",
+        borderRadius: "5px",
         marginTop: "1.2rem !important"
     },
+
     modalButtonEdit:{
         backgroundColor: "#2BC4A9!important",
         color: "#F6F7FF !important",
@@ -116,7 +108,7 @@ export const useStyles = makeStyles({
         fontSize: ".9rem !important",
         fontWeight: "600 !important",
         textTransform: "uppercase !important",
-        borderRadius: "10px",
+        borderRadius: "10px !important",
         marginTop: "1.5rem !important"
     },
     modalButtonGoal:{

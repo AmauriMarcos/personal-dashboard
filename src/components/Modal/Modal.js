@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
-import brand from "../../assets/Brand.svg";
+import brand from "../../assets/Logo.svg";
 import { Alert } from "@material-ui/lab";
 import { customStyles } from "../../Services/ModalCustomStyles";
 import {
@@ -52,7 +52,7 @@ const ModalDashboard = () => {
         contentLabel="Example Modal"
       >
         <img
-          style={{ width: "130px", height: "130px", margin: "0 auto" }}
+          style={{ width: "100px", height: "100px", margin: "0 auto" }}
           src={brand}
           alt="Brand Icon"
         />
@@ -83,7 +83,7 @@ const ModalDashboard = () => {
           }}
         >
           {({ errors, handleChange, touched, values }) => (
-            <Form>
+            <Form style={{width: "90%", margin: "0 auto"}}>
               <TextField
                 error={errors.title && touched.title}
                 onChange={handleChange}
@@ -95,6 +95,7 @@ const ModalDashboard = () => {
                 variant="outlined"
                 fullWidth
                 helperText={errors.title && touched.title ? errors.title : null}
+                className={classes.modalInput}
               />
 
               <TextField
@@ -111,7 +112,7 @@ const ModalDashboard = () => {
               />
 
               <InputLabel className={classes.modalLabelInput} id="label">
-                Categories
+                Category
               </InputLabel>
               <Select
                 labelId="label"
