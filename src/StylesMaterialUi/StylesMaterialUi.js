@@ -37,6 +37,9 @@ export const useStyles = makeStyles({
         width: "100%",
         marginBottom: "1rem !important"
     },
+    modalLabelInput:{
+        margin: "1rem 0"
+    },
     inputLabel: {
         margin: "right auto"
     },

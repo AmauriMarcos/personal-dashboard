@@ -19,6 +19,14 @@
   transform: translateY(5rem);
 }
 
+.boxEmpty h2{
+  color: rgb(99, 99, 99);
+}
+
+strong{
+  color: rgb(37, 37, 37);
+}
+
 .boxEmpty p{
   margin-top: 1rem;
 }
@@ -58,6 +66,7 @@
   .boxEmpty h2{
      font-size: 1.3rem;
      text-align: center;
+    
   }
 
   .boxEmpty p{
