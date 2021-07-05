@@ -6,17 +6,21 @@ export const MyResponsiveBar = ({ data /* see data tab */ }) => (
         data={data}
         keys={[ 'food', 'others', 'transport', 'health']}
         indexBy="month"
+        valueFormat=" >-$0c"
+        
+        groupMode="grouped"
         margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
         padding={0.3}
         valueScale={{ type: 'linear' }}
         indexScale={{ type: 'band', round: true }}
         colors={{ scheme: 'purple_orange' }}
+        
         defs={[
             {
                 id: 'dots',
                 type: 'patternDots',
                 background: 'inherit',
-                color: '#38bcb2',
+                color: '#ecd5c3',
                 size: 4,
                 padding: 1,
                 stagger: true
@@ -25,22 +29,22 @@ export const MyResponsiveBar = ({ data /* see data tab */ }) => (
                 id: 'lines',
                 type: 'patternLines',
                 background: 'inherit',
-                color: '#eed312',
+                color: '#ECD5C3',
                 rotation: -45,
                 lineWidth: 6,
                 spacing: 10
             }
         ]}
         fill={[
-            {
+         /*    {
                 match: {
-                    id: 'fries'
+                    id: 'others'
                 },
                 id: 'dots'
-            },
+            }, */
             {
                 match: {
-                    id: 'sandwich'
+                    id: 'health'
                 },
                 id: 'lines'
             }
@@ -66,18 +70,18 @@ export const MyResponsiveBar = ({ data /* see data tab */ }) => (
         }}
         labelSkipWidth={12}
         labelSkipHeight={12}
-        labelTextColor={{ from: 'color', modifiers: [ [ 'darker', 1.6 ] ] }}
-        legends={[
+        labelTextColor="black"
+          legends={[
             {
                 dataFrom: 'keys',
-                anchor: 'bottom',
-                direction: 'row',
+                anchor: 'bottom-right',
+                direction: 'column',
                 justify: false,
-                translateX: 7,
-                translateY: 51,
-                itemsSpacing: 1,
-                itemWidth: 84,
-                itemHeight: 10,
+                translateX: 120,
+                translateY: 0,
+                itemsSpacing: 2,
+                itemWidth: 100,
+                itemHeight: 20,
                 itemDirection: 'left-to-right',
                 itemOpacity: 0.85,
                 symbolSize: 20,

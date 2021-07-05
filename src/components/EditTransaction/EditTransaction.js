@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 import { useStyles } from "../../StylesMaterialUi/StylesMaterialUi";
 import { useDash } from "../Context/DashContext";
-import {customStyles} from '../../Services/ModalCustomStyles';
+import { customStyles } from "../../Services/ModalCustomStyles";
 import axios from "axios";
 
 Modal.setAppElement("#root");
@@ -22,12 +22,7 @@ const EditTransaction = () => {
   const classes = useStyles();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const {
-    closeModal,
-    createTransaction,
-    showEditModal,
-    editID,
-  } = useDash();
+  const { closeModal, createTransaction, showEditModal, editID } = useDash();
 
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
@@ -39,59 +34,69 @@ const EditTransaction = () => {
     getUniqueTransaction();
   }, [editID]);
 
-  const getUniqueTransaction = async () => {
-    try {
-      const res = await axios.get(
+  const getUniqueTransaction =() => {
+    axios.get(
         `https://personal-financial-dashboard.herokuapp.com/transactions/${editID}`,
         {
           headers: {
             "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "POST,GET,PUT,DELETE",
+            "Access-Control-Allow-Headers": "Authorization, Lang",
             "Content-Type": "application/json",
           },
         }
-      );
-      const transaction = res.data.rows;
-      transaction.map((data) => {
-        setTitle(data.title);
-        setPrice(data.price);
-        setCategory(data.category);
-      });
-    } catch {
-      console.log("Something went wrong!!!");
-    }
+      ).then((res) =>{
+        console.log(res.data)
+        const transaction = res.data.rows;
+        transaction.map((data) => {
+          setTitle(data.title);
+          setPrice(data.price);
+          setCategory(data.category);
+        });
+      }).catch((err) =>{
+        console.log(err);
+      })
+      
   };
 
-  const handleTitle = (e) =>{
-        setTitle(e.target.value);
-  }
+  const handleTitle = (e) => {
+    setTitle(e.target.value);
+  };
 
-  const handlePrice = (e) =>{
-      setPrice(e.target.value);
-  }
+  const handlePrice = (e) => {
+    setPrice(e.target.value);
+  };
 
-  const handleCategory = (e) =>{
-      setCategory(e.target.value);
-  }
+  const handleCategory = (e) => {
+    setCategory(e.target.value);
+  };
 
-  const editTransaction = async () => {
-    try{
-      await axios.put(`https://personal-financial-dashboard.herokuapp.com/transactions/${editID}`,
-      {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
+  console.log(title, price, category);
+
+  const editTransaction = () => {
+    console.log(`---${price}---`)
+    axios
+      .put(
+        `https://personal-financial-dashboard.herokuapp.com/transactions/${editID}`,
+        {
+          title,
+          price,
+          category,
         },
-      }, {
-        title,
-        price,
-        category
-      });
-    }
-    catch{
-      console.log("Something went wrong !");
-    }
-      
-  }
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "POST,GET,PUT,DELETE",
+            "Access-Control-Allow-Headers": "Authorization, Lang",
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        console.log(`--${res}--`);
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div>
@@ -112,7 +117,7 @@ const EditTransaction = () => {
             {error}
           </Alert>
         )}
-        
+
         <form className={classes.form} onSubmit={editTransaction}>
           <div>
             <TextField
@@ -159,8 +164,6 @@ const EditTransaction = () => {
             Edit
           </Button>
         </form>
-        
-
       </Modal>
     </div>
   );

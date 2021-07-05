@@ -14,12 +14,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors());
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
+
+app.use(function(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
   next();
 });
 
@@ -346,11 +346,16 @@ app.get("/transactions/:id", (req, res) => {
 
 app.put("/transactions/:id", (req, res) => {
   const id = req.params.id;
+
   const { title, price, category } = req.body;
+
   q = `UPDATE transactions SET title="${title}",  category="${category}", price=${price} WHERE id=${id}; `;
+
   pool.query(q, (err, rows) => {
     if (err) throw err;
   });
+
+   res.send("Transaction successfully updated!");
 });
 
 app.delete("/transactions/:id", (req, res) => {

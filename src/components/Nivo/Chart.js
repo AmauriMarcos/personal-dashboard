@@ -10,6 +10,7 @@ export const MyResponsivePie = ({ data /* see data tab */ }) => (
     <ResponsivePie
         data={data}
         colors={{ datum: 'data.color' }}
+        valueFormat=" >-$0c"
         margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
         innerRadius={0.5}
         padAngle={0.7}
@@ -22,7 +23,7 @@ export const MyResponsivePie = ({ data /* see data tab */ }) => (
         arcLinkLabelsThickness={2}
         arcLinkLabelsColor={{ from: 'color' }}
         arcLabelsSkipAngle={10}
-        arcLabelsTextColor={{ from: 'color', modifiers: [ [ 'darker', 2 ] ] }}
+        arcLabelsTextColor={{ from: 'color', modifiers: [ [ 'brighter', '15' ] ] }}
         defs={[
             {
                 id: 'dots',
@@ -89,7 +90,7 @@ export const MyResponsivePie = ({ data /* see data tab */ }) => (
                     {
                         on: 'hover',
                         style: {
-                            itemTextColor: '#000'
+                            itemTextColor: '#fff'
                         }
                     }
                 ]

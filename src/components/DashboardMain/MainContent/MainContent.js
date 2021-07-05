@@ -90,6 +90,12 @@ const MainContent = () => {
       return filteredDataChart;
     });
 
+
+    const colors = {'foodColor': "#063951", 'othersColor': "#C13018", 'transportColor': "#0D95BC", "healthColor": "#2BC4A9"}
+
+    const getColor = bar => colors[bar];
+
+    console.log(getColor())
    
   return (
     <div className={styles.MainContent}>
@@ -104,6 +110,7 @@ const MainContent = () => {
           <div className={`${styles.boxChart} ${styles.wrapperCharts}`}>
             <div className={styles.boxChart}>
               <MyResponsiveBar
+                colors={getColor}
                 data={mainBarData}
                 className={`${styles.boxChart} ${styles.barChart}`}
               />

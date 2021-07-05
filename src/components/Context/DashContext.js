@@ -143,6 +143,8 @@ export const DashProvider = ({ children }) => {
           {
             headers: {
               "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "POST,GET,PUT,DELETE",
+              "Access-Control-Allow-Headers": "Authorization, Lang",
               "Content-Type": "application/json",
               Authorization: token,
             },
@@ -154,6 +156,8 @@ export const DashProvider = ({ children }) => {
           {
             headers: {
               "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "POST,GET,PUT,DELETE",
+              "Access-Control-Allow-Headers": "Authorization, Lang",
               "Content-Type": "application/json",
               Authorization: token,
             },
@@ -193,6 +197,8 @@ export const DashProvider = ({ children }) => {
             },
             headers: {
               "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "POST,GET,PUT,DELETE",
+              "Access-Control-Allow-Headers": "Authorization, Lang",
               "Content-Type": "application/json",
               Authorization: token,
             },
@@ -224,6 +230,8 @@ export const DashProvider = ({ children }) => {
             },
             headers: {
               "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "POST,GET,PUT,DELETE",
+              "Access-Control-Allow-Headers": "Authorization, Lang",
               "Content-Type": "application/json",
               Authorization: token,
             },
@@ -245,6 +253,8 @@ export const DashProvider = ({ children }) => {
           {
             headers: {
               "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "POST,GET,PUT,DELETE",
+              "Access-Control-Allow-Headers": "Authorization, Lang",
               "Content-Type": "application/json",
               Authorization: token,
             },
@@ -252,7 +262,6 @@ export const DashProvider = ({ children }) => {
         )
         .then((res) => {
           setTransactions(res.data);
-          console.log(res.data)
 
           let incomes = res.data
             .filter((t) => t.category === "Payment")
@@ -294,6 +303,8 @@ export const DashProvider = ({ children }) => {
           {
             headers: {
               "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "POST,GET,PUT,DELETE",
+              "Access-Control-Allow-Headers": "Authorization, Lang",
               "Content-Type": "application/json",
               Authorization: token,
             },
@@ -337,6 +348,8 @@ export const DashProvider = ({ children }) => {
         .get("https://personal-financial-dashboard.herokuapp.com/goals", {
           headers: {
             "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "POST,GET,PUT,DELETE",
+            "Access-Control-Allow-Headers": "Authorization, Lang",
             "Content-Type": "application/json",
             Authorization: token,
           },
@@ -362,6 +375,8 @@ export const DashProvider = ({ children }) => {
         .get("https://personal-financial-dashboard.herokuapp.com/savings", {
           headers: {
             "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "POST,GET,PUT,DELETE",
+            "Access-Control-Allow-Headers": "Authorization, Lang",
             "Content-Type": "application/json",
             Authorization: token,
           },
@@ -397,6 +412,8 @@ export const DashProvider = ({ children }) => {
           {
             headers: {
               "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "POST,GET,PUT,DELETE",
+              "Access-Control-Allow-Headers": "Authorization, Lang",
               "Content-Type": "application/json",
               Authorization: token,
             },
@@ -418,6 +435,8 @@ export const DashProvider = ({ children }) => {
           {
             headers: {
               "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "POST,GET,PUT,DELETE",
+              "Access-Control-Allow-Headers": "Authorization, Lang",
               "Content-Type": "application/json",
               Authorization: token,
             },
@@ -451,6 +470,8 @@ export const DashProvider = ({ children }) => {
           {
             headers: {
               "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "POST,GET,PUT,DELETE",
+              "Access-Control-Allow-Headers": "Authorization, Lang",
               "Content-Type": "application/json",
               Authorization: token,
             },
@@ -487,6 +508,8 @@ export const DashProvider = ({ children }) => {
           {
             headers: {
               "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "POST,GET,PUT,DELETE",
+              "Access-Control-Allow-Headers": "Authorization, Lang",
               "Content-Type": "application/json",
               Authorization: token,
             },
@@ -538,6 +561,8 @@ export const DashProvider = ({ children }) => {
           {
             headers: {
               "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "POST,GET,PUT,DELETE",
+              "Access-Control-Allow-Headers": "Authorization, Lang",
               "Content-Type": "application/json",
               Authorization: token,
             },
@@ -569,8 +594,9 @@ export const DashProvider = ({ children }) => {
           {
             headers: {
               "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Origin": "*",
-              "content-type": "multipart/form-data",
+              "Access-Control-Allow-Methods": "POST,GET,PUT,DELETE",
+              "Access-Control-Allow-Headers": "Authorization, Lang",
+              "Content-Type": "application/json",
               Authorization: token,
             },
           }
@@ -597,7 +623,15 @@ export const DashProvider = ({ children }) => {
 
     axios
       .delete(
-        `https://personal-financial-dashboard.herokuapp.com/transactions/${id}`
+        `https://personal-financial-dashboard.herokuapp.com/transactions/${id}`,
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "POST,GET,PUT,DELETE",
+            "Access-Control-Allow-Headers": "Authorization, Lang",
+            "Content-Type": "application/json",
+          },
+        }
       )
       .then((res) => {
         console.log(res.data);
