@@ -13,8 +13,6 @@ const WalletBalance = () => {
   const classes = useStyles();
   const { amount, dayIncome, dayExpense } = useDash();
 
-  console.log(dayIncome);
-  console.log(dayExpense)
   const [showAmount, setShowAmount] = useState(true);
 
   const toggleAmount = (event) =>{

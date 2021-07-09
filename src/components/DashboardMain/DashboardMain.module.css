@@ -65,11 +65,11 @@
 }
 
 .wrapperFilter{
-    grid-area: filter;
+/*     grid-area: filter;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin-top: 1.2rem;
+    margin-top: 1.2rem; */
 }
 
 @media(max-width: 419px){

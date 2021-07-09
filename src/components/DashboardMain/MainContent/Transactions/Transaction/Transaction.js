@@ -28,8 +28,6 @@ const Transaction = ({
     setShowBox(!showBox);
   }
 
-  console.log(typeOfCategory);
-  
   const { openEditModal } = useDash();
 
   function transactionByCategory(typeOfCategory) {

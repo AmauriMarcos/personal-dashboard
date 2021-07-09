@@ -15,7 +15,7 @@ import SavingModal from "../../components/SavingModal/SavingModal";
 import GoalModal from "../../components/GoalModal/GoalModal";
 import { useMediaQuery } from "react-responsive";
 /* import { useLocation } from 'react-router-dom'; */
-import {  CircleLoading } from "react-loadingg";
+import {  LoopCircleLoading  } from "react-loadingg";
 
 const Dashboard = ({ children }) => {
   /*   const location = useLocation();
@@ -26,7 +26,7 @@ const Dashboard = ({ children }) => {
   return (
     <div className={styles.Dashboard}>
       {loading ? (
-        < CircleLoading/>
+        < LoopCircleLoading />
       ) : (
         <>
           <div style={{ width: "100%" }}>

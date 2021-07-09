@@ -14,8 +14,6 @@ const Transactions = () => {
   const PER_PAGE = 8;
   const offset = currentPage * PER_PAGE;
 
-  console.log(transactions)
-
   const pageCount = Math.ceil(transactions.length / PER_PAGE);
 
   function handlePageClick({ selected: selectedPage }) {

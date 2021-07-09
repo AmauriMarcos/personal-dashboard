@@ -34,6 +34,8 @@ const Savings = () => {
     setCurrentPage(selectedPage);
   }
 
+  console.log(allGoals)
+
   return (
     <div className={styles.Savings}>
       <div className={styles.SavingsAmount}>

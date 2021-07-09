@@ -156,7 +156,6 @@ export const DashProvider = ({ children }) => {
             },
           }
         );
-
         const response = await axios.get(
           "https://personal-financial-dashboard.herokuapp.com/upload/images",
           {
@@ -211,6 +210,7 @@ export const DashProvider = ({ children }) => {
           }
         );
         setFilteredTransactions(res.data.rows);
+       
         getUserTransactions();
       } catch {
         console.log("Error");
@@ -244,6 +244,7 @@ export const DashProvider = ({ children }) => {
           }
         );
         setAllFilteredTransactions(res.data.rows);
+        
       } catch {
         console.log("Error");
       }
@@ -277,15 +278,12 @@ export const DashProvider = ({ children }) => {
               return income;
             });
 
-            console.log(incomes)
-
           let expenses = res.data
-            .filter((t) => t.transaction_type === "expense")
+            .filter((t) => t.transaction_type === "expense"  || t.category ==="Savings")
             .map((expense) => {
               return expense;
             });
-          
-  
+
           function sum(nums) {
             return nums.reduce((a, b) => a + b);
           }
@@ -317,7 +315,7 @@ export const DashProvider = ({ children }) => {
         ).then((res) =>{
 
           const array = res.data;
-
+      
           function sortByMonth(arr) {
             var months = ["January", "February", "March", "April", "May", "June",
                       "July", "August", "September", "October", "November", "December"];
@@ -332,10 +330,12 @@ export const DashProvider = ({ children }) => {
              return item.total
           });
 
-          const percentageArr = arrayOfTotalPerMonth.map((v, i) => i === 0 ? 0: Math.round(v * 100 / arrayOfTotalPerMonth[i - 1]))
+         
+          const percentageArr = arrayOfTotalPerMonth.map((v, i) => i === 0 ? 0: Math.round(v * 100 / arrayOfTotalPerMonth[i - 1]));
  
           const percentageBasedOnPreviousMonth = percentageArr.pop();
 
+          
           setExpensesByPercentage(percentageBasedOnPreviousMonth);
 
         }).catch((err) => console.log(err));
@@ -380,11 +380,7 @@ export const DashProvider = ({ children }) => {
             setIncomesByPercentage(percentageBasedOnPreviousMonthIncomes);
           }
 
-          
-
         }).catch((err) => console.log(err));
-
-
     }
   };
 
@@ -413,10 +409,12 @@ export const DashProvider = ({ children }) => {
             });
 
           let expenses = res.data
-            .filter((t) => t.transaction_type === "expense")
+            .filter((t) => t.transaction_type === "expense" || t.category ==="Savings")
             .map((expense) => {
               return expense;
             });
+
+            console.log(expenses)
 
 
           dayIncomePrices = incomes.map((item) => item.price);
@@ -557,7 +555,11 @@ export const DashProvider = ({ children }) => {
         price: savingRef.current.value,
         category: "Savings",
         color: "#0F96BD",
+        transactionType: "saving"
       };
+
+      console.log(amount);
+      console.log(savingRef.current.value);
 
       axios
         .post(

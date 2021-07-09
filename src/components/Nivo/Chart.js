@@ -7,6 +7,37 @@ import { ResponsivePie } from '@nivo/pie'
 // website examples showcase many properties,
 // you'll often use just a few of them.
 
+const margin = { top: -50, right: 200, bottom: 30, left: 190 };
+const styles = {
+root: {
+    fontFamily: "consolas, sans-serif",
+    textAlign: "center",
+    position: "relative",
+    width: '100%',
+    height: '480px'
+  },
+  overlay: {
+    position: "absolute",
+    top: margin.top,
+    right: margin.right,
+    bottom: 0,
+    left: margin.left,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: 35,
+    color: "#FFFFFF",
+    // background: "#FFFFFF33",
+    textAlign: "center",
+    // This is important to preserve the chart interactivity
+    pointerEvents: "none"
+  },
+  totalLabel: {
+    fontSize: 24
+  }
+};
+
 const theme = {
     background: 'transparent',
     fontFamily: 'sans-serif',
@@ -29,14 +60,27 @@ const theme = {
       }
     }
 }
-export const MyResponsivePie = ({ data /* see data tab */ }) => (
+
+const format = v => `${v}%`
+
+export const MyResponsivePie = ({ data, amount /* see data tab */ }) => (
+    <div style={styles.root}>
     <ResponsivePie
         data={data}
         colors={{ datum: 'data.color' }}
      /*    colors={{ scheme: 'nivo' }} */
-        valueFormat=" >-$0c"
+        valueFormat={value =>
+            `${Number(value).toLocaleString('ru-RU', {
+                minimumFractionDigits: 2,
+            })} %`
+        }
+        sliceLabel={(data) => `${data.value}%`}
         margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
         /* innerRadius={0.5} */
+        innerRadius={0.6}
+        labelFormat={format}
+        tooltipFormat={format}
+        axisLeft={{ format }}
         padAngle={3}
         cornerRadius={3}
         activeOuterRadiusOffset={8}
@@ -50,6 +94,7 @@ export const MyResponsivePie = ({ data /* see data tab */ }) => (
         arcLabelsSkipAngle={10}
         arcLinkLabelsDiagonalLength={4}
         theme={theme}
+        
         arcLabelsTextColor={{ from: 'color', modifiers: [ [ 'brighter', '15' ] ] }}
       /*   defs={[
             {
@@ -121,4 +166,9 @@ export const MyResponsivePie = ({ data /* see data tab */ }) => (
             }
         ]}
     />
+        <div style={styles.overlay}>
+            <span style={{fontWeight: "bold"}}>${amount}</span>
+          {/*   <span style={styles.totalLabel}>total components</span> */}
+        </div>
+    </div>
 )

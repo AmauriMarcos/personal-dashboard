@@ -12,6 +12,7 @@ import WalletBallance from "../../DashboardOverview/WalletBalance/WalletBalance"
 import Goal from "../../DashboardOverview/Goal/GoalOverview";
 import wallet from "../../../assets/wallet.svg";
 import { ContactSupportOutlined } from "@material-ui/icons";
+import Filter from "../../Filter/Filter";
 
 const MainContent = () => {
 
@@ -20,13 +21,16 @@ const MainContent = () => {
     filteredTransactions,
     totalTransactionsPerMonth,
     saving,
+    allFilteredTransactions,
+    transactions,
     expensesByPercentage,
     incomesByPercentage,
   } = useDash();
   const dataChart = [];
   const filteredDataChart = [];
   const barDataChart = [];
-
+console.log(filteredTransactions)
+console.log(allFilteredTransactions)
   let mydata;
   mydata = totalTransactions
     .filter((c) => c.transaction_type === "expense")
@@ -41,7 +45,7 @@ const MainContent = () => {
       dataChart.push(mydata);
       return dataChart;
     });
-
+  
 
   const totalTransactionsPerMonthWithoutIncomes = totalTransactionsPerMonth.filter(item => item.transaction_type === 'expense');
 
@@ -108,6 +112,7 @@ const MainContent = () => {
   }, {});
 
   const getColor = bar => schemaOfColors[bar.id]
+/* *NEED to fix the data that is filtered. Have to sum the values that contains the same id/category */
 
   let myFilteredData;
   myFilteredData = filteredTransactions
@@ -125,6 +130,42 @@ const MainContent = () => {
     });
 
   let expenseMessage = null;
+
+  console.log(myFilteredData)
+
+  /* Calc to get the percentage based on the total expenses per month */
+
+  let normalizeFilteredData = myFilteredData.map((arr, idx) =>{
+    return arr[idx]
+  })
+
+  let total = dataChart.reduce((a, b) =>{
+    return a + b.value
+  },0)
+
+  let totalFiltered = normalizeFilteredData.reduce((a, b) =>{
+    return a + b.value
+  },0)
+
+
+  const percentageArr = dataChart.map((v, i) => {
+    let result = (v.value * 100)  / total;
+    return Number(result.toFixed(2));
+  });
+
+  let percentageDataChart = dataChart.map((item) =>{
+    let result = (item.value * 100) / total;
+    item.value = Number(result.toFixed(2));
+    return item;
+  });
+
+  let filtedPercentageDataChart = normalizeFilteredData.map((item) =>{
+    let result = (item.value * 100) / totalFiltered;
+    item.value = Number(result.toFixed(2));
+    return item;
+  });
+
+/* END */
 
 
   if(expensesByPercentage === 0){
@@ -195,9 +236,9 @@ const MainContent = () => {
 
   return (
     <div className={styles.MainContent}>
-      {dataChart === null ||
-      dataChart.length < 1 ||
-      typeof dataChart[0] === "undefined" ? (
+      {transactions === null ||
+      transactions.length < 1 ||
+      typeof transactions[0] === "undefined" ? (
         <div className={styles.boxEmpty}>
           <img src={EmptyInbox} />
           <h2>You don't have any data to display yet.</h2>
@@ -227,17 +268,21 @@ const MainContent = () => {
               </div>
 
               <div className={styles.chart1}>
-                <WalletBallance />
+                <Filter className={styles.reactDatepicker} />
               </div>
             </div>
 
             <div className={styles.wrapperCharts}>
               <div className={styles.charts}>
                 {filteredTransactions.length === 0 ? (
-                  <MyResponsivePie data={dataChart} className={styles.Chart} />
+                  <MyResponsivePie
+                    amount={total} 
+                    data={percentageDataChart} 
+                    className={styles.Chart} />
                 ) : (
                   <MyResponsivePie
-                    data={filteredDataChart}
+                    amount={totalFiltered}
+                    data={filtedPercentageDataChart}
                     className={styles.Chart}
                   />
                 )}

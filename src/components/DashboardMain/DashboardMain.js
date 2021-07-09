@@ -74,7 +74,7 @@ const DashboardMain = () => {
 
       <div className={styles.wrapperFilterAndCreateButton}>
         <div className={styles.wrapperButton}>{buttonCreate}</div>
-        {/* <div className={styles.wrapperFilter}>
+       {/*  <div className={styles.wrapperFilter}>
           {<Filter />}
         </div> */}
       </div>

@@ -155,7 +155,7 @@ app.post("/upload", upload.single("avatar"), async (req, res, next) => {
       if (err) throw err;
     });
 
-    res.send("BOOOOO");
+    res.send(rows);
   } catch {
     console.log("Something went wrong");
   }
@@ -169,7 +169,7 @@ app.get("/filter", async (req, res) => {
   const token = req.headers.authorization;
   const userInfo = await admin.auth().verifyIdToken(token);
   const { uid } = userInfo;
-  const q = `SELECT  transactions.id, title, DATE_FORMAT(created_at, "%d %b %Y %H:%i") AS created_at, category, SUM(price) AS price, color
+  const q = `SELECT  transactions.id, title, DATE_FORMAT(created_at, "%d %b %Y %H:%i") AS created_at, transaction_type, category, SUM(price) AS price, color
             FROM users
             INNER JOIN transactions
             ON users.id = transactions.userID
@@ -188,7 +188,7 @@ app.get("/allFilteredTransactions", async (req, res) => {
   const token = req.headers.authorization;
   const userInfo = await admin.auth().verifyIdToken(token);
   const { uid } = userInfo;
-  const q = `SELECT  transactions.id, title, DATE_FORMAT(created_at, "%d %b %Y %H:%i") AS created_at, category, price, color
+  const q = `SELECT  transactions.id, title, transaction_type, DATE_FORMAT(created_at, "%d %b %Y %H:%i") AS created_at, category, price, color
             FROM users
             INNER JOIN transactions
             ON users.id = transactions.userID
@@ -226,7 +226,7 @@ app.get("/totalExpensesPerMonth", async (req, res, next) => {
             FROM users
             INNER JOIN transactions
               ON users.id = transactions.userID
-            WHERE users.id="${uid}" && category !="Payment" && category !="Savings"
+            WHERE users.id="${uid}" && transaction_type="expense"
             GROUP BY monthname`;
 
     pool.query(q, (err, rows) => {
@@ -244,7 +244,7 @@ app.get("/totalIncomesPerMonth", async (req, res, next) => {
             FROM users
             INNER JOIN transactions
               ON users.id = transactions.userID
-            WHERE users.id="${uid}" && category ="Payment"
+            WHERE users.id="${uid}" && transaction_type = "income"
             GROUP BY monthname`;
 
     pool.query(q, (err, rows) => {

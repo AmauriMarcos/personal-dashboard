@@ -1,9 +1,11 @@
-
-
 .expensesFilter {
     color: white;
     padding: 0 1rem;
     outline: none;
+  }
+
+  .filterBox{
+    color: red !important;
   }
   
   .react-datepicker__header {
@@ -76,11 +78,10 @@
    
   }
  
-
   .to{
     margin: 0 .5rem;
   }
-  .react-datepicker{
+/*   .react-datepicker{
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 0.8rem;
     background: #1f2940 !important;
@@ -89,19 +90,20 @@
     border-radius: 0;
     display: inline-block;
     position: relative;
-  }
+  } */
 /* 
   .react-datepicker__day, .react-datepicker__month-text, .react-datepicker__quarter-text, .react-datepicker__year-text{
     color: #fff !important;
   } */
+/* 
   .Test{
     background: #1f2940 !important;
     color: #fff !important;
   }
 
-  .Test .header{
+  .Test__header{
     background: #1f2940 !important;
-  }
+  } */
 
   /* .datePicker {
     width: 400px !important;
