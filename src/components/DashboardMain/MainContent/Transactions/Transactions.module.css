@@ -1,12 +1,30 @@
 .Container {
-  width: 100%;
+  width: 516px;
   height: 100%;
+  background-color: #1f2940;
+  padding: 2rem;
+  margin: 1rem;
+  border-radius: 10px;
+}
+
+.wrapperTransactionTitleAndIcon{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.wrapperTransactionTitleAndIcon img{
+  width: 30px;
+  height: 30px;
+  margin-right: 1rem;
+ 
 }
 
 .Transactions {
-  height: 250px;
+  height: 100%;
   width: 100%;
-  overflow: auto;
+  /* overflow: auto; */
 }
 
 ::-webkit-scrollbar {
@@ -24,11 +42,54 @@
   background: #b0b0b0;
 }
 .transactionsTitle {
-  color: #261d56;
+  color: #f8f8f8;
   font-weight: 700;
-  font-size: 0.9rem;
-  margin: 2rem 0 1rem 2.5rem;
+  font-size: 1.2rem;
+  text-align: left;
+  
 }
+
+.paginationBlock{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  font-size: .7rem;
+}
+
+.paginationBlock li{
+  display: inline-block;
+}
+
+.paginationBlock li a{
+  border: 1px solid #696ffb;
+  border-radius: 3px;
+  padding: .3rem .7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  outline: none;
+  color: #696ffb ;
+}
+
+.paginationBlock li a:first-child{
+  margin-right: 1rem;
+}
+
+.paginationBlock li a:hover{
+  background-color: #696ffb ;
+  color: white;
+}
+
+.pagination__linkActive{
+  color: #696ffb ; 
+}
+
+li{
+  list-style: none;
+}
+
 
 @media (max-width: 419px) {
   .Transactions {

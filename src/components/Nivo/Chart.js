@@ -6,25 +6,52 @@ import { ResponsivePie } from '@nivo/pie'
 // no chart will be rendered.
 // website examples showcase many properties,
 // you'll often use just a few of them.
+
+const theme = {
+    background: 'transparent',
+    fontFamily: 'sans-serif',
+    fontSize: 15,
+    textColor: '#fff',
+    grid: {
+      line: {
+        stroke: '#fff',
+        strokeWidth: 1
+      }
+    },
+    legends: {
+      text: {
+        fill: '#fff'
+      }
+    },
+    labels: {
+      text: {
+          fill: '#fff'
+      }
+    }
+}
 export const MyResponsivePie = ({ data /* see data tab */ }) => (
     <ResponsivePie
         data={data}
         colors={{ datum: 'data.color' }}
+     /*    colors={{ scheme: 'nivo' }} */
         valueFormat=" >-$0c"
         margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
-        innerRadius={0.5}
-        padAngle={0.7}
+        /* innerRadius={0.5} */
+        padAngle={3}
         cornerRadius={3}
         activeOuterRadiusOffset={8}
         borderWidth={1}
         borderColor={{ from: 'color', modifiers: [ [ 'darker', 0.2 ] ] }}
+        enableArcLinkLabels={false}
         arcLinkLabelsSkipAngle={10}
-        arcLinkLabelsTextColor="#333333"
+        arcLinkLabelsTextColor="#fff"
         arcLinkLabelsThickness={2}
         arcLinkLabelsColor={{ from: 'color' }}
         arcLabelsSkipAngle={10}
+        arcLinkLabelsDiagonalLength={4}
+        theme={theme}
         arcLabelsTextColor={{ from: 'color', modifiers: [ [ 'brighter', '15' ] ] }}
-        defs={[
+      /*   defs={[
             {
                 id: 'dots',
                 type: 'patternDots',
@@ -70,22 +97,19 @@ export const MyResponsivePie = ({ data /* see data tab */ }) => (
                 id: 'lines'
             },
           
-        ]}
+        ]} */
         legends={[
             {
                 anchor: 'bottom',
-                direction: 'row',
+                direction: 'column',
                 justify: false,
-                translateX: 7,
-                translateY: 53,
+                translateX: 200,
+                translateY: 73,
+                itemWidth: 83,
+                itemHeight: 18,
                 itemsSpacing: 0,
-                itemWidth: 85,
-                itemHeight: 16,
-                itemTextColor: '#999',
-                itemDirection: 'left-to-right',
-                itemOpacity: 1,
-                symbolSize: 14,
-                symbolShape: 'circle',
+                symbolSize: 15,
+                itemDirection: 'right-to-left',
                 effects: [
                     {
                         on: 'hover',

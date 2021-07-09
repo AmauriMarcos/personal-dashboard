@@ -1,3 +1,27 @@
 .Hello{
     color: pink;
 }
+
+
+.btn{background-image: linear-gradient(to right, #6441A5 0%, #2a0845  51%, #6441A5  100%)}
+.btn {
+   margin: 1rem auto 0 auto;
+   padding: .9rem 1.2rem;
+   text-align: center;
+   font-size: 1.1rem;
+   transition: 0.5s;
+   background-size: 200% auto;
+   color: white;            
+   border-radius: 10px;
+   border: none;
+   display: flex;
+   justify-content: center;
+   width: 100%;
+   cursor: pointer;
+ }
+
+ .btn:hover {
+   background-position: right center; /* change the direction of the change here */
+   color: #fff;
+   text-decoration: none;
+ }

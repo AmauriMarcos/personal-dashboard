@@ -41,7 +41,7 @@ const Dashboard = ({ children }) => {
               <PrivateRoute path="/dashboard/settings" component={Settings} />
               <PrivateRoute path="/dashboard/savings" component={Savings} />
             </Switch>
-            <Overview />
+          {/*   <Overview /> */}
           </Router>
         </>
       )}

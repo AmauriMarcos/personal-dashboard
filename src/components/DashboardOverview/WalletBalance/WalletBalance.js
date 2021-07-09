@@ -13,6 +13,8 @@ const WalletBalance = () => {
   const classes = useStyles();
   const { amount, dayIncome, dayExpense } = useDash();
 
+  console.log(dayIncome);
+  console.log(dayExpense)
   const [showAmount, setShowAmount] = useState(true);
 
   const toggleAmount = (event) =>{
@@ -43,7 +45,7 @@ const WalletBalance = () => {
         <div>
           <div className={styles.income}>
             <ArrowDownward className={classes.arrowDown} />
-            <p className={styles.incomesAndExpensesValues}>$ {dayExpense}</p>
+            <p className={styles.incomesAndExpensesValues}>$ {dayExpense.toFixed(2)}</p>
           </div>
           <p className={styles.expenseText}>Expense Today</p>
         </div>

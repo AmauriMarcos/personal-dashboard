@@ -8,12 +8,12 @@
 }
 
 .WalletBalance .title{
-    color: #261D56;
+    color: #f7f7f7;
 
 }
 
 .WalletBalance .amount{
-    color: #261D56;
+    color: #f7f7f7;
     font-size: 2.3rem;
  /*    filter: blur(7px); */
 }
@@ -41,7 +41,7 @@
 }
 
 .incomesAndExpensesValues{
-    color: #261D56;
+    color: #f7f7f7;
     font-weight: bold;
     font-size: .9rem;
     margin-left: .5rem;

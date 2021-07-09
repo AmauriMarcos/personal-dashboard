@@ -15,11 +15,11 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cors());
 
-app.use(function(req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  res.setHeader('Access-Control-Allow-Credentials', true);
+app.use(function (req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Credentials", true);
   next();
 });
 
@@ -86,8 +86,8 @@ admin.initializeApp({
 /* END */
 
 /* START - ROUTES */
-app.get("/", (req, res) =>{
-  res.send("Hello from the Server!")
+app.get("/", (req, res) => {
+  res.send("Hello from the Server!");
 });
 
 app.get("/auth", async (req, res, next) => {
@@ -124,30 +124,30 @@ app.get("/user/info", async (req, res, next) => {
   });
 });
 
-app.get("/upload", (req, res) =>{
-  res.send("Upload route!")
+app.get("/upload", (req, res) => {
+  res.send("Upload route!");
 });
 
-app.get("/upload/images", async(req, res) => {
-    const {resources} = await cloudinary.search.expression
-    ('folder:personal_financial_dashboard_avatar')
-    .sort_by('public_id', 'desc')
+app.get("/upload/images", async (req, res) => {
+  const { resources } = await cloudinary.search
+    .expression("folder:personal_financial_dashboard_avatar")
+    .sort_by("public_id", "desc")
     .max_results(30)
     .execute();
-    const publicIds = resources.map(file => file.public_id);
-    res.send(publicIds);
+  const publicIds = resources.map((file) => file.public_id);
+  res.send(publicIds);
 });
 
 app.post("/upload", upload.single("avatar"), async (req, res, next) => {
-  try{
+  try {
     const token = req.headers.authorization;
     const userInfo = await admin.auth().verifyIdToken(token);
     const { uid } = userInfo;
 
     // Upload image to cloudinary
-     const result = await cloudinary.uploader.upload(req.file.path,{
-       upload_preset: 'personal-financial-dashboard-avatar'
-     });
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      upload_preset: "personal-financial-dashboard-avatar",
+    });
 
     const q = `UPDATE users SET profile_pic="${result.public_id}" WHERE id="${uid}";`;
 
@@ -155,14 +155,12 @@ app.post("/upload", upload.single("avatar"), async (req, res, next) => {
       if (err) throw err;
     });
 
-    res.send("BOOOOO")
-
-  }catch{
-    console.log("Something went wrong")
+    res.send("BOOOOO");
+  } catch {
+    console.log("Something went wrong");
   }
   /* https://res.cloudinary.com/hrfhxbqio/image/upload/v1624275768/s4bh9p9xk3rewob9xxr9.jpg 
      https://res.cloudinary.com/hrfhxbqio/image/upload/v1624275963/alm12xliwzahlz6ufnyz.jpg*/
-
 });
 
 app.get("/filter", async (req, res) => {
@@ -207,11 +205,11 @@ app.get("/transactions", async (req, res, next) => {
   const token = req.headers.authorization;
   const userInfo = await admin.auth().verifyIdToken(token);
   const { uid } = userInfo;
-  const q = `SELECT transactions.id, email, title, category, DATE_FORMAT(created_at, "%d %b %Y %H:%i") AS created_at, price FROM users
+  const q = `SELECT transactions.id, email, title, transaction_type, category, DATE_FORMAT(created_at, "%d %b %Y %H:%i") AS created_at, price FROM users
              JOIN transactions
                 ON users.id = transactions.userID
              WHERE users.id = "${uid}" 
-             ORDER BY created_at ASC`;
+             `;
   pool.query(q, (err, rows) => {
     if (err) throw err;
     /* console.log(rows); */
@@ -219,11 +217,47 @@ app.get("/transactions", async (req, res, next) => {
   });
 });
 
+app.get("/totalExpensesPerMonth", async (req, res, next) => {
+  const token = req.headers.authorization;
+  const userInfo = await admin.auth().verifyIdToken(token);
+  const { uid } = userInfo;
+
+  const q = `SELECT transactions.id,  monthname(created_at) as monthname, SUM(price) as total   
+            FROM users
+            INNER JOIN transactions
+              ON users.id = transactions.userID
+            WHERE users.id="${uid}" && category !="Payment" && category !="Savings"
+            GROUP BY monthname`;
+
+    pool.query(q, (err, rows) => {
+      if (err) throw err;
+      res.send(rows);
+    });
+});
+
+app.get("/totalIncomesPerMonth", async (req, res, next) => {
+  const token = req.headers.authorization;
+  const userInfo = await admin.auth().verifyIdToken(token);
+  const { uid } = userInfo;
+
+  const q = `SELECT transactions.id,  monthname(created_at) as monthname, SUM(price) as total   
+            FROM users
+            INNER JOIN transactions
+              ON users.id = transactions.userID
+            WHERE users.id="${uid}" && category ="Payment"
+            GROUP BY monthname`;
+
+    pool.query(q, (err, rows) => {
+      if (err) throw err;
+      res.send(rows);
+    });
+});
+
 app.get("/transactions/currentDay", async (req, res, next) => {
   const token = req.headers.authorization;
   const userInfo = await admin.auth().verifyIdToken(token);
   const { uid } = userInfo;
-  const q = `SELECT users.id, title, category, created_at, price 
+  const q = `SELECT users.id, title, category, transaction_type, created_at, price 
               FROM transactions
                 INNER JOIN users
                   ON users.id = transactions.userID
@@ -242,7 +276,7 @@ app.get("/totalTransactions", async (req, res, next) => {
   const token = req.headers.authorization;
   const userInfo = await admin.auth().verifyIdToken(token);
   const { uid } = userInfo;
-  const q = `SELECT users.id, title, category, SUM(price) AS price, color
+  const q = `SELECT users.id, title, category, transaction_type, SUM(price) AS price, color
              FROM users
              INNER JOIN transactions
                 ON users.id = transactions.userID
@@ -259,7 +293,7 @@ app.get("/totalTransactionsPerMonth", async (req, res, next) => {
   const token = req.headers.authorization;
   const userInfo = await admin.auth().verifyIdToken(token);
   const { uid } = userInfo;
-  const q = `SELECT users.id, DATE_FORMAT(created_at, "%b") as monthname, category, SUM(price) AS price, color
+  const q = `SELECT users.id, DATE_FORMAT(created_at, "%b") as monthname, category, transaction_type, SUM(price) AS price, color
             FROM users
             INNER JOIN transactions
             ON users.id = transactions.userID
@@ -273,15 +307,15 @@ app.get("/totalTransactionsPerMonth", async (req, res, next) => {
 });
 
 app.post("/transactions", async (req, res, next) => {
-  const { title, category, price, color } = req.body;
+  const { title, category, price, color, transactionType } = req.body;
 
   const token = req.headers.authorization;
 
   const userInfo = await admin.auth().verifyIdToken(token);
   const { uid } = userInfo;
 
-  const q = `INSERT INTO transactions(title, category, price, color, userID)
-             VALUES("${title}", "${category}", "${price}", "${color}", "${uid}")`;
+  const q = `INSERT INTO transactions(title, category, price, color, transaction_type, userID)
+             VALUES("${title}", "${category}", "${price}", "${color}","${transactionType}", "${uid}")`;
   pool.query(q, (err, rows) => {
     if (err) throw err;
     res.send({ rows: rows });
@@ -355,7 +389,7 @@ app.put("/transactions/:id", (req, res) => {
     if (err) throw err;
   });
 
-   res.send("Transaction successfully updated!");
+  res.send("Transaction successfully updated!");
 });
 
 app.delete("/transactions/:id", (req, res) => {

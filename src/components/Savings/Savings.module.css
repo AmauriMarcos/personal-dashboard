@@ -88,7 +88,7 @@
 }
 
 .paginationBlock li a{
-    border: 1px solid #2BC4A9 ;
+    border: 1px solid #696ffb ;
     border-radius: 3px;
     padding: .3rem .7rem;
     display: flex;
@@ -96,7 +96,7 @@
     align-items: center;
     cursor: pointer;
     outline: none;
-    color: #2BC4A9 ;
+    color: #696ffb ;
 }
 
 .paginationBlock li a:first-child{
@@ -104,12 +104,12 @@
   }
 
 .paginationBlock li a:hover{
-    background-color: #2BC4A9 ;
+    background-color: #696ffb ;
     color: white;
 }
 
 .pagination__linkActive{
-    color: #2BC4A9 ; 
+    color: #696ffb; 
 }
 
 li{

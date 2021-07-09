@@ -1,14 +1,56 @@
 .DashboardMain{
     grid-area: main;
     height: 100%;
-    display: grid;
-    grid-template-areas: "search search button filter "
+    width: 100%;
+    display: flex;
+    overflow-y: scroll;
+    flex-direction: column;
+    background-color: #141b2d;
+   /*  grid-template-areas: "search search button filter "
                          "main main main main"
-                         "main main main main";
+                         "main main main main"; */
                    
 }
 
 
+.btn {
+   margin-left: 7.1rem;
+   padding: .5rem 1.2rem;
+   text-align: center;
+   font-size: 1rem;
+   background-color: transparent;
+   border: 2px solid #7571F9;
+   transition: 0.5s;
+   background-size: 200% auto;
+   color: rgb(158, 158, 158);    
+   font-weight: 300;      
+   display: flex;
+   justify-content: center;
+   width: 100%;
+   cursor: pointer;
+ }
+
+ .btn:hover {
+   background-color: #514CF7;; /* change the direction of the change here */
+   color: #ffffff;
+   text-decoration: none;
+ }
+
+.message{
+    color: #f7f7f7;
+    margin: 4rem 0 2rem 7.3rem;
+    
+}
+
+.message h4{
+    color: rgb(214, 214, 214);
+    font-size: 1rem;
+}
+
+.wrapperFilterAndCreateButton{
+    display: flex;
+   /*  margin-left: auto; */
+}
 
 .DashboardMain h1{
     text-align: center;

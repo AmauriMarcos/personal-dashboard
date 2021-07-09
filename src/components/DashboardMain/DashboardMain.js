@@ -1,5 +1,7 @@
+import 'react-datepicker/dist/react-datepicker.css';
 import React, { useState, useRef } from "react";
 import styles from "./DashboardMain.module.css";
+
 import Search from "./Search/Search";
 import MainContent from "./MainContent/MainContent";
 import ModalDashboard from "../Modal/Modal";
@@ -11,6 +13,7 @@ import { useDash } from "../Context/DashContext";
 import Filter from "../Filter/Filter";
 import { useMediaQuery } from "react-responsive";
 import AddIcon from "@material-ui/icons/Add";
+
 
 const DashboardMain = () => {
   const classes = useStyles();
@@ -45,13 +48,22 @@ const DashboardMain = () => {
     );
   } else {
     buttonCreate = (
-      <Button
+     /*  <Button
         onClick={openModal}
         variant="contained"
         className={classes.modalButton}
       >
         Create Transaction
-      </Button>
+      </Button> */
+      <button 
+       onClick={openModal}
+        type="submit"
+        fullWidth
+        variant="contained"
+        disabled={loading}
+        className={styles.btn}>
+        Create Transaction
+      </button>
     );
   }
 
@@ -59,12 +71,19 @@ const DashboardMain = () => {
     <div className={styles.DashboardMain}>
       <ModalDashboard />
       <EditModalComponent />
-      {/*     <GoalModal/> */}
-      <div className={styles.wrapperButton}>{buttonCreate}</div>
-      <div className={styles.wrapperFilter}>
-        <Filter />
+
+      <div className={styles.wrapperFilterAndCreateButton}>
+        <div className={styles.wrapperButton}>{buttonCreate}</div>
+        {/* <div className={styles.wrapperFilter}>
+          {<Filter />}
+        </div> */}
       </div>
-      <Search />
+
+      <div className={styles.message}>
+        <h2>Dashboard</h2>
+        <h4>Welcome on board, User</h4>
+      </div>
+      
       <MainContent />
     </div>
   );

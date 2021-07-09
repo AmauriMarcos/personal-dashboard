@@ -32,6 +32,8 @@ export const DashProvider = ({ children }) => {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
+  const [color, setColor] = useState("");
+  const [transactionType, setTransactionType] = useState("");
 
   const textRef = useRef("");
   const priceRef = useRef("");
@@ -79,6 +81,10 @@ export const DashProvider = ({ children }) => {
   const [savingModal, setSavingModal] = useState(false);
   const [allSavings, setAllSavings] = useState([]);
   const [saving, setSaving] = useState(0);
+
+  /* Expenses in percentage based on previous month */
+  const [expensesByPercentage, setExpensesByPercentage] = useState(0);
+  const [incomesByPercentage, setIncomesByPercentage] = useState(0);
 
   useEffect(() => {
     getUserTransactions();
@@ -261,20 +267,25 @@ export const DashProvider = ({ children }) => {
           }
         )
         .then((res) => {
-          setTransactions(res.data);
+          const recentTransactions = res.data.reverse()
+          setTransactions(recentTransactions );
+        
 
           let incomes = res.data
-            .filter((t) => t.category === "Payment")
+            .filter((t) => t.transaction_type === "income")
             .map((income) => {
               return income;
             });
 
+            console.log(incomes)
+
           let expenses = res.data
-            .filter((t) => t.category !== "Payment")
+            .filter((t) => t.transaction_type === "expense")
             .map((expense) => {
               return expense;
             });
-
+          
+  
           function sum(nums) {
             return nums.reduce((a, b) => a + b);
           }
@@ -290,6 +301,90 @@ export const DashProvider = ({ children }) => {
           setAmount(total.toFixed(2));
         })
         .catch((err) => console.log(err));
+
+
+        axios.get(
+          "https://personal-financial-dashboard.herokuapp.com/totalExpensesPerMonth",
+          {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "POST,GET,PUT,DELETE",
+              "Access-Control-Allow-Headers": "Authorization, Lang",
+              "Content-Type": "application/json",
+              Authorization: token,
+            },
+          }
+        ).then((res) =>{
+
+          const array = res.data;
+
+          function sortByMonth(arr) {
+            var months = ["January", "February", "March", "April", "May", "June",
+                      "July", "August", "September", "October", "November", "December"];
+            arr.sort(function(a, b){
+                return months.indexOf(a.monthname)
+                     - months.indexOf(b.monthname);
+            });
+          }
+
+          sortByMonth(array);
+          const arrayOfTotalPerMonth = array.map((item) =>{
+             return item.total
+          });
+
+          const percentageArr = arrayOfTotalPerMonth.map((v, i) => i === 0 ? 0: Math.round(v * 100 / arrayOfTotalPerMonth[i - 1]))
+ 
+          const percentageBasedOnPreviousMonth = percentageArr.pop();
+
+          setExpensesByPercentage(percentageBasedOnPreviousMonth);
+
+        }).catch((err) => console.log(err));
+
+        axios.get(
+          "https://personal-financial-dashboard.herokuapp.com/totalIncomesPerMonth",
+          {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "POST,GET,PUT,DELETE",
+              "Access-Control-Allow-Headers": "Authorization, Lang",
+              "Content-Type": "application/json",
+              Authorization: token,
+            },
+          }
+        ).then((res) =>{
+
+          const arrayIncomes = res.data;
+
+          function sortByMonthIncomes(arr) {
+            var months = ["January", "February", "March", "April", "May", "June",
+                      "July", "August", "September", "October", "November", "December"];
+            arr.sort(function(a, b){
+                return months.indexOf(a.monthname)
+                     - months.indexOf(b.monthname);
+            });
+          }
+
+          sortByMonthIncomes(arrayIncomes );
+          const arrayOfTotalPerMonthIncomes = arrayIncomes.map((item) =>{
+             return item.total
+          });
+
+          const percentageArrIncomes = arrayOfTotalPerMonthIncomes.map((v, i) => i === 0 ? 0: Math.round(v * 100 / arrayOfTotalPerMonthIncomes[i - 1]))
+
+        
+          const percentageBasedOnPreviousMonthIncomes = percentageArrIncomes.pop();
+
+          if(percentageBasedOnPreviousMonthIncomes === undefined){
+            setIncomesByPercentage(0);
+          }else{
+            setIncomesByPercentage(percentageBasedOnPreviousMonthIncomes);
+          }
+
+          
+
+        }).catch((err) => console.log(err));
+
+
     }
   };
 
@@ -312,16 +407,17 @@ export const DashProvider = ({ children }) => {
         )
         .then((res) => {
           let incomes = res.data
-            .filter((t) => t.category === "Payment")
+            .filter((t) => t.transaction_type === "income")
             .map((income) => {
               return income;
             });
 
           let expenses = res.data
-            .filter((t) => t.category !== "Payment")
+            .filter((t) => t.transaction_type === "expense")
             .map((expense) => {
               return expense;
             });
+
 
           dayIncomePrices = incomes.map((item) => item.price);
           dayExpensePrices = expenses.map((item) => item.price);
@@ -526,10 +622,13 @@ export const DashProvider = ({ children }) => {
     }
   };
 
-  const createTransaction = async (title, price, category) => {
+  const createTransaction = async (title, price, category, color, typeOfTransaction) => {
     setTitle(title);
     setPrice(price);
     setCategory(category);
+    setColor(color);
+    setTransactionType(typeOfTransaction);
+
 
     if (currentUser) {
       const token = await firebase.auth().currentUser.getIdToken();
@@ -544,12 +643,14 @@ export const DashProvider = ({ children }) => {
       } else if (category === "Transport") {
         uniqueColor = "#0D95BC";
       }
+      console.log(category);
 
       const data = {
         title: title,
         price: price,
         category: category,
-        color: uniqueColor,
+        color: color,
+        transactionType: typeOfTransaction
       };
 
       console.log(data);
@@ -750,6 +851,8 @@ export const DashProvider = ({ children }) => {
     createSavings,
     saving,
     loading,
+    expensesByPercentage,
+    incomesByPercentage
   };
   return <DashContext.Provider value={values}>{children}</DashContext.Provider>;
 };

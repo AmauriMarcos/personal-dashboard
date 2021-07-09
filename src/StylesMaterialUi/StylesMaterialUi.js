@@ -1,6 +1,14 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles({
+    formControlRadio: {
+        margin: "1.5rem auto",
+        width: "100%",
+        textAlign: "center",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
+    },
     button: {
         backgroundColor: "#261D56 !important",
         color: "#fff !important",
@@ -33,25 +41,41 @@ export const useStyles = makeStyles({
         height: "100% !important",
         padding: "0 2rem !important"
     },
+    multilineColor:{
+        color:'red'
+    },
     modalInput:{
         width: "100% !important",
-        marginBottom: "1rem !important"
+        marginBottom: "1rem !important",
+        border: "1px solid #2B2B2B !important",
+        borderRadius: "10px !important",
+        color: "#fff !important"
     },
+    loginInput:{
+        width: "100% !important",
+        marginBottom: ".5rem !important",
+        border: "1px solid #2B2B2B !important",
+        borderRadius: "10px !important",
+        color: "#fff !important"
+    },
+  
     modalLabelInput:{
         margin: "1rem 0 !important",
-        textAlign: "center !important"
+        textAlign: "center !important",
+        color: "#fff !important"
     },
     inputLabel: {
-        margin: "right auto !important"
+        margin: "right auto !important",
+        color: "#fff !important"
     },
     modalButton:{
-        backgroundColor: "#F6F7FF !important",
-        color: "#261D56 !important",
+        backgroundImage: "linear-gradient(to right, #4776E6 0%, #8E54E9  51%, #4776E6  100%)",
+        color: "#F6F7FF !important",
         padding: ".5rem 1.6rem !important",
         fontSize: ".87rem !important",
         fontWeight: "400 !important",
         textTransform: "none !important",
-        borderRadius: "30px !important",
+        borderRadius: "5px !important",
 
     },
     modalButtonMobile:{
@@ -151,8 +175,13 @@ export const useStyles = makeStyles({
         color: "#E96574 !important"
     },
     Icons: {
-        color: "#F6F7FF !important",
-        fontSize: "35px !important"
+        fill: "rgb(158, 158, 158) !important",
+        width: "25px !important",
+        height: "25px !important",
+        fontSize: "25px !important",
+        '&:hover': {
+            fill: "aquamarine !important"
+          }
     },
 
 });

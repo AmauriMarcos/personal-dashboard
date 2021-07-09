@@ -46,7 +46,7 @@ const EditTransaction = () => {
           },
         }
       ).then((res) =>{
-        console.log(res.data)
+        
         const transaction = res.data.rows;
         transaction.map((data) => {
           setTitle(data.title);
@@ -71,7 +71,6 @@ const EditTransaction = () => {
     setCategory(e.target.value);
   };
 
-  console.log(title, price, category);
 
   const editTransaction = () => {
     console.log(`---${price}---`)

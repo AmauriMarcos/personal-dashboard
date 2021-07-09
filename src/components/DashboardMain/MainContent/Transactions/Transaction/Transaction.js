@@ -17,6 +17,7 @@ const Transaction = ({
   price,
   created_at,
   category,
+  typeOfCategory,
   deleteTransaction,
   id,
 }) => {
@@ -27,26 +28,36 @@ const Transaction = ({
     setShowBox(!showBox);
   }
 
+  console.log(typeOfCategory);
+  
   const { openEditModal } = useDash();
 
-  function transactionByCategory(theCategory) {
+  function transactionByCategory(typeOfCategory) {
     return (transaction = (
       <div className={styles.transaction}>
-        <img
+        {/* <img
           className={styles.icons}
           src={theCategory}
           alt="transaction icon"
-        />
+        /> */}
         <h3>{title}</h3>
         <p className={styles.transactionDate}>{created_at}</p>
 
-        {theCategory === payment ? (
+       {/*  {theCategory === payment ? (
           <p className={styles.incomePrice}>$ {price}</p>
         ) : theCategory === savings ? (
           <p className={styles.savingsPrice}>$ {price}</p>
         ) : (
           <p className={styles.expensePrice}>$ {price}</p>
-        )}
+        )} */}
+
+        {typeOfCategory === 'income' ? (
+          <p className={styles.incomePrice}>$ {price}</p>
+        ) : typeOfCategory  === 'expense' ? (
+          <p className={styles.expensePrice}>$ {price}</p>
+        ) : (
+          <p className={styles.savingsPrice}>$ {price}</p>
+        )}  
 
         <img
           onClick={toggleBox}
@@ -93,19 +104,21 @@ const Transaction = ({
   /* 
   console.log(showBox); */
 
-  if (category === "Food") {
-    transactionByCategory(food);
-  } else if (category === "Health") {
-    transactionByCategory(health);
-  } else if (category === "Transport") {
-    transactionByCategory(transport);
-  } else if (category === "Others") {
-    transactionByCategory(others);
-  } else if (category === "Payment") {
+  transactionByCategory(typeOfCategory);
+
+/*   if (category !== "Payment" || category !== "Savings") {
+    transactionByCategory(category);
+  }  else if (category === "Payment") {
     transactionByCategory(payment);
   } else if (category === "Savings") {
     transactionByCategory(savings);
   }
+
+  if( typeOfCategory === 'income'){
+    transactionByCategory(category);
+  }else if ( typeOfCategory === 'expense'){
+    transactionByCategory(category);
+  } */
 
   return <div>{transaction}</div>;
 };

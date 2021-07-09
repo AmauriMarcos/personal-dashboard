@@ -103,6 +103,12 @@ const SignUp = () => {
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <TextField
+                     InputProps={{
+                      className: classes.loginInput
+                    }}
+                    InputLabelProps={{
+                      style: {color: "rgb(158, 158, 158)"}
+                    }}
                       error={errors.email && touched.email}
                       onChange={handleChange}
                       type="email"
@@ -119,6 +125,12 @@ const SignUp = () => {
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
+                     InputProps={{
+                      className: classes.loginInput
+                    }}
+                    InputLabelProps={{
+                      style: {color: "rgb(158, 158, 158)"}
+                    }}
                       error={errors.password && touched.password}
                       onChange={handleChange}
                       value={values.password}
@@ -137,6 +149,12 @@ const SignUp = () => {
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
+                     InputProps={{
+                      className: classes.loginInput
+                    }}
+                    InputLabelProps={{
+                      style: {color: "rgb(158, 158, 158)"}
+                    }}
                       error={
                         errors.passwordConfirmation &&
                         touched.passwordConfirmation
@@ -158,7 +176,7 @@ const SignUp = () => {
                     />
                   </Grid>
                 </Grid>
-                <Button
+                {/* <Button
                   type="submit"
                   fullWidth
                   variant="contained"
@@ -166,7 +184,15 @@ const SignUp = () => {
                   className={classes.button}
                 >
                   Get Started
-                </Button>
+                </Button> */}
+                <button 
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  disabled={loading}
+                  className={styles.btn}>
+                  Create account
+              </button>
               </Form>
             )}
           </Formik>
@@ -179,7 +205,7 @@ const SignUp = () => {
       </div>
       <div className={styles.imageArea}>
         <h2>
-          It takes as much energy to wish <br></br> as it does to plan.
+        I don’t need it to be easy,  I need it to be worth it. 
         </h2>
         <p>
           Lorem ipsum dolor sit amet, consectetur <br></br> adipiscing elit, sed

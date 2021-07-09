@@ -1,34 +1,34 @@
+
 import React, {useState} from 'react';
 import styles from './Filter.module.css';
 import {useDash} from '../Context/DashContext';
 import DatePicker from 'react-datepicker';
+import "react-datepicker/src/stylesheets/datepicker.scss";
 import calendar from '../../assets/calendar.svg';
 
 const Filter= () => {
   const {startDate, setStartDate, endDate, setEndDate} = useDash();
 
+  const onChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+  };
+
   return (
       <div className={styles.filterBox}>
-        <img className={styles.calendar} src={calendar}  alt="Calendar Icon"/>
+       {/*  <img className={styles.calendar} src={calendar}  alt="Calendar Icon"/> */}
         <DatePicker
-          className={styles.filter}
+        className={styles.customDate}
+         wrapperClassName="datePicker"
+         calendarClassName={styles.Test}
+          className={styles.reactDatepicker}
           selected={startDate}
-          onChange={date => setStartDate(date)}
-          isClearable={true}
-          selectsStart
+          onChange={onChange}
           startDate={startDate}
           endDate={endDate}
-        />
-        <p className={styles.to}>to</p>
-        <DatePicker
-         className={styles.filter}
-          selected={endDate}
-          onChange={date => setEndDate(date)}
-          isClearable={true}
-          selectsEnd
-          startDate={startDate}
-          endDate={endDate}
-          minDate={startDate}
+          selectsRange
+          inline
         />
       </div>  
   );

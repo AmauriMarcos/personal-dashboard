@@ -9,6 +9,7 @@ import { Alert } from "@material-ui/lab";
 import { useAuth } from "../Context/AuthContext";
 import brand from "../../assets/Logo.svg";
 import * as yup from "yup";
+import sample from '../../assets/video.mp4';
 
 let SignupSchema = yup.object().shape({
   email: yup.string().email().required("This field is required."),
@@ -114,6 +115,12 @@ const Login = () => {
                       label="Email"
                       variant="outlined"
                       fullWidth
+                      InputProps={{
+                        className: classes.loginInput
+                      }}
+                      InputLabelProps={{
+                        style: {color: "rgb(158, 158, 158)"}
+                      }}
                       helperText={
                         errors.email && touched.email ? errors.email : null
                       }
@@ -129,6 +136,12 @@ const Login = () => {
                       name="password"
                       label="Password"
                       variant="outlined"
+                      InputProps={{
+                        className: classes.loginInput
+                      }}
+                      InputLabelProps={{
+                        style: {color: "rgb(158, 158, 158)"}
+                      }}
                       fullWidth
                       helperText={
                         errors.password && touched.password
@@ -138,7 +151,7 @@ const Login = () => {
                     />
                   </Grid>
                 </Grid>
-                <Button
+              {/*   <Button
                   type="submit"
                   fullWidth
                   variant="contained"
@@ -146,7 +159,15 @@ const Login = () => {
                   className={classes.button}
                 >
                   Login
-                </Button>
+                </Button> */}
+                <button 
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  disabled={loading}
+                  className={styles.btn}>
+                  Login
+              </button>
               </Form>
             )}
           </Formik>
@@ -162,9 +183,13 @@ const Login = () => {
           </p>
         </div>
       </div>
+
       <div className={styles.imageArea}>
+   {/*     <video className={styles.videoTag} autoPlay loop muted>
+          <source src={sample} type='video/mp4' />
+       </video> */}
         <h2>
-            Never spend your money  before you have it. 
+            What we think, <br></br> We become. 
         </h2>
         <p>
           Lorem ipsum dolor sit amet, consectetur <br></br> adipiscing elit, sed
