@@ -1,13 +1,15 @@
 .Savings{
     grid-area: main;
-    width: 100%;
+    width: 1101px;
+    margin: 0 auto;
+    margin-top: 2rem;
     border-radius: 30px;
-    margin: 2rem 2rem 0 2rem;
+  /*   margin: 2rem 2rem 0 2rem; */
     height: 90vh;
 }
 
 .SavingsAmount{
-    background-color: #261D56;
+    background-color: #1F2940;
     border-radius: 30px;
     height: 230px;
     padding: 1rem 3rem;
@@ -23,7 +25,8 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: .5rem;
-    height: 20rem
+    height: 20rem;
+    justify-items: center;
 }
 
 .currentlyGoal{
@@ -80,7 +83,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 3rem;
+    margin-top: 5rem;
 }
 
 .paginationBlock li{

@@ -100,15 +100,16 @@ const ModalDashboard = () => {
             title: "",
             price: "",
             category: "",
+         
           }}
           validationSchema={SignupSchema}
           onSubmit={(values) => {
-            const { title, price, category } = values;
+            const { title, price, category, type_of_transaction, color_pick} = values;
 
             setError("");
             setLoading(true);
-
-            createTransaction(title, price, category, colorPick, typeOfTransaction);
+          
+            createTransaction(title, price, category);
             setIsOpen(false);
 
             setLoading(false);
@@ -143,6 +144,7 @@ const ModalDashboard = () => {
                   row
                   aria-label="gender"
                   name="row-radio-buttons-group"
+                  defaultValue="expense"
                 >
                   <FormControlLabel
                     label={<p style={{color: "rgb(158, 158, 158)"}}>income</p>}

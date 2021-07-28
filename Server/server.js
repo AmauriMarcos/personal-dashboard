@@ -124,18 +124,21 @@ app.get("/user/info", async (req, res, next) => {
   });
 });
 
-app.get("/upload", (req, res) => {
+/* app.get("/upload", (req, res) => {
   res.send("Upload route!");
-});
+}); */
 
-app.get("/upload/images", async (req, res) => {
-  const { resources } = await cloudinary.search
+app.get("/upload", async (req, res) => {
+ 
+    const { resources } = await cloudinary.search
     .expression("folder:personal_financial_dashboard_avatar")
     .sort_by("public_id", "desc")
     .max_results(30)
     .execute();
   const publicIds = resources.map((file) => file.public_id);
   res.send(publicIds);
+  
+  
 });
 
 app.post("/upload", upload.single("avatar"), async (req, res, next) => {
@@ -156,8 +159,8 @@ app.post("/upload", upload.single("avatar"), async (req, res, next) => {
     });
 
     res.send(rows);
-  } catch {
-    console.log("Something went wrong");
+  }  catch (err) {
+    next(err);
   }
   /* https://res.cloudinary.com/hrfhxbqio/image/upload/v1624275768/s4bh9p9xk3rewob9xxr9.jpg 
      https://res.cloudinary.com/hrfhxbqio/image/upload/v1624275963/alm12xliwzahlz6ufnyz.jpg*/

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./MainContent.module.css";
 import Transactions from "./Transactions/Transactions";
 import data from "../../Nivo/BarData";
@@ -11,11 +11,10 @@ import EmptyInbox from "../../../assets/EmptyInbox.svg";
 import WalletBallance from "../../DashboardOverview/WalletBalance/WalletBalance";
 import Goal from "../../DashboardOverview/Goal/GoalOverview";
 import wallet from "../../../assets/wallet.svg";
-import { ContactSupportOutlined } from "@material-ui/icons";
+import { ContactSupportOutlined, PinDropSharp } from "@material-ui/icons";
 import Filter from "../../Filter/Filter";
 
 const MainContent = () => {
-
   const {
     totalTransactions,
     filteredTransactions,
@@ -29,8 +28,8 @@ const MainContent = () => {
   const dataChart = [];
   const filteredDataChart = [];
   const barDataChart = [];
-console.log(filteredTransactions)
-console.log(allFilteredTransactions)
+  const [totalMonthsFiltered, setTotalMonthsFiltered] = useState([]);
+
   let mydata;
   mydata = totalTransactions
     .filter((c) => c.transaction_type === "expense")
@@ -45,9 +44,11 @@ console.log(allFilteredTransactions)
       dataChart.push(mydata);
       return dataChart;
     });
-  
 
-  const totalTransactionsPerMonthWithoutIncomes = totalTransactionsPerMonth.filter(item => item.transaction_type === 'expense');
+  const totalTransactionsPerMonthWithoutIncomes =
+    totalTransactionsPerMonth.filter(
+      (item) => item.transaction_type === "expense"
+    );
 
   function getMonth(month) {
     return totalTransactionsPerMonthWithoutIncomes
@@ -89,33 +90,36 @@ console.log(allFilteredTransactions)
     decData
   );
 
-
   let mainBarData = barDataChart.filter(
     (value) => Object.keys(value).length !== 0
   );
 
-  const keys = totalTransactions.filter((transaction) =>{
-    return transaction.transaction_type === 'expense';
-  }).map((item) =>{
-    return item.category.toLowerCase()
-  });
+  const keys = totalTransactions
+    .filter((transaction) => {
+      return transaction.transaction_type === "expense";
+    })
+    .map((item) => {
+      return item.category.toLowerCase();
+    });
 
-  const colors = totalTransactionsPerMonthWithoutIncomes.map((item) =>{
+  const colors = totalTransactionsPerMonthWithoutIncomes.map((item) => {
     return item.color;
   });
 
+  const schemaOfColors = totalTransactionsPerMonthWithoutIncomes.reduce(
+    (result, row) => {
+      const category = row.category.toLowerCase();
+      result[category] = row.color;
+      return result;
+    },
+    {}
+  );
 
-  const schemaOfColors = totalTransactionsPerMonthWithoutIncomes.reduce((result, row)=>{
-    const category = row.category.toLowerCase();
-    result[category] = row.color;
-    return result
-  }, {});
-
-  const getColor = bar => schemaOfColors[bar.id]
-/* *NEED to fix the data that is filtered. Have to sum the values that contains the same id/category */
+  const getColor = (bar) => schemaOfColors[bar.id];
+  /* *NEED to fix the data that is filtered. Have to sum the values that contains the same id/category */
 
   let myFilteredData;
-  myFilteredData = filteredTransactions
+  myFilteredData = allFilteredTransactions
     .filter((c) => c.transaction_type === "expense")
     .map((transaction) => {
       myFilteredData = {
@@ -131,69 +135,103 @@ console.log(allFilteredTransactions)
 
   let expenseMessage = null;
 
-  console.log(myFilteredData)
-
   /* Calc to get the percentage based on the total expenses per month */
 
-  let normalizeFilteredData = myFilteredData.map((arr, idx) =>{
-    return arr[idx]
-  })
+  let normalizeFilteredData = myFilteredData.map((arr, idx) => {
+    return arr[idx];
+  });
+  console.log(normalizeFilteredData);
 
-  let total = dataChart.reduce((a, b) =>{
-    return a + b.value
-  },0)
+  /* Sum the array of object with same values */
 
-  let totalFiltered = normalizeFilteredData.reduce((a, b) =>{
-    return a + b.value
-  },0)
+  const filteredDataSumPerMonth = Array.from(normalizeFilteredData.reduce((acc, {value, ...r}) => {
+    const id = JSON.stringify(r);
+    const current = acc.get(id) || {...r, value: 0};  
+    return acc.set(id, {...current, value: current.value + value});
+ 
+  }, new Map).values());
 
+  console.log(filteredDataSumPerMonth);
+
+  const copyFilteredArray = JSON.parse(JSON.stringify(filteredDataSumPerMonth))
+
+  let testFiltedTotal = copyFilteredArray.reduce((a, b) => {
+    return a + b.value;
+  }, 0);
+
+  console.log(testFiltedTotal);
+
+  let percentageFilteredDataSumPerMonth = copyFilteredArray.map((item) =>{
+    let result = (item.value * 100) / testFiltedTotal;
+    item.value = Number(result.toFixed(2));
+    return item;
+  });
+
+  console.log(percentageFilteredDataSumPerMonth);
+
+
+  let total = dataChart.reduce((a, b) => {
+    return a + b.value;
+  }, 0);
+
+  let totalFiltered = normalizeFilteredData.reduce((a, b) => {
+    return a + b.value;
+  }, 0);
 
   const percentageArr = dataChart.map((v, i) => {
-    let result = (v.value * 100)  / total;
+    let result = (v.value * 100) / total;
     return Number(result.toFixed(2));
   });
 
-  let percentageDataChart = dataChart.map((item) =>{
+  let percentageDataChart = dataChart.map((item) => {
     let result = (item.value * 100) / total;
     item.value = Number(result.toFixed(2));
     return item;
   });
 
-  let filtedPercentageDataChart = normalizeFilteredData.map((item) =>{
+  let filtedPercentageDataChart = normalizeFilteredData.map((item) => {
     let result = (item.value * 100) / totalFiltered;
     item.value = Number(result.toFixed(2));
     return item;
   });
 
-/* END */
+  /* END */
 
-
-  if(expensesByPercentage === 0){
+  if (expensesByPercentage === 0) {
     expenseMessage = (
       <>
-        <p className={styles.sentence}>You don't have enough data to compare your expenses with the previous month</p>
-        <strong style={{color: '#f8f8f8'}}>0</strong>
+        <p className={styles.sentence}>
+          You don't have enough data to compare your expenses with the previous
+          month
+        </p>
+        <strong style={{ color: "#f8f8f8" }}>0</strong>
       </>
     );
-  }else if (expensesByPercentage < 100) {
+  } else if (expensesByPercentage < 100) {
     expenseMessage = (
       <>
         <p className={styles.sentence}>You have reduced your expenses by</p>
-        <strong className={styles.increased}>{expensesByPercentage - 100}%</strong>
+        <strong className={styles.increased}>
+          {expensesByPercentage - 100}%
+        </strong>
         <p className={styles.sentence}>compared to the previous month</p>
       </>
     );
-  }else if(expensesByPercentage === 100){
+  } else if (expensesByPercentage === 100) {
     expenseMessage = (
       <>
-        <p className={styles.sentence}>You have spent the same amount compared to the previous month</p>
+        <p className={styles.sentence}>
+          You have spent the same amount compared to the previous month
+        </p>
       </>
     );
-  }else{
+  } else {
     expenseMessage = (
       <>
         <p className={styles.sentence}>You have increased your expenses in</p>
-        <strong className={styles.decreased}>{expensesByPercentage - 100}%</strong>
+        <strong className={styles.decreased}>
+          {expensesByPercentage - 100}%
+        </strong>
         <p className={styles.sentence}>compared to the previous month</p>
       </>
     );
@@ -201,34 +239,43 @@ console.log(allFilteredTransactions)
 
   let incomeMessage = null;
 
-  if(incomesByPercentage === 0){
+  if (incomesByPercentage === 0) {
     incomeMessage = (
       <>
-        <p className={styles.sentence}>You don't have enough data to compare your incomes with the previous month</p>
-        <strong style={{color: '#f8f8f8'}}>0</strong>
+        <p className={styles.sentence}>
+          You don't have enough data to compare your incomes with the previous
+          month
+        </p>
+        <strong style={{ color: "#f8f8f8" }}>0</strong>
       </>
     );
-  }else if (incomesByPercentage < 100) {
+  } else if (incomesByPercentage < 100) {
     incomeMessage = (
       <>
         <p className={styles.sentence}>Your income has decreased</p>
-        <strong className={styles.decreased}>{incomesByPercentage -100}%</strong>
+        <strong className={styles.decreased}>
+          {incomesByPercentage - 100}%
+        </strong>
         <p className={styles.sentence}>compared to the previous month</p>
       </>
     );
-  }else if(incomesByPercentage === 100){
+  } else if (incomesByPercentage === 100) {
     incomeMessage = (
       <>
-        <p className={styles.sentence}>You have had the same income compared to the previous monthh</p>
+        <p className={styles.sentence}>
+          You have had the same income compared to the previous monthh
+        </p>
       </>
     );
-  }else if(incomesByPercentage === 'undefined'){
-    incomeMessage = 0
-  }else{
+  } else if (incomesByPercentage === "undefined") {
+    incomeMessage = 0;
+  } else {
     incomeMessage = (
       <>
         <p className={styles.sentence}>You have increased your income in</p>
-        <strong className={styles.increased}>{incomesByPercentage - 100}%</strong>
+        <strong className={styles.increased}>
+          {incomesByPercentage - 100}%
+        </strong>
         <p className={styles.sentence}>compared to the previous month</p>
       </>
     );
@@ -276,13 +323,14 @@ console.log(allFilteredTransactions)
               <div className={styles.charts}>
                 {filteredTransactions.length === 0 ? (
                   <MyResponsivePie
-                    amount={total} 
-                    data={percentageDataChart} 
-                    className={styles.Chart} />
+                    amount={total}
+                    data={percentageDataChart}
+                    className={styles.Chart}
+                  />
                 ) : (
                   <MyResponsivePie
                     amount={totalFiltered}
-                    data={filtedPercentageDataChart}
+                    data={percentageFilteredDataSumPerMonth}
                     className={styles.Chart}
                   />
                 )}

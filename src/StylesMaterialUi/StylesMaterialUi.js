@@ -20,6 +20,10 @@ export const useStyles = makeStyles({
     },
     editInput:{
         width: "100% !important",
+        marginBottom: "1rem !important",
+        border: "1px solid #515151 !important",
+        borderRadius: "10px !important",
+        color: "#fff !important"
     },
     editButton:{
         backgroundColor: "#261D56 !important",

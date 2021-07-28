@@ -1,18 +1,19 @@
 .Goal{
     border-radius: 15px;
-    background-color: #F6F7FF;
+    background-color: #1F2940;
     width: 320px;
-    height: 8rem;
+    height: 10rem;
     display: flex;
     justify-content: space-around;
-    padding: 0 .5rem;
+    padding: 0 2rem;
     align-items: center;
     margin-bottom: 2rem;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 .wrapperTitleAndStatusGoal{
     display: flex;
-    height: 3.5rem;
+ /*    height: 70%; */
+    width: 150px;
     justify-content: space-between;
     flex-direction: column;
     align-items: flex-start;
@@ -20,14 +21,14 @@
 
 .goalTitle{
     font-weight: 300;
-    font-size: 1.5rem;
-    color: #261D56;
+    font-size: 1.25rem;
+    color: #eee
 }
 
 .goalStatus{
-    font-size: 1.2rem;
+    font-size: 1.05rem;
     font-weight: 700;
-    color: #261D56;
+    color: #eee;
 }
 
 .circle{

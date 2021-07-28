@@ -84,24 +84,45 @@ const Settings = () => {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
+              InputProps={{
+                className: classes.editInput,
+              }}
+              InputLabelProps={{
+                style: { color: "rgb(158, 158, 158)" },
+              }}
                 variant="outlined"
-                className={classes.editInput}
+             /*    className={classes.editInput} */
                 type="text"
                 label="First name"
+                fullWidth
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
+              fullWidth
+              InputProps={{
+                className: classes.editInput,
+              }}
+              InputLabelProps={{
+                style: { color: "rgb(158, 158, 158)" },
+              }}
                 variant="outlined"
-                className={classes.editInput}
+              /*   className={classes.editInput} */
                 type="text"
                 label="Last name"
               />
             </Grid>
             <Grid item xs={12} sm={12}>
               <TextField
+              fullWidth
+              InputProps={{
+                className: classes.editInput,
+              }}
+              InputLabelProps={{
+                style: { color: "rgb(158, 158, 158)" },
+              }}
                 variant="outlined"
-                className={classes.editInput}
+               /*  className={classes.editInput} */
                 type="email"
                 label="Email"
               />

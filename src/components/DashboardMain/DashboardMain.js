@@ -72,17 +72,19 @@ const DashboardMain = () => {
       <ModalDashboard />
       <EditModalComponent />
 
-      <div className={styles.wrapperFilterAndCreateButton}>
-        <div className={styles.wrapperButton}>{buttonCreate}</div>
-       {/*  <div className={styles.wrapperFilter}>
-          {<Filter />}
-        </div> */}
+      <div className={styles.headerDashboard} >
+        <div className={styles.message}>
+          <h2>Welcome on board, <span>User</span></h2>
+        </div>
+        <div className={styles.wrapperFilterAndCreateButton}>
+          <div className={styles.wrapperButton}>{buttonCreate}</div>
+        {/*  <div className={styles.wrapperFilter}>
+            {<Filter />}
+          </div> */}
+        </div>
       </div>
 
-      <div className={styles.message}>
-        <h2>Dashboard</h2>
-        <h4>Welcome on board, User</h4>
-      </div>
+     
       
       <MainContent />
     </div>

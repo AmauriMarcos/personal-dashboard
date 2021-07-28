@@ -12,6 +12,19 @@
                    
 }
 
+.headerDashboard{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    background-color: #1F2940;
+    margin: 2rem auto 1rem auto;
+    height: 8rem;
+    border-radius: 10px;
+    padding: 2rem;
+
+}
+
 
 .btn {
    margin-left: 7.1rem;
@@ -28,23 +41,30 @@
    justify-content: center;
    width: 100%;
    cursor: pointer;
+   border-radius: 5px;
  }
 
  .btn:hover {
-   background-color: #514CF7;; /* change the direction of the change here */
+   background-color: #514CF7; /* change the direction of the change here */
    color: #ffffff;
    text-decoration: none;
  }
 
 .message{
     color: #f7f7f7;
-    margin: 4rem 0 2rem 7.3rem;
-    
+  /*   margin: 4rem 0 2rem 7.3rem; */
+    /* justify-self: flex-start; */
 }
 
-.message h4{
-    color: rgb(214, 214, 214);
-    font-size: 1rem;
+.message span{
+    color: #2BC4A9;
+    font-weight: 500;
+}
+
+.message h2{
+    color: rgb(236, 236, 236);
+    font-size: 1.4rem;
+    font-weight: 100;
 }
 
 .wrapperFilterAndCreateButton{
@@ -61,7 +81,6 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin-top: 1.2rem;
 }
 
 .wrapperFilter{

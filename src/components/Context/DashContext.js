@@ -139,9 +139,10 @@ export const DashProvider = ({ children }) => {
 
   let dayExpensePrices;
   let dayExpenseAmount;
-
+  console.log(currentUser);
   const getUserInfo = async () => {
     if (currentUser) {
+      
       const token = await firebase.auth().currentUser.getIdToken();
       try {
         const res = await axios.get(
@@ -157,7 +158,7 @@ export const DashProvider = ({ children }) => {
           }
         );
         const response = await axios.get(
-          "https://personal-financial-dashboard.herokuapp.com/upload/images",
+          "https://personal-financial-dashboard.herokuapp.com/upload",
           {
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -178,8 +179,8 @@ export const DashProvider = ({ children }) => {
         setUserURL(file);
         setUserInfo(res.data);
         setFileFromServer(fileName);
-      } catch {
-        console.log("Error");
+      }  catch (err) {
+        console.log(err);
       }
     }
   };

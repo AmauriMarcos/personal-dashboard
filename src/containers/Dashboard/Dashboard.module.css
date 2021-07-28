@@ -3,6 +3,7 @@
   grid-template-areas: "navbar main main main ";
   height: 100vh;
   position: relative;
+  background-color: #141b2d;
 }
 
 @media (max-width: 419px) {

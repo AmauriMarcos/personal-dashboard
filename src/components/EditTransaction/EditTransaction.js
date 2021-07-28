@@ -15,6 +15,7 @@ import { useStyles } from "../../StylesMaterialUi/StylesMaterialUi";
 import { useDash } from "../Context/DashContext";
 import { customStyles } from "../../Services/ModalCustomStyles";
 import axios from "axios";
+import { ContactSupportOutlined } from "@material-ui/icons";
 
 Modal.setAppElement("#root");
 
@@ -22,7 +23,7 @@ const EditTransaction = () => {
   const classes = useStyles();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { closeModal, createTransaction, showEditModal, editID } = useDash();
+  const { closeModal, createTransaction, showEditModal, editID, getUserTransactions } = useDash();
 
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
@@ -34,8 +35,9 @@ const EditTransaction = () => {
     getUniqueTransaction();
   }, [editID]);
 
-  const getUniqueTransaction =() => {
-    axios.get(
+  const getUniqueTransaction = () => {
+    axios
+      .get(
         `https://personal-financial-dashboard.herokuapp.com/transactions/${editID}`,
         {
           headers: {
@@ -45,18 +47,20 @@ const EditTransaction = () => {
             "Content-Type": "application/json",
           },
         }
-      ).then((res) =>{
-        
+      )
+      .then((res) => {
         const transaction = res.data.rows;
+        console.log(transaction)
         transaction.map((data) => {
           setTitle(data.title);
           setPrice(data.price);
           setCategory(data.category);
+          
         });
-      }).catch((err) =>{
-        console.log(err);
       })
-      
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleTitle = (e) => {
@@ -71,9 +75,9 @@ const EditTransaction = () => {
     setCategory(e.target.value);
   };
 
-
-  const editTransaction = () => {
-    console.log(`---${price}---`)
+  const editTransaction = (e) => {
+    e.preventDefault();
+ 
     axios
       .put(
         `https://personal-financial-dashboard.herokuapp.com/transactions/${editID}`,
@@ -93,6 +97,8 @@ const EditTransaction = () => {
       )
       .then((res) => {
         console.log(`--${res}--`);
+        closeModal();
+        getUserTransactions();
       })
       .catch((err) => console.log(err));
   };
@@ -120,7 +126,13 @@ const EditTransaction = () => {
         <form className={classes.form} onSubmit={editTransaction}>
           <div>
             <TextField
-              className={classes.modalInput}
+              InputProps={{
+                className: classes.modalInput,
+              }}
+              InputLabelProps={{
+                style: { color: "rgb(158, 158, 158)" },
+              }}
+              fullWidth
               variant="outlined"
               type="text"
               label="text"
@@ -129,30 +141,34 @@ const EditTransaction = () => {
             />
 
             <TextField
-              className={classes.modalInput}
+              InputProps={{
+                className: classes.modalInput,
+              }}
+              InputLabelProps={{
+                style: { color: "rgb(158, 158, 158)" },
+              }}
+              fullWidth
               variant="outlined"
               type="text"
-              label="Price"
+              label="price"
               onChange={handlePrice}
               value={price}
             />
 
-            <Select
-              labelId="demo-simple-select-outlined-label"
-              id="demo-simple-select-outlined"
-              label="Category"
-              variant="outlined"
+            <TextField
+              InputProps={{
+                className: classes.modalInput,
+              }}
+              InputLabelProps={{
+                style: { color: "rgb(158, 158, 158)" },
+              }}
               fullWidth
+              variant="outlined"
+              type="text"
+              label="category"
               onChange={handleCategory}
               value={category}
-            >
-              <MenuItem value="Food">Food</MenuItem>
-              <MenuItem value="Transport">Transport</MenuItem>
-              <MenuItem value="Health">Health</MenuItem>
-              <MenuItem value="Others">Others</MenuItem>
-              <MenuItem value="Payment">Payment</MenuItem>
-              <MenuItem value="Savings">Savings</MenuItem>
-            </Select>
+            />
           </div>
           <Button
             fullWidth

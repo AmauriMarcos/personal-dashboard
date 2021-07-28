@@ -20,6 +20,8 @@ const PictureAndAddFounds = () => {
     openGoalModal,
   } = useDash();
 
+  console.log(userURL)
+
   return (
     <div className={styles.pictureAndAddFounds}>
       {userURL === null || userURL.length < 1 ? (
