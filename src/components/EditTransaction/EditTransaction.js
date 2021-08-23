@@ -50,7 +50,7 @@ const EditTransaction = () => {
       )
       .then((res) => {
         const transaction = res.data.rows;
-        console.log(transaction)
+
         transaction.map((data) => {
           setTitle(data.title);
           setPrice(data.price);

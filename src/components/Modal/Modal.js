@@ -51,7 +51,7 @@ const ModalDashboard = () => {
   const [colorPick, setColorPick] = useState("#fff");
   const [loading, setLoading] = useState(false);
 
-  const[typeOfTransaction, setTypeOfTransaction] = useState("");
+  const [typeOfTransaction, setTypeOfTransaction] = useState("");
 
   const {
     closeModal,
@@ -73,6 +73,8 @@ const ModalDashboard = () => {
     setColorPick(color.hex);
   };
 
+  console.log(typeOfTransaction);
+  console.log(colorPick);
 
   return (
     <div>
@@ -104,12 +106,12 @@ const ModalDashboard = () => {
           }}
           validationSchema={SignupSchema}
           onSubmit={(values) => {
-            const { title, price, category, type_of_transaction, color_pick} = values;
+            const { title, price, category} = values;
 
             setError("");
             setLoading(true);
           
-            createTransaction(title, price, category);
+            createTransaction(title, price, category, colorPick, typeOfTransaction);
             setIsOpen(false);
 
             setLoading(false);

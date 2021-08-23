@@ -139,7 +139,7 @@ export const DashProvider = ({ children }) => {
 
   let dayExpensePrices;
   let dayExpenseAmount;
-  console.log(currentUser);
+
   const getUserInfo = async () => {
     if (currentUser) {
       
@@ -415,8 +415,6 @@ export const DashProvider = ({ children }) => {
               return expense;
             });
 
-            console.log(expenses)
-
 
           dayIncomePrices = incomes.map((item) => item.price);
           dayExpensePrices = expenses.map((item) => item.price);
@@ -646,7 +644,6 @@ export const DashProvider = ({ children }) => {
       } else if (category === "Transport") {
         uniqueColor = "#0D95BC";
       }
-      console.log(category);
 
       const data = {
         title: title,
@@ -656,7 +653,6 @@ export const DashProvider = ({ children }) => {
         transactionType: typeOfTransaction
       };
 
-      console.log(data);
 
       axios
         .post(
@@ -673,7 +669,7 @@ export const DashProvider = ({ children }) => {
           }
         )
         .then((res) => {
-          console.log(res.data.rows);
+         
           getUserTransactions();
           getTotalTransactionsPerMonth();
           getTotalTransactions();
@@ -685,29 +681,33 @@ export const DashProvider = ({ children }) => {
     }
   };
 
-  const uploadImage = async (e) => {
+
+  const uploadImage = async (e, fileName) => {
     if (currentUser) {
       e.preventDefault();
+
       const formData = new FormData();
-      formData.append("avatar", file);
+      formData.append("avatar", fileName);
       const token = await firebase.auth().currentUser.getIdToken();
+     console.log(formData)
       await axios
         .post(
           "https://personal-financial-dashboard.herokuapp.com/upload",
           formData,
           {
             headers: {
-              "Access-Control-Allow-Origin": "*",
+           /*    "Access-Control-Allow-Origin": "*",
               "Access-Control-Allow-Methods": "POST,GET,PUT,DELETE",
-              "Access-Control-Allow-Headers": "Authorization, Lang",
-              "Content-Type": "application/json",
+              "Access-Control-Allow-Headers": "Authorization, Lang", */
+              "Content-Type": "multipart/form-data",
               Authorization: token,
             },
           }
         )
         .then((res) => {
           getUserInfo();
-          window.location.reload(true);
+          console.log(res.data)
+          window.location.reload();
         });
     }
   };
@@ -738,7 +738,6 @@ export const DashProvider = ({ children }) => {
         }
       )
       .then((res) => {
-        console.log(res.data);
         getTotalTransactions();
       })
       .catch((err) => console.log(err));
@@ -753,6 +752,8 @@ export const DashProvider = ({ children }) => {
   const handleChange = (e) => {
     let selectedFile = e.target.files[0];
     setFile(selectedFile);
+
+    console.log(file);
   };
 
   /*   const handleCategory = (e) =>{

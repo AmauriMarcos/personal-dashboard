@@ -20,7 +20,13 @@ const Settings = () => {
     fileFromServer,
   } = useDash();
   const history = useHistory();
+
   const [fileName, setFileName] = useState(null);
+
+  const handlePhoto = (e) =>{
+    let selectedFile = e.target.files[0];
+    setFileName(selectedFile);
+  }
 
   return (
     <div className={styles.Settings}>
@@ -70,8 +76,8 @@ const Settings = () => {
               <input type="file" onChange={handleChange} />
                Choose File
             </label> */}
-              <form onSubmit={uploadImage} className={styles.formUploadImage}>
-                <input type="file" name="avatar" onChange={handleChange} />
+              <form onSubmit={(e) => uploadImage(e, fileName)} className={styles.formUploadImage}>
+                <input type="file" name="avatar" onChange={handlePhoto} />
                 <Button variant="contained" color="primary" type="submit">
                   Upload
                 </Button>

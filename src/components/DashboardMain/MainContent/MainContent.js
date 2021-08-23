@@ -140,7 +140,7 @@ const MainContent = () => {
   let normalizeFilteredData = myFilteredData.map((arr, idx) => {
     return arr[idx];
   });
-  console.log(normalizeFilteredData);
+ 
 
   /* Sum the array of object with same values */
 
@@ -151,23 +151,17 @@ const MainContent = () => {
  
   }, new Map).values());
 
-  console.log(filteredDataSumPerMonth);
-
   const copyFilteredArray = JSON.parse(JSON.stringify(filteredDataSumPerMonth))
 
   let testFiltedTotal = copyFilteredArray.reduce((a, b) => {
     return a + b.value;
   }, 0);
 
-  console.log(testFiltedTotal);
-
   let percentageFilteredDataSumPerMonth = copyFilteredArray.map((item) =>{
     let result = (item.value * 100) / testFiltedTotal;
     item.value = Number(result.toFixed(2));
     return item;
   });
-
-  console.log(percentageFilteredDataSumPerMonth);
 
 
   let total = dataChart.reduce((a, b) => {

@@ -23,7 +23,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use("/public/uploads", express.static(__dirname + "/public/uploads"));
+app.use("./public/uploads", express.static(__dirname + "./public/uploads"));
 
 /* START -  Cloudinary CONFIG */
 
@@ -129,7 +129,6 @@ app.get("/user/info", async (req, res, next) => {
 }); */
 
 app.get("/upload", async (req, res) => {
- 
     const { resources } = await cloudinary.search
     .expression("folder:personal_financial_dashboard_avatar")
     .sort_by("public_id", "desc")
@@ -156,9 +155,10 @@ app.post("/upload", upload.single("avatar"), async (req, res, next) => {
 
     pool.query(q, (err, rows) => {
       if (err) throw err;
+      res.send(rows);
     });
 
-    res.send(rows);
+    
   }  catch (err) {
     next(err);
   }

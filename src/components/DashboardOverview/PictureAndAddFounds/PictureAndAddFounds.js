@@ -20,7 +20,6 @@ const PictureAndAddFounds = () => {
     openGoalModal,
   } = useDash();
 
-  console.log(userURL)
 
   return (
     <div className={styles.pictureAndAddFounds}>
