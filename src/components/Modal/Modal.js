@@ -97,6 +97,14 @@ const ModalDashboard = () => {
           </Alert>
         )}
 
+        <div style={{width: '80%', margin: '.5rem auto'}}>
+          {error && (
+            <Alert className={classes.alert} severity="error">
+              {error}
+            </Alert>
+          )}
+        </div>
+
         <Formik
           initialValues={{
             title: "",
@@ -110,10 +118,20 @@ const ModalDashboard = () => {
 
             setError("");
             setLoading(true);
-          
-            createTransaction(title, price, category, colorPick, typeOfTransaction);
-            setIsOpen(false);
 
+            if(typeOfTransaction === null || typeOfTransaction === 'undefined' || typeOfTransaction === ''){
+                setError("Please, pick a type of transaction");
+                
+                return null;
+            }else{
+              createTransaction(title, price, category, colorPick, typeOfTransaction);
+              setError("");
+              setLoading(true);
+            }
+          
+            
+            setIsOpen(false);
+            
             setLoading(false);
           }}
         >
@@ -146,7 +164,6 @@ const ModalDashboard = () => {
                   row
                   aria-label="gender"
                   name="row-radio-buttons-group"
-                  defaultValue="expense"
                 >
                   <FormControlLabel
                     label={<p style={{color: "rgb(158, 158, 158)"}}>income</p>}
@@ -241,7 +258,7 @@ const ModalDashboard = () => {
                 type="submit"
                 fullWidth
                 variant="contained"
-                disabled={loading}
+                
                 className={classes.modalButtonForm}
               >
                 Create Transaction

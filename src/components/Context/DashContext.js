@@ -38,7 +38,7 @@ export const DashProvider = ({ children }) => {
   const textRef = useRef("");
   const priceRef = useRef("");
   const categoryRef = useRef("");
-  const [errorMessage, setErrorMessage] = "";
+  const [errorMessage, setErrorMessage] = useState("");
 
   /* Modal state */
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -652,7 +652,6 @@ export const DashProvider = ({ children }) => {
         color: color,
         transactionType: typeOfTransaction
       };
-
 
       axios
         .post(
