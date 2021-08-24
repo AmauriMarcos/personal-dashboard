@@ -7,6 +7,10 @@
   .filterBox{
     color: red !important;
   }
+
+  .react-datepicker__month-container{
+    background-color: #3e82cf !important;
+  }
   
   .react-datepicker__header {
     text-align: center;
