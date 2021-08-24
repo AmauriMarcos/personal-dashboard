@@ -151,7 +151,7 @@ const Login = () => {
                     />
                   </Grid>
                 </Grid>
-              {/*   <Button
+                <Button
                   type="submit"
                   fullWidth
                   variant="contained"
@@ -159,15 +159,15 @@ const Login = () => {
                   className={classes.button}
                 >
                   Login
-                </Button> */}
-                <button 
+                </Button>
+              {/*   <button 
                   type="submit"
                   fullWidth
                   variant="contained"
                   disabled={loading}
                   className={styles.btn}>
                   Login
-              </button>
+              </button> */}
               </Form>
             )}
           </Formik>
@@ -188,14 +188,14 @@ const Login = () => {
    {/*     <video className={styles.videoTag} autoPlay loop muted>
           <source src={sample} type='video/mp4' />
        </video> */}
-        <h2>
+     {/*    <h2>
             What we think, <br></br> We become. 
         </h2>
         <p>
           Lorem ipsum dolor sit amet, consectetur <br></br> adipiscing elit, sed
           do eiusmod temporexercitation ullamco <br></br> laboris nisi ut
           aliquip ex ea commodo consequat.
-        </p>
+        </p> */}
       </div>
     </div>
   );

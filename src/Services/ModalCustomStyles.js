@@ -11,7 +11,7 @@ export const customStyles = {
       justifyContent: "space-around",
       alignItem: "center",
       width: "450px",
-      background: "#141B2D",
+      background: "rgba(0,0,0,.55)",
       border: "none",
       borderRadius: "20px",
       bottom: "auto",

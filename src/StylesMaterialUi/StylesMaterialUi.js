@@ -10,7 +10,7 @@ export const useStyles = makeStyles({
         justifyContent: "center"
     },
     button: {
-        backgroundColor: "#261D56 !important",
+        backgroundColor: "#2BC4A9 !important",
         color: "#fff !important",
         padding: ".9rem .6rem  !important",
         marginTop: '1rem  !important',
@@ -58,9 +58,9 @@ export const useStyles = makeStyles({
     loginInput:{
         width: "100% !important",
         marginBottom: ".5rem !important",
-        border: "1px solid #2B2B2B !important",
         borderRadius: "10px !important",
-        color: "#fff !important"
+        color: "#fff !important",
+        backgroundColor: "#1f2940"
     },
   
     modalLabelInput:{
@@ -108,14 +108,14 @@ export const useStyles = makeStyles({
         boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px !important;"
     },
     modalButtonForm:{
-        backgroundColor: "#261D56!important",
+        backgroundColor: "#2BC4A9 !important",
         color: "#F6F7FF !important",
         padding: ".8rem 1.6rem !important",
-        fontSize: ".87rem !important",
-        fontWeight: "400 !important",
+        fontSize: "1rem !important",
+        fontWeight: "500 !important",
         textTransform: "none !important",
         borderRadius: "5px",
-        marginTop: "1.2rem !important"
+        /* marginTop: "1.2rem !important" */
     },
 
     modalButtonEdit:{

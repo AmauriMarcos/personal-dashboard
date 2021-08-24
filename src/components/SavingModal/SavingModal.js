@@ -50,7 +50,13 @@ const SavingModal = () => {
           <h1 className={styles.title}>Save</h1>
           <div>
             <TextField
-              className={classes.modalInput}
+            InputProps={{
+              className: classes.modalInput,
+            }}
+            InputLabelProps={{
+              style: { color: "rgb(158, 158, 158)" },
+            }}
+            /*   className={classes.modalInput} */
               variant="outlined"
               type="text"
               label="$"

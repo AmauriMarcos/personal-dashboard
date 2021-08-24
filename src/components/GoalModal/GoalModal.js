@@ -2,8 +2,8 @@ import React from "react";
 import { useDash } from "../Context/DashContext";
 import styles from "./GoalModal.module.css";
 import Modal from "react-modal";
-import {customStyles} from '../../Services/ModalCustomStyles';
-import trophyIcon from '../../assets/goal.svg';
+import { customStyles } from "../../Services/ModalCustomStyles";
+import trophyIcon from "../../assets/goal.svg";
 import { useStyles } from "../../StylesMaterialUi/StylesMaterialUi";
 import {
   Button,
@@ -19,10 +19,11 @@ Modal.setAppElement("#root");
 
 const Goal = () => {
   const classes = useStyles();
-  const { closeModal, goalModal, createGoal, goalAmountRef, goalTitleRef} = useDash();
+  const { closeModal, goalModal, createGoal, goalAmountRef, goalTitleRef } =
+    useDash();
 
   return (
-    <div >
+    <div>
       <Modal
         isOpen={goalModal}
         onRequestClose={closeModal}
@@ -30,11 +31,15 @@ const Goal = () => {
         contentLabel="Example Modal"
       >
         <img
-          style={{ width: "220px", height: "220px", margin: "1rem auto 0 auto" }}
+          style={{
+            width: "220px",
+            height: "220px",
+            margin: "1rem auto 0 auto",
+          }}
           src={trophyIcon}
           alt="Trophy Icon"
         />
-      {/*   {error && (
+        {/*   {error && (
           <Alert className={classes.alert} severity="error">
             {error}
           </Alert>
@@ -43,21 +48,35 @@ const Goal = () => {
         <form className={classes.form} onSubmit={createGoal}>
           <div>
             <TextField
-               className={classes.modalInput}
-               variant="outlined"
-               type="text"
-               label="Give your goal a title"
-               inputRef={goalTitleRef}
+              InputProps={{
+                className: classes.modalInput,
+              }}
+              InputLabelProps={{
+                style: { color: "rgb(158, 158, 158)" },
+              }}
+              /* className={classes.modalInput} */
+              variant="outlined"
+              type="text"
+              label="Give your goal a title"
+              inputRef={goalTitleRef}
+              fullWidth
             />
 
             <TextField
-              className={classes.modalInput}
+              fullWidth
+              InputProps={{
+                className: classes.modalInput,
+              }}
+              InputLabelProps={{
+                style: { color: "rgb(158, 158, 158)" },
+               
+              }}
+              /* className={classes.modalInput} */
               variant="outlined"
               type="text"
               label="$"
               inputRef={goalAmountRef}
             />
-
           </div>
           <Button
             fullWidth

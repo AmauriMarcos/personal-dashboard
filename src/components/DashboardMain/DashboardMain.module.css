@@ -16,13 +16,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 90%;
+    width: 87.5%;
     background-color: #1F2940;
     margin: 2rem auto 1rem auto;
     height: 8rem;
     border-radius: 10px;
     padding: 2rem;
-
 }
 
 

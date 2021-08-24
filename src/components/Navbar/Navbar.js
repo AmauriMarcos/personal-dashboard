@@ -4,6 +4,8 @@ import { Link, useHistory } from "react-router-dom";
 import Hamburger from "hamburger-react";
 import { bubble as Menu } from "react-burger-menu";
 import { useAuth } from "../Context/AuthContext";
+import Scroll from "react-scroll";
+const ScrollLink = Scroll.Link;
 
 const Navbar = () => {
   const [isOpen, setOpen] = useState(false);
@@ -63,23 +65,42 @@ const Navbar = () => {
       )}
 
       <ul className={styles.list}>
-        {currentUser && <li>
+        {currentUser && (
+          <li>
             <Link to="/dashboard">Dasboard</Link>
-          </li>}
+          </li>
+        )}
         <li>
-          <a href="#">Product</a>
+        <ScrollLink
+          to="product-section"
+          spy={true}
+          smooth={true}
+          duration={500}
+          className="some-class"
+          activeClass="some-active-class"
+        >
+       
+          Product
+        </ScrollLink>
         </li>
         <li>
-          <a href="#">Features</a>
+        <ScrollLink
+          to="features-section"
+          spy={true}
+          smooth={true}
+          duration={500}
+          className="some-class"
+          activeClass="active"
+        >
+          Features
+        </ScrollLink>
         </li>
         <li>
           <a href="#">Contact</a>
         </li>
         {currentUser ? (
           <li onClick={handleLogout} className={styles.logoutButton}>
-            <a  href="#">
-              Logout
-            </a>
+            <a href="#">Logout</a>
           </li>
         ) : (
           <li className={styles.signInButton}>

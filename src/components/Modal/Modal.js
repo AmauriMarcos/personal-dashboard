@@ -228,7 +228,7 @@ const ModalDashboard = () => {
                 {values.category}
               </p>
 
-              <button
+             {/*  <button
                 type="submit"
                 fullWidth
                 variant="contained"
@@ -236,8 +236,8 @@ const ModalDashboard = () => {
                 className={styles.btn}
               >
                 Create Transaction
-              </button>
-              {/*   <Button
+              </button> */}
+                <Button
                 type="submit"
                 fullWidth
                 variant="contained"
@@ -245,7 +245,7 @@ const ModalDashboard = () => {
                 className={classes.modalButtonForm}
               >
                 Create Transaction
-              </Button> */}
+              </Button>
             </Form>
           )}
         </Formik>

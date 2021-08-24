@@ -176,7 +176,7 @@ const SignUp = () => {
                     />
                   </Grid>
                 </Grid>
-                {/* <Button
+                <Button
                   type="submit"
                   fullWidth
                   variant="contained"
@@ -184,15 +184,15 @@ const SignUp = () => {
                   className={classes.button}
                 >
                   Get Started
-                </Button> */}
-                <button 
+                </Button>
+               {/*  <button 
                   type="submit"
                   fullWidth
                   variant="contained"
                   disabled={loading}
                   className={styles.btn}>
                   Create account
-              </button>
+              </button> */}
               </Form>
             )}
           </Formik>
@@ -204,14 +204,14 @@ const SignUp = () => {
         </div>
       </div>
       <div className={styles.imageArea}>
-        <h2>
+     {/*    <h2>
         I don’t need it to be easy,  I need it to be worth it. 
         </h2>
         <p>
           Lorem ipsum dolor sit amet, consectetur <br></br> adipiscing elit, sed
           do eiusmod temporexercitation ullamco <br></br> laboris nisi ut
           aliquip ex ea commodo consequat.
-        </p>
+        </p> */}
       </div>
     </div>
   );

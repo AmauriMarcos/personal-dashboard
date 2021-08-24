@@ -74,7 +74,7 @@ const DashboardMain = () => {
 
       <div className={styles.headerDashboard} >
         <div className={styles.message}>
-          <h2>Welcome on board, <span>User</span></h2>
+          <h2>Welcome on board</h2>
         </div>
         <div className={styles.wrapperFilterAndCreateButton}>
           <div className={styles.wrapperButton}>{buttonCreate}</div>
