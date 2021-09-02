@@ -20,10 +20,12 @@ const PictureAndAddFounds = () => {
     openGoalModal,
   } = useDash();
 
+  console.log(userURL);
+
 
   return (
     <div className={styles.pictureAndAddFounds}>
-      {userURL === null || userURL.length < 1 ? (
+      {!userURL ? (
         <div className={styles.boxImage}>
           <img src={imageNotFoundPicture} className={styles.image} />
         </div>

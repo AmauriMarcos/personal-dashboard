@@ -157,6 +157,7 @@ export const DashProvider = ({ children }) => {
             },
           }
         );
+
         const response = await axios.get(
           "https://personal-financial-dashboard.herokuapp.com/upload",
           {
@@ -170,13 +171,20 @@ export const DashProvider = ({ children }) => {
           }
         );
 
+       
         const fileName = res.data[0].profile_pic;
+
 
         const file = response.data.filter((data) => {
           return data === fileName;
         });
 
-        setUserURL(file);
+        /* console.log(res.data)
+        console.log(res.data[0])
+        console.log(fileName);
+        console.log(file); */
+
+        setUserURL(fileName);
         setUserInfo(res.data);
         setFileFromServer(fileName);
       }  catch (err) {
@@ -371,8 +379,7 @@ export const DashProvider = ({ children }) => {
           });
 
           const percentageArrIncomes = arrayOfTotalPerMonthIncomes.map((v, i) => i === 0 ? 0: Math.round(v * 100 / arrayOfTotalPerMonthIncomes[i - 1]))
-
-        
+       
           const percentageBasedOnPreviousMonthIncomes = percentageArrIncomes.pop();
 
           if(percentageBasedOnPreviousMonthIncomes === undefined){
